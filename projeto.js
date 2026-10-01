@@ -2063,7 +2063,11 @@ function obterDadosGrafico() {
                     return (
                       <Pressable
                         key={item.chave}
-                        style={styles.graficoColuna}
+                        style={[
+                          styles.graficoColuna,
+                          periodoSelecionado === "mensal" &&
+                            styles.graficoColunaMensal,
+                        ]}
                         onPress={() =>
                           abrirDetalhesDoGrafico(item)
                         }

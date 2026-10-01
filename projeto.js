@@ -3645,7 +3645,6 @@ function obterDadosGrafico() {
               })()}
           </View>
           </View>
-        </View>
       </Modal>
 
       <Modal

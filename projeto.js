@@ -2039,90 +2039,100 @@ function obterDadosGrafico() {
                   styles.graficoScrollHorizontal
                 }
               >
-                <View
-                  style={[
-                    styles.graficoBarras,
-                    periodoSelecionado === "mensal" &&
-                      styles.graficoBarrasMensal,
-                    {
-                      minWidth: "100%",
-                    },
-                  ]}
-                >
-                  {dadosGrafico.map((item) => {
-                    const altura =
-                      item.valor === 0
-                        ? 8
-                        : Math.max(
-                            (Math.abs(item.valor) /
-                              maiorValorGrafico) *
-                              90,
-                            4
-                          );
+                {periodoSelecionado === "semanal" ? (
+                  <View style={styles.graficoSemanaVertical}>
+                    {dadosGrafico.map((item) => {
+                      const largura =
+                        item.valor === 0
+                          ? 8
+                          : Math.max(
+                              (Math.abs(item.valor) /
+                                maiorValorGrafico) *
+                                100,
+                              4
+                            );
 
-                    return (
-                      <Pressable
-                        key={item.chave}
-                        style={[
-                          styles.graficoColuna,
-                          periodoSelecionado === "mensal" &&
-                            styles.graficoColunaMensal,
-                        ]}
-                        onPress={() =>
-                          abrirDetalhesDoGrafico(item)
-                        }
-                        disabled={!item.temRegistro}
-                      >
-                        <Text
-                          style={
-                            styles.graficoValor
-                          }
+                      return (
+                        <Pressable
+                          key={item.chave}
+                          style={styles.graficoDiaVertical}
+                          onPress={() => abrirDetalhesDoGrafico(item)}
+                          disabled={!item.temRegistro}
                         >
-                          {item.valor === 0
-                            ? "R$ 0"
-                            : formatarMoeda(
-                                item.valor
-                              )}
-                        </Text>
+                          <View style={styles.graficoDiaCabecalho}>
+                            <View style={styles.graficoDiaNome}>
+                              <Text style={styles.graficoRotulo}>{item.rotulo}</Text>
+                              <Text style={styles.graficoData}>
+                                {String(item.data).padStart(2, "0")}
+                              </Text>
+                            </View>
+                            <Text style={styles.graficoValorVertical}>
+                              {item.valor === 0 ? "R$ 0" : formatarMoeda(item.valor)}
+                            </Text>
+                          </View>
+                          <View style={styles.graficoLinhaFundo}>
+                            <View
+                              style={[
+                                styles.graficoLinhaValor,
+                                {
+                                  width: `${largura}%`,
+                                  backgroundColor:
+                                    item.valor < 0 ? "#DC2626" : "#087A36",
+                                },
+                              ]}
+                            />
+                          </View>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                ) : (
+                  <View
+                    style={[
+                      styles.graficoBarras,
+                      periodoSelecionado === "mensal" && styles.graficoBarrasMensal,
+                      { minWidth: "100%" },
+                    ]}
+                  >
+                    {dadosGrafico.map((item) => {
+                      const altura =
+                        item.valor === 0
+                          ? 8
+                          : Math.max(
+                              (Math.abs(item.valor) / maiorValorGrafico) * 90,
+                              4
+                            );
 
-                        <View
+                      return (
+                        <Pressable
+                          key={item.chave}
                           style={[
-                            styles.graficoBarra,
-                            {
-                              height: altura,
-                              backgroundColor:
-                                item.valor < 0
-                                  ? "#DC2626"
-                                  : "#087A36",
-                            },
+                            styles.graficoColuna,
+                            periodoSelecionado === "mensal" &&
+                              styles.graficoColunaMensal,
                           ]}
-                        />
-
-                        <Text
-                          style={
-                            styles.graficoRotulo
-                          }
+                          onPress={() => abrirDetalhesDoGrafico(item)}
+                          disabled={!item.temRegistro}
                         >
-                          {item.rotulo}
-                        </Text>
-
-                        {periodoSelecionado ===
-                          "semanal" && (
-                          <Text
-                            style={
-                              styles.graficoData
-                            }
-                          >
-                            {String(
-                              item.data
-                            ).padStart(2, "0")}
+                          <Text style={styles.graficoValor}>
+                            {item.valor === 0 ? "R$ 0" : formatarMoeda(item.valor)}
                           </Text>
-                        )}
-                      </Pressable>
-                    );
-                  })}
-                </View>
-              </ScrollView>
+                          <View
+                            style={[
+                              styles.graficoBarra,
+                              {
+                                height: altura,
+                                backgroundColor:
+                                  item.valor < 0 ? "#DC2626" : "#087A36",
+                              },
+                            ]}
+                          />
+                          <Text style={styles.graficoRotulo}>{item.rotulo}</Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                )}              </ScrollView>
 
               {periodoSelecionado ===
                 "semanal" && (
@@ -3763,7 +3773,7 @@ const styles = StyleSheet.create({
   },
 
   graficoArea: {
-    height: 260,
+    minHeight: 260,
     justifyContent: "flex-end",
   },
 
@@ -3772,31 +3782,75 @@ const styles = StyleSheet.create({
   },
 
   graficoBarras: {
-    minHeight: 235,
+    minHeight: 180,
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "flex-end",
     justifyContent: "space-around",
-    paddingHorizontal: 4,
+    paddingHorizontal: 2,
     gap: 0,
   },
 
   graficoBarrasMensal: {
-    minHeight: 340,
+    minHeight: 300,
     alignContent: "flex-start",
   },
 
   graficoColuna: {
-    width: 56,
-    height: 235,
+    width: "15%",
+    height: 165,
     alignItems: "center",
     justifyContent: "flex-end",
   },
 
   graficoBarra: {
-    width: 28,
+    width: 14,
     borderRadius: 7,
     marginBottom: 7,
+  },
+
+  graficoSemanaVertical: {
+    width: "100%",
+    paddingVertical: 4,
+  },
+
+  graficoDiaVertical: {
+    width: "100%",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3F4F6",
+  },
+
+  graficoDiaCabecalho: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+
+  graficoDiaNome: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 70,
+  },
+
+  graficoValorVertical: {
+    fontSize: 10,
+    fontWeight: "800",
+    color: "#4B5563",
+  },
+
+  graficoLinhaFundo: {
+    width: "100%",
+    height: 10,
+    borderRadius: 6,
+    backgroundColor: "#E5E7EB",
+    overflow: "hidden",
+  },
+
+  graficoLinhaValor: {
+    height: "100%",
+    borderRadius: 6,
   },
 
 
@@ -4680,4 +4734,181 @@ botaoConfirmarExclusaoTexto: {
     fontWeight: "800",
     color: "#C62828",
   },
+
+  // ==========================================
+  // DETALHES DO GRÁFICO
+  // ==========================================
+
+  modalGraficoFundo: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.45)",
+    justifyContent: "flex-end",
+  },
+
+  modalGraficoDetalhes: {
+    width: "100%",
+    maxHeight: "85%",
+    backgroundColor: "#F5F7FA",
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
+    paddingBottom: 20,
+    overflow: "hidden",
+  },
+
+  modalGraficoCabecalho: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 18,
+    paddingVertical: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+
+  modalGraficoTitulo: {
+    flex: 1,
+    fontSize: 20,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
+  modalGraficoFechar: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: "#F3F4F6",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  modalGraficoFecharTexto: {
+    fontSize: 25,
+    color: "#1F2937",
+    lineHeight: 28,
+  },
+
+  modalGraficoLista: {
+    padding: 16,
+    paddingBottom: 30,
+  },
+
+  modalGraficoResumo: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+    fontSize: 15,
+    fontWeight: "800",
+    color: "#1F2937",
+    elevation: 2,
+  },
+
+  modalGraficoVazio: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 22,
+    textAlign: "center",
+    color: "#6B7280",
+  },
+
+  cardDiaGrafico: {
+    width: "100%",
+    minHeight: 70,
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 15,
+    marginBottom: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    elevation: 2,
+  },
+
+  cardDiaGraficoTitulo: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#1F2937",
+  },
+
+  cardDiaGraficoSubtitulo: {
+    fontSize: 11,
+    color: "#9CA3AF",
+    marginTop: 3,
+  },
+
+  cardDiaGraficoValor: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
+  cardMesGrafico: {
+    width: "100%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+    elevation: 2,
+  },
+
+  cardMesGraficoCabecalho: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: 10,
+    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3F4F6",
+  },
+
+  cardMesGraficoTitulo: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#1F2937",
+  },
+
+  cardMesGraficoValor: {
+    fontSize: 15,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
+  cardMesGraficoVazio: {
+    fontSize: 12,
+    color: "#9CA3AF",
+    paddingVertical: 4,
+  },
+
+  cardDiaAnoGrafico: {
+    width: "100%",
+    minHeight: 42,
+    backgroundColor: "#F9FAFB",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    marginBottom: 7,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+
+  cardDiaAnoTexto: {
+    fontSize: 13,
+    fontWeight: "800",
+    color: "#4B5563",
+  },
+
+  cardDiaAnoValor: {
+    fontSize: 13,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
 });

@@ -3644,36 +3644,6 @@ function obterDadosGrafico() {
                 );
               })()}
           </View>
-                          {registros.length === 0 ? (
-                            <Text style={styles.cardMesGraficoVazio}>
-                              Nenhum dia cadastrado
-                            </Text>
-                          ) : (
-                            registros.map((dia) => (
-                              <Pressable
-                                key={dia.data}
-                                style={styles.cardDiaAnoGrafico}
-                                onPress={() => {
-                                  setDiaHistoricoSelecionado(dia);
-                                  setModalGraficoDetalhes(false);
-                                  setModalDetalhesHistorico(true);
-                                }}
-                              >
-                                <Text style={styles.cardDiaAnoTexto}>
-                                  Dia {Number(dia.data.slice(8, 10))}
-                                </Text>
-                                <Text style={styles.cardDiaAnoValor}>
-                                  {formatarMoeda(calcularDadosDoDia(dia).liquidoDia)}
-                                </Text>
-                              </Pressable>
-                            ))
-                          )}
-                        </View>
-                      );
-                    })}
-                  </ScrollView>
-                );
-              })()}
           </View>
         </View>
       </Modal>

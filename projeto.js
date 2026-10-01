@@ -2443,7 +2443,7 @@ function obterDadosGrafico() {
                 styles.secaoTitulo
               }
             >
-              Despesas
+              Despesas extras
             </Text>
 
             {despesas.length ===
@@ -2453,7 +2453,7 @@ function obterDadosGrafico() {
                   styles.textoVazio
                 }
               >
-                Nenhuma despesa
+                Nenhuma despesa extra
                 adicionada.
               </Text>
             ) : (
@@ -2574,7 +2574,7 @@ function obterDadosGrafico() {
                 >
                   {combustivel.tipo === "Elétrico"
                     ? "⚡"
-                    : "⛽"}
+                    : "    ⛽        ⚡"}
                 </Text>
 
                 <Text
@@ -2649,7 +2649,7 @@ function obterDadosGrafico() {
                     styles.infoTitulo
                   }
                 >
-                  Quilometragem
+                  Km Total
                 </Text>
 
                 <Text
@@ -2735,7 +2735,7 @@ function obterDadosGrafico() {
                 }
               >
                 Ao lançar, este dia será salvo no
-                histórico e o cadastro será zerado.
+                histórico.
               </Text>
 
               <Pressable

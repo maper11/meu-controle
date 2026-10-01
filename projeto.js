@@ -2087,6 +2087,7 @@ function obterDadosGrafico() {
                 </Text>
               )}
             </View>
+              <Pressable
 
 
                 styles.botaoCadastrarDia

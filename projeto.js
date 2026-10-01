@@ -2056,8 +2056,8 @@ function obterDadosGrafico() {
                         : Math.max(
                             (Math.abs(item.valor) /
                               maiorValorGrafico) *
-                              180,
-                            8
+                              90,
+                            4
                           );
 
                     return (

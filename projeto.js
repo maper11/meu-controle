@@ -1174,15 +1174,6 @@ function obterDadosGrafico() {
   );
 }
 
-    setHistorico(historicoAtualizado);
-
-    if (
-      diaHistoricoSelecionado?.data ===
-      dataParaExcluir
-    ) {
-      setDiaHistoricoSelecionado(null);
-      setModalDetalhesHistorico(false);
-    }
   } catch (erro) {
     console.log(
       "Erro ao excluir dia:",
@@ -1190,6 +1181,47 @@ function obterDadosGrafico() {
     );
   }
 }
+
+  async function excluirDiaDoHistorico(
+    dataParaExcluir
+  ) {
+    try {
+      const dadosSalvos =
+        await AsyncStorage.getItem(CHAVE_DADOS);
+
+      const dados = dadosSalvos
+        ? JSON.parse(dadosSalvos)
+        : {};
+
+      delete dados[dataParaExcluir];
+
+      await AsyncStorage.setItem(
+        CHAVE_DADOS,
+        JSON.stringify(dados)
+      );
+
+      const historicoAtualizado =
+        Object.values(dados).sort((a, b) =>
+          b.data.localeCompare(a.data)
+        );
+
+      setHistorico(historicoAtualizado);
+
+      if (
+        diaHistoricoSelecionado?.data ===
+        dataParaExcluir
+      ) {
+        setDiaHistoricoSelecionado(null);
+        setModalDetalhesHistorico(false);
+      }
+    } catch (erro) {
+      console.log(
+        "Erro ao excluir dia:",
+        erro
+      );
+    }
+  }
+
 
   function calcularDadosDoDia(
     dia

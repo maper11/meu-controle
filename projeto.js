@@ -210,6 +210,12 @@ export default function App() {
   const [modalDetalhesHistorico, setModalDetalhesHistorico] =
     useState(false);
 
+  const [modalGraficoDetalhes, setModalGraficoDetalhes] =
+    useState(false);
+
+  const [itemGraficoSelecionado, setItemGraficoSelecionado] =
+    useState(null);
+
   // ==========================================
   // SELEÇÕES
   // ==========================================
@@ -1888,6 +1894,45 @@ function obterDadosGrafico() {
     );
   }
 
+  function abrirDetalhesDoGrafico(item) {
+    if (periodoSelecionado === "semanal") {
+      const registro = historico.find(
+        (dia) => dia.data === item.chave
+      );
+
+      if (registro) {
+        setDiaHistoricoSelecionado(registro);
+        setModalDetalhesHistorico(true);
+      }
+      return;
+    }
+
+    setItemGraficoSelecionado(item);
+    setModalGraficoDetalhes(true);
+  }
+
+  function fecharDetalhesDoGrafico() {
+    setModalGraficoDetalhes(false);
+    setItemGraficoSelecionado(null);
+  }
+
+  function obterRegistrosDoMes(ano, mes) {
+    return historico
+      .filter((dia) => {
+        const data = dataDoHistoricoParaDate(dia.data);
+        return data.getFullYear() === ano && data.getMonth() === mes;
+      })
+      .sort((a, b) => a.data.localeCompare(b.data));
+  }
+
+  function obterRegistrosDoAno(ano) {
+    return historico
+      .filter((dia) =>
+        dataDoHistoricoParaDate(dia.data).getFullYear() === ano
+      )
+      .sort((a, b) => a.data.localeCompare(b.data));
+  }
+
   // ==========================================
   // TELA
   // ==========================================
@@ -1988,9 +2033,7 @@ function obterDadosGrafico() {
               </Text>
 
               <ScrollView
-                horizontal={
-                  periodoSelecionado !== "semanal"
-                }
+                horizontal={false}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={
                   styles.graficoScrollHorizontal
@@ -2000,10 +2043,7 @@ function obterDadosGrafico() {
                   style={[
                     styles.graficoBarras,
                     {
-                      minWidth:
-                        periodoSelecionado === "semanal"
-                          ? "100%"
-                          : dadosGrafico.length * 62,
+                      minWidth: "100%",
                     },
                   ]}
                 >
@@ -2019,11 +2059,13 @@ function obterDadosGrafico() {
                           );
 
                     return (
-                      <View
+                      <Pressable
                         key={item.chave}
-                        style={
-                          styles.graficoColuna
+                        style={styles.graficoColuna}
+                        onPress={() =>
+                          abrirDetalhesDoGrafico(item)
                         }
+                        disabled={!item.temRegistro}
                       >
                         <Text
                           style={
@@ -2070,7 +2112,7 @@ function obterDadosGrafico() {
                             ).padStart(2, "0")}
                           </Text>
                         )}
-                      </View>
+                      </Pressable>
                     );
                   })}
                 </View>

@@ -8,6 +8,7 @@ import {
   Pressable,
   Modal,
   TextInput,
+  Alert,
   AppState,
 } from "react-native";
 
@@ -966,21 +967,7 @@ const alturaDespesas = Math.max(
   }
   
 
-  const filtroAnterior = filtroHistorico;
 
-  if (periodoSelecionado === "semanal") {
-    setFiltroHistorico("semana");
-  }
-
-  if (periodoSelecionado === "mensal") {
-    setFiltroHistorico("mes");
-  }
-
-  if (periodoSelecionado === "anual") {
-    setFiltroHistorico("ano");
-  }
-
-  const dias = obterHistoricoFiltrado();
 
 function obterDadosDoPeriodoGrafico() {
   const hoje = dataDoHistoricoParaDate(
@@ -1068,6 +1055,44 @@ function obterDadosDoPeriodoGrafico() {
     liquido: liquidoPeriodo,
     despesas: despesasPeriodo,
   };
+}
+
+async function excluirDiaDoHistorico(dataParaExcluir) {
+  try {
+    const dadosSalvos =
+      await AsyncStorage.getItem(CHAVE_DADOS);
+
+    const dados = dadosSalvos
+      ? JSON.parse(dadosSalvos)
+      : {};
+
+    delete dados[dataParaExcluir];
+
+    await AsyncStorage.setItem(
+      CHAVE_DADOS,
+      JSON.stringify(dados)
+    );
+
+    const historicoAtualizado =
+      Object.values(dados).sort((a, b) =>
+        b.data.localeCompare(a.data)
+      );
+
+    setHistorico(historicoAtualizado);
+
+    if (
+      diaHistoricoSelecionado?.data ===
+      dataParaExcluir
+    ) {
+      setDiaHistoricoSelecionado(null);
+      setModalDetalhesHistorico(false);
+    }
+  } catch (erro) {
+    console.log(
+      "Erro ao excluir dia:",
+      erro
+    );
+  }
 }
 
   function calcularDadosDoDia(
@@ -1261,6 +1286,18 @@ function obterDadosDoPeriodoGrafico() {
                 >
                   Ver detalhes
                 </Text>
+                <Pressable
+  style={styles.botaoExcluirHistorico}
+  onPress={(evento) => {
+  evento.stopPropagation();
+
+
+}}
+>
+  <Text style={styles.botaoExcluirHistoricoTexto}>
+    🗑️ Excluir
+  </Text>
+</Pressable>
               </Pressable>
             );
           }

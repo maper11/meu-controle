@@ -98,7 +98,7 @@ export default function App() {
     useState("inicio");
 
   const [periodoSelecionado, setPeriodoSelecionado] =
-    useState("diario");
+    useState("semanal");
 
   // ==========================================
   // DATA ATUAL
@@ -914,33 +914,13 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     faturamento -
     totalDespesas;
 
-const dadosGraficoDiario = historico.find(
-  (dia) => dia.data === dataAtual
-);
-
-const dadosPeriodoGrafico =
-  obterDadosDoPeriodoGrafico();
-
-const liquidoGrafico =
-  dadosPeriodoGrafico.liquido;
-
-const despesasGrafico =
-  dadosPeriodoGrafico.despesas;
+const dadosGrafico = obterDadosGrafico();
 
 const maiorValorGrafico = Math.max(
-  Math.abs(liquidoGrafico),
-  despesasGrafico,
+  ...dadosGrafico.map((item) =>
+    Math.abs(item.valor)
+  ),
   1
-);
-
-const alturaLiquido = Math.max(
-  (Math.abs(liquidoGrafico) / maiorValorGrafico) * 180,
-  8
-);
-
-const alturaDespesas = Math.max(
-  (despesasGrafico / maiorValorGrafico) * 180,
-  8
 );
 
   // ==========================================
@@ -1072,93 +1052,147 @@ function obterDadosDoPeriodoGrafico() {
       diaSemana === 0 ? 6 : diaSemana - 1;
 
     const inicioSemana = new Date(hoje);
+function obterDadosGrafico() {
+  const hoje = dataDoHistoricoParaDate(
+    obterDataAtual()
+  );
 
+  if (periodoSelecionado === "semanal") {
+    const diaSemana = hoje.getDay();
+    const diferencaParaSegunda =
+      diaSemana === 0 ? 6 : diaSemana - 1;
+
+    const inicioSemana = new Date(hoje);
     inicioSemana.setDate(
       hoje.getDate() - diferencaParaSegunda
     );
-
     inicioSemana.setHours(0, 0, 0, 0);
 
-    const fimSemana = new Date(inicioSemana);
-
-    fimSemana.setDate(
-      inicioSemana.getDate() + 6
-    );
-
-    fimSemana.setHours(23, 59, 59, 999);
-
-    dias = historico.filter((dia) => {
-      const data = dataDoHistoricoParaDate(
-        dia.data
+    return Array.from({ length: 7 }, (_, indice) => {
+      const data = new Date(inicioSemana);
+      data.setDate(
+        inicioSemana.getDate() + indice
       );
 
-      return (
-        data >= inicioSemana &&
-        data <= fimSemana
+      const chave = [
+        data.getFullYear(),
+        String(data.getMonth() + 1).padStart(2, "0"),
+        String(data.getDate()).padStart(2, "0"),
+      ].join("-");
+
+      const registro = historico.find(
+        (dia) => dia.data === chave
       );
+
+      const dados = registro
+        ? calcularDadosDoDia(registro)
+        : { liquidoDia: 0 };
+
+      const nomesDias = [
+        "Seg",
+        "Ter",
+        "Qua",
+        "Qui",
+        "Sex",
+        "Sáb",
+        "Dom",
+      ];
+
+      return {
+        chave,
+        rotulo: nomesDias[indice],
+        data: data.getDate(),
+        valor: dados.liquidoDia,
+        temRegistro: !!registro,
+      };
     });
   }
 
   if (periodoSelecionado === "mensal") {
-    dias = historico.filter((dia) => {
-      const data = dataDoHistoricoParaDate(
-        dia.data
+    const nomesMeses = [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez",
+    ];
+
+    return nomesMeses.map((rotulo, mes) => {
+      const registros = historico.filter((dia) => {
+        const data = dataDoHistoricoParaDate(
+          dia.data
+        );
+
+        return (
+          data.getFullYear() === hoje.getFullYear() &&
+          data.getMonth() === mes
+        );
+      });
+
+      const valor = registros.reduce(
+        (total, dia) =>
+          total + calcularDadosDoDia(dia).liquidoDia,
+        0
       );
 
-      return (
-        data.getFullYear() === hoje.getFullYear() &&
-        data.getMonth() === hoje.getMonth()
-      );
+      return {
+        chave: `${hoje.getFullYear()}-${String(
+          mes + 1
+        ).padStart(2, "0")}`,
+        rotulo,
+        valor,
+        temRegistro: registros.length > 0,
+      };
     });
   }
 
-  if (periodoSelecionado === "anual") {
-    dias = historico.filter((dia) => {
-      const data = dataDoHistoricoParaDate(
-        dia.data
+  const anosRegistrados = historico.map((dia) =>
+    dataDoHistoricoParaDate(dia.data).getFullYear()
+  );
+
+  const primeiroAno =
+    anosRegistrados.length > 0
+      ? Math.min(...anosRegistrados)
+      : hoje.getFullYear();
+
+  const quantidadeAnos =
+    hoje.getFullYear() - primeiroAno + 1;
+
+  return Array.from(
+    { length: quantidadeAnos },
+    (_, indice) => {
+      const ano = primeiroAno + indice;
+
+      const registros = historico.filter((dia) => {
+        const data = dataDoHistoricoParaDate(
+          dia.data
+        );
+
+        return data.getFullYear() === ano;
+      });
+
+      const valor = registros.reduce(
+        (total, dia) =>
+          total + calcularDadosDoDia(dia).liquidoDia,
+        0
       );
 
-      return (
-        data.getFullYear() === hoje.getFullYear()
-      );
-    });
-  }
-
-  let liquidoPeriodo = 0;
-  let despesasPeriodo = 0;
-
-  dias.forEach((dia) => {
-    const dados = calcularDadosDoDia(dia);
-
-    liquidoPeriodo += dados.liquidoDia;
-    despesasPeriodo += dados.totalDespesasDia;
-  });
-
-  return {
-    liquido: liquidoPeriodo,
-    despesas: despesasPeriodo,
-  };
+      return {
+        chave: String(ano),
+        rotulo: String(ano),
+        valor,
+        temRegistro: registros.length > 0,
+      };
+    }
+  );
 }
-
-async function excluirDiaDoHistorico(dataParaExcluir) {
-  try {
-    const dadosSalvos =
-      await AsyncStorage.getItem(CHAVE_DADOS);
-
-    const dados = dadosSalvos
-      ? JSON.parse(dadosSalvos)
-      : {};
-
-    delete dados[dataParaExcluir];
-
-    await AsyncStorage.setItem(
-      CHAVE_DADOS,
-      JSON.stringify(dados)
-    );
-
-    const historicoAtualizado =
-      Object.values(dados).sort((a, b) =>
-        b.data.localeCompare(a.data)
       );
 
     setHistorico(historicoAtualizado);
@@ -1872,26 +1906,23 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
               Meu Controle
             </Text>
           </View>
-
           <View
-            style={styles.periodos}
+            style={
+              styles.periodos
+            }
           >
             {[
               {
-                id: "diario",
-                texto: "Diário",
-              },
-              {
                 id: "semanal",
-                texto: "Semanal",
+                texto: "Semana",
               },
               {
                 id: "mensal",
-                texto: "Mensal",
+                texto: "Mês",
               },
               {
                 id: "anual",
-                texto: "Anual",
+                texto: "Ano",
               },
             ].map((periodo) => (
               <Pressable
@@ -1937,55 +1968,123 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                   styles.graficoTitulo
                 }
               >
-                {periodoSelecionado ===
-                "diario"
-                  ? "Hoje"
-                  : periodoSelecionado ===
-                    "semanal"
+                {periodoSelecionado === "semanal"
                   ? "Esta semana"
-                  : periodoSelecionado ===
-                    "mensal"
-                  ? "Este mês"
-                  : "Este ano"}
+                  : periodoSelecionado === "mensal"
+                  ? `Este ano • ${obterDataAtual().slice(0, 4)}`
+                  : "Histórico por ano"}
               </Text>
 
-<View style={styles.graficoArea}>
-  <View style={styles.graficoBarras}>
-  <View style={styles.graficoColuna}>
-<View
-  style={[
-    styles.graficoBarra,
-    {
-      height: alturaLiquido,
-      backgroundColor: "#087A36",
-    },
-  ]}
-/>
-<Text style={styles.graficoValor}>
- {formatarMoeda(liquidoGrafico)}
-</Text>
-    </View>
+              <Text
+                style={
+                  styles.graficoSubtitulo
+                }
+              >
+                Líquido
+              </Text>
 
-    <View style={styles.graficoColuna}>
-<View
-  style={[
-    styles.graficoBarra,
-    {
-      height: alturaDespesas,
-      backgroundColor: "#F59E0B",
-    },
-  ]}
-/>
-<Text style={styles.graficoValor}>
-{formatarMoeda(despesasGrafico)}
-</Text>
-    </View>
-  </View>
-</View>
+              <ScrollView
+                horizontal={
+                  periodoSelecionado !== "semanal"
+                }
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={
+                  styles.graficoScrollHorizontal
+                }
+              >
+                <View
+                  style={[
+                    styles.graficoBarras,
+                    {
+                      minWidth:
+                        periodoSelecionado === "semanal"
+                          ? "100%"
+                          : dadosGrafico.length * 62,
+                    },
+                  ]}
+                >
+                  {dadosGrafico.map((item) => {
+                    const altura =
+                      item.valor === 0
+                        ? 8
+                        : Math.max(
+                            (Math.abs(item.valor) /
+                              maiorValorGrafico) *
+                              180,
+                            8
+                          );
+
+                    return (
+                      <View
+                        key={item.chave}
+                        style={
+                          styles.graficoColuna
+                        }
+                      >
+                        <Text
+                          style={
+                            styles.graficoValor
+                          }
+                        >
+                          {item.valor === 0
+                            ? "R$ 0"
+                            : formatarMoeda(
+                                item.valor
+                              )}
+                        </Text>
+
+                        <View
+                          style={[
+                            styles.graficoBarra,
+                            {
+                              height: altura,
+                              backgroundColor:
+                                item.valor < 0
+                                  ? "#DC2626"
+                                  : "#087A36",
+                            },
+                          ]}
+                        />
+
+                        <Text
+                          style={
+                            styles.graficoRotulo
+                          }
+                        >
+                          {item.rotulo}
+                        </Text>
+
+                        {periodoSelecionado ===
+                          "semanal" && (
+                          <Text
+                            style={
+                              styles.graficoData
+                            }
+                          >
+                            {String(
+                              item.data
+                            ).padStart(2, "0")}
+                          </Text>
+                        )}
+                      </View>
+                    );
+                  })}
+                </View>
+              </ScrollView>
+
+              {periodoSelecionado ===
+                "semanal" && (
+                <Text
+                  style={
+                    styles.graficoLegenda
+                  }
+                >
+                  A semana reinicia automaticamente toda segunda-feira.
+                </Text>
+              )}
             </View>
 
-            <Pressable
-              style={
+
                 styles.botaoCadastrarDia
               }
               onPress={

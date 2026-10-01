@@ -139,15 +139,27 @@ export default function App() {
 
   const [combustivel, setCombustivel] =
     useState({
+      tipo: "",
       litros: 0,
       precoLitro: 0,
+      kwh: 0,
+      precoKwh: 0,
       total: 0,
     });
+
+  const [tipoCombustivelInput, setTipoCombustivelInput] =
+    useState("");
 
   const [litrosInput, setLitrosInput] =
     useState("");
 
   const [precoLitroInput, setPrecoLitroInput] =
+    useState("");
+
+  const [kwhInput, setKwhInput] =
+    useState("");
+
+  const [precoKwhInput, setPrecoKwhInput] =
     useState("");
 
   // ==========================================
@@ -237,13 +249,19 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   setValorNovaDespesa("");
 
   setCombustivel({
-    litros: 0,
-    precoLitro: 0,
-    total: 0,
-  });
+      tipo: "",
+      litros: 0,
+      precoLitro: 0,
+      kwh: 0,
+      precoKwh: 0,
+      total: 0,
+    });
 
   setLitrosInput("");
   setPrecoLitroInput("");
+  setKwhInput("");
+  setPrecoKwhInput("");
+  setTipoCombustivelInput("");
 
   setQuilometragem(0);
   setQuilometragemInput("");
@@ -309,10 +327,13 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       );
 
       setCombustivel({
-        litros: 0,
-        precoLitro: 0,
-        total: 0,
-      });
+      tipo: "",
+      litros: 0,
+      precoLitro: 0,
+      kwh: 0,
+      precoKwh: 0,
+      total: 0,
+    });
 
       setQuilometragem(0);
 
@@ -395,8 +416,11 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     );
 
     setCombustivel({
+      tipo: "",
       litros: 0,
       precoLitro: 0,
+      kwh: 0,
+      precoKwh: 0,
       total: 0,
     });
 
@@ -406,6 +430,9 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
 
     setLitrosInput("");
     setPrecoLitroInput("");
+    setKwhInput("");
+    setPrecoKwhInput("");
+    setTipoCombustivelInput("");
     setQuilometragemInput("");
     setHorasTrabalhadasInput("");
 
@@ -476,10 +503,13 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       );
 
       setCombustivel({
-        litros: 0,
-        precoLitro: 0,
-        total: 0,
-      });
+      tipo: "",
+      litros: 0,
+      precoLitro: 0,
+      kwh: 0,
+      precoKwh: 0,
+      total: 0,
+    });
 
       setQuilometragem(0);
 
@@ -698,6 +728,10 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   // ==========================================
 
   function abrirCombustivel() {
+    setTipoCombustivelInput(
+      combustivel.tipo || ""
+    );
+
     setLitrosInput(
       combustivel.litros
         ? String(
@@ -714,38 +748,81 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
         : ""
     );
 
+    setKwhInput(
+      combustivel.kwh
+        ? String(
+            combustivel.kwh
+          ).replace(".", ",")
+        : ""
+    );
+
+    setPrecoKwhInput(
+      combustivel.precoKwh
+        ? String(
+            combustivel.precoKwh
+          ).replace(".", ",")
+        : ""
+    );
+
     setModalCombustivel(true);
   }
 
   function salvarCombustivel() {
-    const litros = Number(
-      litrosInput.replace(",", ".")
-    );
+    const tipo = tipoCombustivelInput;
 
-    const precoLitro = Number(
-      precoLitroInput.replace(
-        ",",
-        "."
-      )
-    );
+    if (!tipo) {
+      setCombustivel({
+        tipo: "",
+        litros: 0,
+        precoLitro: 0,
+        kwh: 0,
+        precoKwh: 0,
+        total: 0,
+      });
 
-    const total =
-      litros * precoLitro;
+      setModalCombustivel(false);
+      return;
+    }
 
-    setCombustivel({
-      litros: isNaN(litros)
-        ? 0
-        : litros,
+    if (tipo === "Elétrico") {
+      const kwh = Number(
+        kwhInput.replace(",", ".")
+      );
 
-      precoLitro:
-        isNaN(precoLitro)
-          ? 0
-          : precoLitro,
+      const precoKwh = Number(
+        precoKwhInput.replace(",", ".")
+      );
 
-      total: isNaN(total)
-        ? 0
-        : total,
-    });
+      const total = kwh * precoKwh;
+
+      setCombustivel({
+        tipo,
+        litros: 0,
+        precoLitro: 0,
+        kwh: isNaN(kwh) ? 0 : kwh,
+        precoKwh: isNaN(precoKwh) ? 0 : precoKwh,
+        total: isNaN(total) ? 0 : total,
+      });
+    } else {
+      const litros = Number(
+        litrosInput.replace(",", ".")
+      );
+
+      const precoLitro = Number(
+        precoLitroInput.replace(",", ".")
+      );
+
+      const total = litros * precoLitro;
+
+      setCombustivel({
+        tipo,
+        litros: isNaN(litros) ? 0 : litros,
+        precoLitro: isNaN(precoLitro) ? 0 : precoLitro,
+        kwh: 0,
+        precoKwh: 0,
+        total: isNaN(total) ? 0 : total,
+      });
+    }
 
     setModalCombustivel(false);
   }
@@ -1703,7 +1780,9 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                     styles.detalhesSecaoTitulo
                   }
                 >
-                  ⛽ Combustível
+                  {dia.combustivel?.tipo === "Elétrico"
+                    ? "⚡ Energia"
+                    : "⛽ Combustível"}
                 </Text>
 
                 <View
@@ -1716,9 +1795,9 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                       styles.detalheLinhaNome
                     }
                   >
-                    {dia.combustivel
-                      ?.litros || 0}{" "}
-                    litros
+                    {dia.combustivel?.tipo === "Elétrico"
+                      ? (dia.combustivel?.kwh || 0) + " kWh"
+                      : (dia.combustivel?.litros || 0) + " litros"}
                   </Text>
 
                   <Text
@@ -1727,8 +1806,7 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                     }
                   >
                     {formatarMoeda(
-                      dia.combustivel
-                        ?.total
+                      dia.combustivel?.total
                     )}
                   </Text>
                 </View>
@@ -1743,7 +1821,9 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                       styles.detalheLinhaNome
                     }
                   >
-                    Preço por litro
+                    {dia.combustivel?.tipo === "Elétrico"
+                      ? "Preço por kWh"
+                      : "Preço por litro"}
                   </Text>
 
                   <Text
@@ -1752,10 +1832,13 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                     }
                   >
                     {formatarMoeda(
-                      dia.combustivel
-                        ?.precoLitro
+                      dia.combustivel?.tipo === "Elétrico"
+                        ? dia.combustivel?.precoKwh
+                        : dia.combustivel?.precoLitro
                     )}
-                    /L
+                    {dia.combustivel?.tipo === "Elétrico"
+                      ? "/kWh"
+                      : "/L"}
                   </Text>
                 </View>
               </View>
@@ -2311,15 +2394,7 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
               </Text>
             </Pressable>
 
-            {/* COMBUSTÍVEL */}
-
-            <Text
-              style={
-                styles.secaoTitulo
-              }
-            >
-              Combustível
-            </Text>
+            {/* COMBUSTÍVEL / ENERGIA - OPCIONAL */}
 
             <Pressable
               style={
@@ -2335,7 +2410,9 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                     styles.cardIcone
                   }
                 >
-                  ⛽
+                  {combustivel.tipo === "Elétrico"
+                    ? "⚡"
+                    : "⛽"}
                 </Text>
 
                 <Text
@@ -2343,33 +2420,42 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                     styles.cardTitulo
                   }
                 >
-                  Combustível
+                  {combustivel.tipo
+                    ? combustivel.tipo
+                    : "Combustível / Energia"}
                 </Text>
 
-                <Text
-                  style={
-                    styles.cardValorVermelho
-                  }
-                >
-                  {formatarMoeda(
-                    combustivel.total
-                  )}
-                </Text>
+                {combustivel.tipo ? (
+                  <>
+                    <Text
+                      style={
+                        styles.cardValorVermelho
+                      }
+                    >
+                      {formatarMoeda(
+                        combustivel.total
+                      )}
+                    </Text>
 
-                <Text
-                  style={
-                    styles.cardDescricao
-                  }
-                >
-                  {combustivel.litros ||
-                    0}{" "}
-                  litros
-                  {" • "}
-                  {formatarMoeda(
-                    combustivel.precoLitro
-                  )}
-                  /L
-                </Text>
+                    <Text
+                      style={
+                        styles.cardDescricao
+                      }
+                    >
+                      {combustivel.tipo === "Elétrico"
+                        ? (combustivel.kwh || 0) + " kWh • " + formatarMoeda(combustivel.precoKwh || 0) + "/kWh"
+                        : (combustivel.litros || 0) + " L • " + formatarMoeda(combustivel.precoLitro || 0) + "/L"}
+                    </Text>
+                  </>
+                ) : (
+                  <Text
+                    style={
+                      styles.cardDescricao
+                    }
+                  >
+                    Opcional • toque para adicionar
+                  </Text>
+                )}
               </View>
             </Pressable>
 
@@ -2809,32 +2895,84 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                 styles.modalTitulo
               }
             >
-              Combustível
+              Combustível / Energia
             </Text>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Quantidade de litros"
-              value={
-                litrosInput
-              }
-              onChangeText={
-                setLitrosInput
-              }
-              keyboardType="decimal-pad"
-            />
+            <Text
+              style={styles.dicaHoras}
+            >
+              Opcional: preencha somente se abasteceu ou carregou o veículo hoje.
+            </Text>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Preço por litro"
-              value={
-                precoLitroInput
-              }
-              onChangeText={
-                setPrecoLitroInput
-              }
-              keyboardType="decimal-pad"
-            />
+            <View style={styles.tipoCombustivelBotoes}>
+              {[
+                "Gasolina",
+                "Etanol",
+                "Diesel",
+                "GNV",
+                "Elétrico",
+              ].map((tipo) => (
+                <Pressable
+                  key={tipo}
+                  style={[
+                    styles.tipoCombustivelBotao,
+                    tipoCombustivelInput === tipo &&
+                      styles.tipoCombustivelBotaoAtivo,
+                  ]}
+                  onPress={() =>
+                    setTipoCombustivelInput(tipo)
+                  }
+                >
+                  <Text
+                    style={[
+                      styles.tipoCombustivelTexto,
+                      tipoCombustivelInput === tipo &&
+                        styles.tipoCombustivelTextoAtivo,
+                    ]}
+                  >
+                    {tipo}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+
+            {tipoCombustivelInput === "Elétrico" ? (
+              <>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Quantidade de kWh"
+                  value={kwhInput}
+                  onChangeText={setKwhInput}
+                  keyboardType="decimal-pad"
+                />
+
+                <TextInput
+                  style={styles.input}
+                  placeholder="Preço por kWh"
+                  value={precoKwhInput}
+                  onChangeText={setPrecoKwhInput}
+                  keyboardType="decimal-pad"
+                />
+              </>
+            ) : tipoCombustivelInput ? (
+              <>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Quantidade de litros"
+                  value={litrosInput}
+                  onChangeText={setLitrosInput}
+                  keyboardType="decimal-pad"
+                />
+
+                <TextInput
+                  style={styles.input}
+                  placeholder="Preço por litro"
+                  value={precoLitroInput}
+                  onChangeText={setPrecoLitroInput}
+                  keyboardType="decimal-pad"
+                />
+              </>
+            ) : null}
 
             <View
               style={
@@ -3781,6 +3919,38 @@ botaoHistoricoTexto: {
     fontSize: 12,
     color: "#6B7280",
     marginBottom: 10,
+  },
+
+  tipoCombustivelBotoes: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginBottom: 12,
+    marginHorizontal: -4,
+  },
+
+  tipoCombustivelBotao: {
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    margin: 4,
+  },
+
+  tipoCombustivelBotaoAtivo: {
+    backgroundColor: "#087A36",
+    borderColor: "#087A36",
+  },
+
+  tipoCombustivelTexto: {
+    fontSize: 13,
+    fontWeight: "700",
+    color: "#4B5563",
+  },
+
+  tipoCombustivelTextoAtivo: {
+    color: "#FFFFFF",
   },
 
   modalBotoes: {

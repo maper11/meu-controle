@@ -1173,7 +1173,6 @@ function obterDadosGrafico() {
     }
   );
 }
-      );
 
     setHistorico(historicoAtualizado);
 

@@ -2042,6 +2042,8 @@ function obterDadosGrafico() {
                 <View
                   style={[
                     styles.graficoBarras,
+                    periodoSelecionado === "mensal" &&
+                      styles.graficoBarrasMensal,
                     {
                       minWidth: "100%",
                     },
@@ -3463,6 +3465,142 @@ function obterDadosGrafico() {
       {renderizarDetalhesHistorico()}
 
       <Modal
+        visible={modalGraficoDetalhes}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={fecharDetalhesDoGrafico}
+      >
+        <View style={styles.modalGraficoFundo}>
+          <View style={styles.modalGraficoDetalhes}>
+            <View style={styles.modalGraficoCabecalho}>
+              <Text style={styles.modalGraficoTitulo}>
+                {periodoSelecionado === "mensal"
+                  ? itemGraficoSelecionado?.rotulo
+                  : itemGraficoSelecionado?.rotulo}
+              </Text>
+              <Pressable
+                onPress={fecharDetalhesDoGrafico}
+                style={styles.modalGraficoFechar}
+              >
+                <Text style={styles.modalGraficoFecharTexto}>×</Text>
+              </Pressable>
+            </View>
+
+            {periodoSelecionado === "mensal" &&
+              itemGraficoSelecionado && (() => {
+                const ano = Number(itemGraficoSelecionado.chave.slice(0, 4));
+                const mes = Number(itemGraficoSelecionado.chave.slice(5, 7)) - 1;
+                const registros = obterRegistrosDoMes(ano, mes);
+
+                return (
+                  <ScrollView
+                    contentContainerStyle={styles.modalGraficoLista}
+                  >
+                    <Text style={styles.modalGraficoResumo}>
+                      Total líquido: {formatarMoeda(itemGraficoSelecionado.valor)}
+                    </Text>
+                    {registros.length === 0 ? (
+                      <Text style={styles.modalGraficoVazio}>
+                        Nenhum dia cadastrado neste mês.
+                      </Text>
+                    ) : (
+                      registros.map((dia) => {
+                        const dados = calcularDadosDoDia(dia);
+                        return (
+                          <Pressable
+                            key={dia.data}
+                            style={styles.cardDiaGrafico}
+                            onPress={() => {
+                              setDiaHistoricoSelecionado(dia);
+                              setModalGraficoDetalhes(false);
+                              setModalDetalhesHistorico(true);
+                            }}
+                          >
+                            <View>
+                              <Text style={styles.cardDiaGraficoTitulo}>
+                                Dia {Number(dia.data.slice(8, 10))}
+                              </Text>
+                              <Text style={styles.cardDiaGraficoSubtitulo}>
+                                Toque para ver os detalhes
+                              </Text>
+                            </View>
+                            <Text style={styles.cardDiaGraficoValor}>
+                              {formatarMoeda(dados.liquidoDia)}
+                            </Text>
+                          </Pressable>
+                        );
+                      })
+                    )}
+                  </ScrollView>
+                );
+              })()}
+
+            {periodoSelecionado === "anual" &&
+              itemGraficoSelecionado && (() => {
+                const ano = Number(itemGraficoSelecionado.chave);
+                const meses = [
+                  "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                  "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+                ];
+
+                return (
+                  <ScrollView
+                    contentContainerStyle={styles.modalGraficoLista}
+                  >
+                    <Text style={styles.modalGraficoResumo}>
+                      Total do ano: {formatarMoeda(itemGraficoSelecionado.valor)}
+                    </Text>
+                    {meses.map((nomeMes, mes) => {
+                      const registros = obterRegistrosDoMes(ano, mes);
+                      const valorMes = registros.reduce(
+                        (total, dia) =>
+                          total + calcularDadosDoDia(dia).liquidoDia,
+                        0
+                      );
+
+                      return (
+                        <View key={mes} style={styles.cardMesGrafico}>
+                          <View style={styles.cardMesGraficoCabecalho}>
+                            <Text style={styles.cardMesGraficoTitulo}>{nomeMes}</Text>
+                            <Text style={styles.cardMesGraficoValor}>
+                              {formatarMoeda(valorMes)}
+                            </Text>
+                          </View>
+                          {registros.length === 0 ? (
+                            <Text style={styles.cardMesGraficoVazio}>
+                              Nenhum dia cadastrado
+                            </Text>
+                          ) : (
+                            registros.map((dia) => (
+                              <Pressable
+                                key={dia.data}
+                                style={styles.cardDiaAnoGrafico}
+                                onPress={() => {
+                                  setDiaHistoricoSelecionado(dia);
+                                  setModalGraficoDetalhes(false);
+                                  setModalDetalhesHistorico(true);
+                                }}
+                              >
+                                <Text style={styles.cardDiaAnoTexto}>
+                                  Dia {Number(dia.data.slice(8, 10))}
+                                </Text>
+                                <Text style={styles.cardDiaAnoValor}>
+                                  {formatarMoeda(calcularDadosDoDia(dia).liquidoDia)}
+                                </Text>
+                              </Pressable>
+                            ))
+                          )}
+                        </View>
+                      );
+                    })}
+                  </ScrollView>
+                );
+              })()}
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
   visible={modalConfirmarExclusao}
   transparent={true}
   animationType="fade"
@@ -3630,12 +3768,18 @@ const styles = StyleSheet.create({
   },
 
   graficoBarras: {
-    height: 235,
+    minHeight: 235,
     flexDirection: "row",
+    flexWrap: "wrap",
     alignItems: "flex-end",
     justifyContent: "space-around",
     paddingHorizontal: 4,
     gap: 6,
+  },
+
+  graficoBarrasMensal: {
+    minHeight: 340,
+    alignContent: "flex-start",
   },
 
   graficoColuna: {

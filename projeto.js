@@ -3778,7 +3778,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "space-around",
     paddingHorizontal: 4,
-    gap: 6,
+    gap: 0,
   },
 
   graficoBarrasMensal: {

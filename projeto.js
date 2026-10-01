@@ -229,6 +229,9 @@ export default function App() {
   const [diaHistoricoSelecionado, setDiaHistoricoSelecionado] =
     useState(null);
 
+  const [dataEmEdicao, setDataEmEdicao] =
+    useState(null);
+
   const [valorFaturamentoInput, setValorFaturamentoInput] =
     useState("");
 
@@ -461,6 +464,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   async function lancarDia() {
     try {
       const hoje = obterDataAtual();
+      const dataDoLancamento = dataEmEdicao || hoje;
 
       const dadosSalvos =
         await AsyncStorage.getItem(CHAVE_DADOS);
@@ -470,7 +474,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
         : {};
 
       const novoRegistro = {
-        data: hoje,
+        data: dataDoLancamento,
         aplicativos,
         despesas,
         combustivel,
@@ -479,7 +483,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       };
 
       // Salva o dia somente agora.
-      dados[hoje] = novoRegistro;
+      dados[dataDoLancamento] = novoRegistro;
 
       await AsyncStorage.setItem(
         CHAVE_DADOS,
@@ -492,6 +496,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
         );
 
       setHistorico(novoHistorico);
+      setDataEmEdicao(null);
 
       // ======================================
       // ZERAR CADASTRO PARA O PRÓXIMO DIA
@@ -1300,6 +1305,46 @@ function obterDadosGrafico() {
     );
   }
 
+  function editarDiaHistorico() {
+    if (!diaHistoricoSelecionado) {
+      return;
+    }
+
+    const dia = diaHistoricoSelecionado;
+
+    setDataEmEdicao(dia.data);
+
+    setAplicativos(
+      (dia.aplicativos || []).map((app) => ({
+        ...app,
+        valor: Number(app.valor || 0),
+      }))
+    );
+
+    setDespesas(
+      (dia.despesas || []).map((despesa) => ({
+        ...despesa,
+        valor: Number(despesa.valor || 0),
+      }))
+    );
+
+    setCombustivel({
+      tipo: dia.combustivel?.tipo || "",
+      litros: Number(dia.combustivel?.litros || 0),
+      precoLitro: Number(dia.combustivel?.precoLitro || 0),
+      kwh: Number(dia.combustivel?.kwh || 0),
+      precoKwh: Number(dia.combustivel?.precoKwh || 0),
+      total: Number(dia.combustivel?.total || 0),
+    });
+
+    setQuilometragem(Number(dia.quilometragem || 0));
+    setHorasTrabalhadas(dia.horasTrabalhadas || "");
+
+    setModalDetalhesHistorico(false);
+    setDiaHistoricoSelecionado(null);
+    setTelaAtual("cadastro");
+  }
+
   function fecharDetalhesHistorico() {
     setModalDetalhesHistorico(
       false
@@ -1492,26 +1537,39 @@ function obterDadosGrafico() {
                   styles.detalhesSubtitulo
                 }
               >
-                Resumo do dia
+                {dataEmEdicao
+                  ? "Editando este dia"
+                  : "Resumo do dia"}
               </Text>
             </View>
 
-            <Pressable
-              style={
-                styles.botaoFecharHistorico
-              }
-              onPress={
-                fecharDetalhesHistorico
-              }
-            >
-              <Text
-                style={
-                  styles.botaoFecharHistoricoTexto
-                }
+            <View style={styles.detalhesHeaderBotoes}>
+              <Pressable
+                style={styles.botaoEditarDia}
+                onPress={editarDiaHistorico}
               >
-                ✕
-              </Text>
-            </Pressable>
+                <Text style={styles.botaoEditarDiaTexto}>
+                  ✏️ Editar
+                </Text>
+              </Pressable>
+
+              <Pressable
+                style={
+                  styles.botaoFecharHistorico
+                }
+                onPress={
+                  fecharDetalhesHistorico
+                }
+            >
+                <Text
+                  style={
+                    styles.botaoFecharHistoricoTexto
+                  }
+                >
+                  ✕
+                </Text>
+              </Pressable>
+            </View>
           </View>
 
           <ScrollView
@@ -4567,6 +4625,27 @@ botaoHistoricoTexto: {
   detalhesTela: {
     flex: 1,
     backgroundColor: "#F5F7FA",
+  },
+
+  detalhesHeaderBotoes: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+
+  botaoEditarDia: {
+    minHeight: 42,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    backgroundColor: "#E8F5EE",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  botaoEditarDiaTexto: {
+    color: "#087A36",
+    fontSize: 13,
+    fontWeight: "800",
   },
 
   detalhesHeader: {

@@ -1174,12 +1174,6 @@ function obterDadosGrafico() {
   );
 }
 
-  } catch (erro) {
-    console.log(
-      "Erro ao excluir dia:",
-      erro
-    );
-  }
 }
 
   async function excluirDiaDoHistorico(

@@ -830,29 +830,34 @@ export default function App() {
     faturamento -
     totalDespesas;
 
-    const maiorValorGrafico =
-  Math.max(
-    liquido,
-    totalDespesas,
-    1
-  );
+const dadosGraficoDiario = historico.find(
+  (dia) => dia.data === dataAtual
+);
 
+const dadosPeriodoGrafico =
+  obterDadosDoPeriodoGrafico();
 
-const alturaBarraLiquido =
-  Math.max(
-    (Math.abs(liquido) /
-      maiorValorGrafico) *
-      180,
-    8
-  );
+const liquidoGrafico =
+  dadosPeriodoGrafico.liquido;
 
-const alturaBarraDespesas =
-  Math.max(
-    (totalDespesas /
-      maiorValorGrafico) *
-      180,
-    8
-  );
+const despesasGrafico =
+  dadosPeriodoGrafico.despesas;
+
+const maiorValorGrafico = Math.max(
+  Math.abs(liquidoGrafico),
+  despesasGrafico,
+  1
+);
+
+const alturaLiquido = Math.max(
+  (Math.abs(liquidoGrafico) / maiorValorGrafico) * 180,
+  8
+);
+
+const alturaDespesas = Math.max(
+  (despesasGrafico / maiorValorGrafico) * 180,
+  8
+);
 
   // ==========================================
   // HISTÓRICO
@@ -959,6 +964,111 @@ const alturaBarraDespesas =
       }
     );
   }
+  
+
+  const filtroAnterior = filtroHistorico;
+
+  if (periodoSelecionado === "semanal") {
+    setFiltroHistorico("semana");
+  }
+
+  if (periodoSelecionado === "mensal") {
+    setFiltroHistorico("mes");
+  }
+
+  if (periodoSelecionado === "anual") {
+    setFiltroHistorico("ano");
+  }
+
+  const dias = obterHistoricoFiltrado();
+
+function obterDadosDoPeriodoGrafico() {
+  const hoje = dataDoHistoricoParaDate(
+    obterDataAtual()
+  );
+
+  let dias = [];
+
+  if (periodoSelecionado === "diario") {
+    dias = historico.filter(
+      (dia) => dia.data === dataAtual
+    );
+  }
+
+  if (periodoSelecionado === "semanal") {
+    const diaSemana = hoje.getDay();
+
+    const diferencaParaSegunda =
+      diaSemana === 0 ? 6 : diaSemana - 1;
+
+    const inicioSemana = new Date(hoje);
+
+    inicioSemana.setDate(
+      hoje.getDate() - diferencaParaSegunda
+    );
+
+    inicioSemana.setHours(0, 0, 0, 0);
+
+    const fimSemana = new Date(inicioSemana);
+
+    fimSemana.setDate(
+      inicioSemana.getDate() + 6
+    );
+
+    fimSemana.setHours(23, 59, 59, 999);
+
+    dias = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(
+        dia.data
+      );
+
+      return (
+        data >= inicioSemana &&
+        data <= fimSemana
+      );
+    });
+  }
+
+  if (periodoSelecionado === "mensal") {
+    dias = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(
+        dia.data
+      );
+
+      return (
+        data.getFullYear() === hoje.getFullYear() &&
+        data.getMonth() === hoje.getMonth()
+      );
+    });
+  }
+
+  if (periodoSelecionado === "anual") {
+    dias = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(
+        dia.data
+      );
+
+      return (
+        data.getFullYear() === hoje.getFullYear()
+      );
+    });
+  }
+
+  let liquidoPeriodo = 0;
+  let despesasPeriodo = 0;
+
+  dias.forEach((dia) => {
+    const dados = calcularDadosDoDia(dia);
+
+    liquidoPeriodo += dados.liquidoDia;
+    despesasPeriodo += dados.totalDespesasDia;
+  });
+
+  return {
+    liquido: liquidoPeriodo,
+    despesas: despesasPeriodo,
+  };
+}
 
   function calcularDadosDoDia(
     dia
@@ -1711,18 +1821,18 @@ const alturaBarraDespesas =
 
 <View style={styles.graficoArea}>
   <View style={styles.graficoBarras}>
-    <View style={styles.graficoColuna}>
-      <View
+  <View style={styles.graficoColuna}>
+<View
   style={[
     styles.graficoBarra,
     {
-      height: alturaBarraLiquido,
+      height: alturaLiquido,
       backgroundColor: "#087A36",
     },
   ]}
 />
 <Text style={styles.graficoValor}>
-  {formatarMoeda(liquido)}
+ {formatarMoeda(liquidoGrafico)}
 </Text>
     </View>
 
@@ -1731,13 +1841,13 @@ const alturaBarraDespesas =
   style={[
     styles.graficoBarra,
     {
-      height: alturaBarraDespesas,
+      height: alturaDespesas,
       backgroundColor: "#F59E0B",
     },
   ]}
 />
 <Text style={styles.graficoValor}>
-  {formatarMoeda(totalDespesas)}
+{formatarMoeda(despesasGrafico)}
 </Text>
     </View>
   </View>

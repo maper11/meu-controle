@@ -1174,7 +1174,6 @@ function obterDadosGrafico() {
   );
 }
 
-}
 
   async function excluirDiaDoHistorico(
     dataParaExcluir

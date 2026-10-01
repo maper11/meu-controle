@@ -1032,26 +1032,6 @@ const maiorValorGrafico = Math.max(
 
 
 
-function obterDadosDoPeriodoGrafico() {
-  const hoje = dataDoHistoricoParaDate(
-    obterDataAtual()
-  );
-
-  let dias = [];
-
-  if (periodoSelecionado === "diario") {
-    dias = historico.filter(
-      (dia) => dia.data === dataAtual
-    );
-  }
-
-  if (periodoSelecionado === "semanal") {
-    const diaSemana = hoje.getDay();
-
-    const diferencaParaSegunda =
-      diaSemana === 0 ? 6 : diaSemana - 1;
-
-    const inicioSemana = new Date(hoje);
 function obterDadosGrafico() {
   const hoje = dataDoHistoricoParaDate(
     obterDataAtual()

@@ -1305,40 +1305,40 @@ function obterDadosGrafico() {
     );
   }
 
-  function editarDiaHistorico() {
-    if (!diaHistoricoSelecionado) {
+  function editarDiaHistorico(diaParaEditar = diaHistoricoSelecionado) {
+    if (!diaParaEditar) {
       return;
     }
 
-    const dia = diaHistoricoSelecionado;
-
-    setDataEmEdicao(dia.data);
+    setDataEmEdicao(diaParaEditar.data);
 
     setAplicativos(
-      (dia.aplicativos || []).map((app) => ({
+      (diaParaEditar.aplicativos || []).map((app) => ({
         ...app,
         valor: Number(app.valor || 0),
       }))
     );
 
     setDespesas(
-      (dia.despesas || []).map((despesa) => ({
+      (diaParaEditar.despesas || []).map((despesa) => ({
         ...despesa,
         valor: Number(despesa.valor || 0),
       }))
     );
 
+    const combustivelDoDia = diaParaEditar.combustivel || {};
+
     setCombustivel({
-      tipo: dia.combustivel?.tipo || "",
-      litros: Number(dia.combustivel?.litros || 0),
-      precoLitro: Number(dia.combustivel?.precoLitro || 0),
-      kwh: Number(dia.combustivel?.kwh || 0),
-      precoKwh: Number(dia.combustivel?.precoKwh || 0),
-      total: Number(dia.combustivel?.total || 0),
+      tipo: combustivelDoDia.tipo || "",
+      litros: Number(combustivelDoDia.litros || 0),
+      precoLitro: Number(combustivelDoDia.precoLitro || 0),
+      kwh: Number(combustivelDoDia.kwh || 0),
+      precoKwh: Number(combustivelDoDia.precoKwh || 0),
+      total: Number(combustivelDoDia.total || 0),
     });
 
-    setQuilometragem(Number(dia.quilometragem || 0));
-    setHorasTrabalhadas(dia.horasTrabalhadas || "");
+    setQuilometragem(Number(diaParaEditar.quilometragem || 0));
+    setHorasTrabalhadas(diaParaEditar.horasTrabalhadas || "");
 
     setModalDetalhesHistorico(false);
     setDiaHistoricoSelecionado(null);
@@ -1546,7 +1546,7 @@ function obterDadosGrafico() {
             <View style={styles.detalhesHeaderBotoes}>
               <Pressable
                 style={styles.botaoEditarDia}
-                onPress={editarDiaHistorico}
+                onPress={() => editarDiaHistorico(dia)}
               >
                 <Text style={styles.botaoEditarDiaTexto}>
                   ✏️ Editar
@@ -2495,126 +2495,6 @@ function obterDadosGrafico() {
               </Text>
             </Pressable>
 
-            {/* DESPESAS */}
-
-            <Text
-              style={
-                styles.secaoTitulo
-              }
-            >
-              Despesas extras
-            </Text>
-
-            {despesas.length ===
-            0 ? (
-              <Text
-                style={
-                  styles.textoVazio
-                }
-              >
-                Nenhuma despesa extra
-                adicionada.
-              </Text>
-            ) : (
-              <View
-                style={styles.grid}
-              >
-                {despesas.map(
-                  (despesa) => (
-                    <View
-                      key={despesa.id}
-                      style={
-                        styles.gridCard
-                      }
-                    >
-                      <Pressable
-                        style={
-                          styles.cardConteudo
-                        }
-                        onPress={() =>
-                          abrirDespesa(
-                            despesa
-                          )
-                        }
-                      >
-                        <Text
-                          style={
-                            styles.cardIcone
-                          }
-                        >
-                          {despesa.icone}
-                        </Text>
-
-                        <Text
-                          style={
-                            styles.cardTitulo
-                          }
-                        >
-                          {despesa.nome}
-                        </Text>
-
-                        <Text
-                          style={
-                            styles.cardValorVermelho
-                          }
-                        >
-                          {formatarMoeda(
-                            despesa.valor
-                          )}
-                        </Text>
-
-                        <Text
-                          style={
-                            styles.cardDescricao
-                          }
-                        >
-                          Toque para alterar
-                        </Text>
-                      </Pressable>
-
-                      <Pressable
-                        style={
-                          styles.botaoApagar
-                        }
-                        onPress={() =>
-                          apagarDespesa(
-                            despesa.id
-                          )
-                        }
-                      >
-                        <Text
-                          style={
-                            styles.botaoApagarTexto
-                          }
-                        >
-                          Apagar
-                        </Text>
-                      </Pressable>
-                    </View>
-                  )
-                )}
-              </View>
-            )}
-
-            <Pressable
-              style={
-                styles.botaoAdicionar
-              }
-              onPress={() =>
-                setModalAdicionarDespesa(
-                  true
-                )
-              }
-            >
-              <Text
-                style={
-                  styles.botaoAdicionarTexto
-                }
-              >
-                + Adicionar despesa
-              </Text>
-            </Pressable>
-
             {/* COMBUSTÍVEL / ENERGIA - OPCIONAL */}
 
             <Pressable
@@ -2770,6 +2650,126 @@ function obterDadosGrafico() {
                 </Text>
               </Pressable>
             </View>
+
+            {/* DESPESAS */}
+
+            <Text
+              style={
+                styles.secaoTitulo
+              }
+            >
+              Despesas extras
+            </Text>
+
+            {despesas.length ===
+            0 ? (
+              <Text
+                style={
+                  styles.textoVazio
+                }
+              >
+                Nenhuma despesa extra
+                adicionada.
+              </Text>
+            ) : (
+              <View
+                style={styles.grid}
+              >
+                {despesas.map(
+                  (despesa) => (
+                    <View
+                      key={despesa.id}
+                      style={
+                        styles.gridCard
+                      }
+                    >
+                      <Pressable
+                        style={
+                          styles.cardConteudo
+                        }
+                        onPress={() =>
+                          abrirDespesa(
+                            despesa
+                          )
+                        }
+                      >
+                        <Text
+                          style={
+                            styles.cardIcone
+                          }
+                        >
+                          {despesa.icone}
+                        </Text>
+
+                        <Text
+                          style={
+                            styles.cardTitulo
+                          }
+                        >
+                          {despesa.nome}
+                        </Text>
+
+                        <Text
+                          style={
+                            styles.cardValorVermelho
+                          }
+                        >
+                          {formatarMoeda(
+                            despesa.valor
+                          )}
+                        </Text>
+
+                        <Text
+                          style={
+                            styles.cardDescricao
+                          }
+                        >
+                          Toque para alterar
+                        </Text>
+                      </Pressable>
+
+                      <Pressable
+                        style={
+                          styles.botaoApagar
+                        }
+                        onPress={() =>
+                          apagarDespesa(
+                            despesa.id
+                          )
+                        }
+                      >
+                        <Text
+                          style={
+                            styles.botaoApagarTexto
+                          }
+                        >
+                          Apagar
+                        </Text>
+                      </Pressable>
+                    </View>
+                  )
+                )}
+              </View>
+            )}
+
+            <Pressable
+              style={
+                styles.botaoAdicionar
+              }
+              onPress={() =>
+                setModalAdicionarDespesa(
+                  true
+                )
+              }
+            >
+              <Text
+                style={
+                  styles.botaoAdicionarTexto
+                }
+              >
+                + Adicionar despesa
+              </Text>
+            </Pressable>
 
             {/* ================================== */}
             {/* LANÇAR DIA */}

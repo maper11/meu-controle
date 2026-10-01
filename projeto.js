@@ -2088,14 +2088,13 @@ function obterDadosGrafico() {
               )}
             </View>
               <Pressable
-
-
-                styles.botaoCadastrarDia
-              }
-              onPress={
-                iniciarNovoDia
-              }
-            >
+                style={
+                  styles.botaoCadastrarDia
+                }
+                onPress={
+                  iniciarNovoDia
+                }
+              >
               <Text
                 style={
                   styles.botaoCadastrarDiaIcone

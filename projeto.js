@@ -2225,7 +2225,9 @@ function obterDadosGrafico() {
                   styles.botaoCadastrarDiaTexto
                 }
               >
-                Cadastrar Dia
+                {dataEmEdicao
+                  ? "Editar Dia"
+                  : "Cadastrar Dia"}
               </Text>
             </Pressable>
             <Pressable
@@ -2254,11 +2256,10 @@ function obterDadosGrafico() {
               style={
                 styles.botaoVoltar
               }
-              onPress={() =>
-                setTelaAtual(
-                  "inicio"
-                )
-              }
+              onPress={() => {
+                setDataEmEdicao(null);
+                setTelaAtual("inicio");
+              }}
             >
               <Text
                 style={

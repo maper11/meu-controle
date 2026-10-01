@@ -3534,8 +3534,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "800",
     color: "#1F2937",
-    marginBottom: 15,
+    marginBottom: 4,
   },
+
+  graficoSubtitulo: {
+    fontSize: 13,
+    color: "#6B7280",
+    marginBottom: 12,
+  },
+
 
   graficoPlaceholder: {
     height: 260,
@@ -3548,31 +3555,36 @@ const styles = StyleSheet.create({
   },
 
   graficoArea: {
-  height: 260,
-  justifyContent: "flex-end",
-  paddingHorizontal: 20,
-},
+    height: 260,
+    justifyContent: "flex-end",
+  },
 
-graficoBarras: {
-  flex: 1,
-  flexDirection: "row",
-  alignItems: "flex-end",
-  justifyContent: "center",
-  gap: 40,
-},
+  graficoScrollHorizontal: {
+    minWidth: "100%",
+  },
 
-graficoColuna: {
-  width: 70,
-  height: "100%",
-  alignItems: "center",
-  justifyContent: "flex-end",
-},
+  graficoBarras: {
+    height: 235,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-around",
+    paddingHorizontal: 4,
+    gap: 6,
+  },
 
-graficoBarra: {
-  width: 45,
-  borderRadius: 8,
-  marginBottom: 8,
-},
+  graficoColuna: {
+    width: 56,
+    height: 235,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+
+  graficoBarra: {
+    width: 28,
+    borderRadius: 7,
+    marginBottom: 7,
+  },
+
 
 graficoBarraLiquido: {
   height: 150,
@@ -3584,11 +3596,32 @@ graficoBarraDespesas: {
   backgroundColor: "#F59E0B",
 },
 
-graficoValor: {
-  fontSize: 12,
-  fontWeight: "700",
-  color: "#4B5563",
-},
+  graficoValor: {
+    fontSize: 9,
+    fontWeight: "700",
+    color: "#4B5563",
+    marginBottom: 5,
+  },
+
+  graficoRotulo: {
+    fontSize: 11,
+    fontWeight: "800",
+    color: "#1F2937",
+  },
+
+  graficoData: {
+    fontSize: 9,
+    color: "#9CA3AF",
+    marginTop: 2,
+  },
+
+  graficoLegenda: {
+    fontSize: 11,
+    color: "#6B7280",
+    textAlign: "center",
+    marginTop: 10,
+  },
+
 
   graficoPlaceholderTexto: {
     fontSize: 20,

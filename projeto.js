@@ -830,6 +830,30 @@ export default function App() {
     faturamento -
     totalDespesas;
 
+    const maiorValorGrafico =
+  Math.max(
+    liquido,
+    totalDespesas,
+    1
+  );
+
+
+const alturaBarraLiquido =
+  Math.max(
+    (Math.abs(liquido) /
+      maiorValorGrafico) *
+      180,
+    8
+  );
+
+const alturaBarraDespesas =
+  Math.max(
+    (totalDespesas /
+      maiorValorGrafico) *
+      180,
+    8
+  );
+
   // ==========================================
   // HISTÓRICO
   // ==========================================
@@ -1685,27 +1709,39 @@ export default function App() {
                   : "Este ano"}
               </Text>
 
-              <View
-                style={
-                  styles.graficoPlaceholder
-                }
-              >
-                <Text
-                  style={
-                    styles.graficoPlaceholderTexto
-                  }
-                >
-                  Gráfico
-                </Text>
+<View style={styles.graficoArea}>
+  <View style={styles.graficoBarras}>
+    <View style={styles.graficoColuna}>
+      <View
+  style={[
+    styles.graficoBarra,
+    {
+      height: alturaBarraLiquido,
+      backgroundColor: "#087A36",
+    },
+  ]}
+/>
+<Text style={styles.graficoValor}>
+  {formatarMoeda(liquido)}
+</Text>
+    </View>
 
-                <Text
-                  style={
-                    styles.graficoPlaceholderSubtexto
-                  }
-                >
-                  Líquido × Despesas
-                </Text>
-              </View>
+    <View style={styles.graficoColuna}>
+<View
+  style={[
+    styles.graficoBarra,
+    {
+      height: alturaBarraDespesas,
+      backgroundColor: "#F59E0B",
+    },
+  ]}
+/>
+<Text style={styles.graficoValor}>
+  {formatarMoeda(totalDespesas)}
+</Text>
+    </View>
+  </View>
+</View>
             </View>
 
             <Pressable
@@ -3086,6 +3122,49 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E5E7EB",
   },
+
+  graficoArea: {
+  height: 260,
+  justifyContent: "flex-end",
+  paddingHorizontal: 20,
+},
+
+graficoBarras: {
+  flex: 1,
+  flexDirection: "row",
+  alignItems: "flex-end",
+  justifyContent: "center",
+  gap: 40,
+},
+
+graficoColuna: {
+  width: 70,
+  height: "100%",
+  alignItems: "center",
+  justifyContent: "flex-end",
+},
+
+graficoBarra: {
+  width: 45,
+  borderRadius: 8,
+  marginBottom: 8,
+},
+
+graficoBarraLiquido: {
+  height: 150,
+  backgroundColor: "#087A36",
+},
+
+graficoBarraDespesas: {
+  height: 100,
+  backgroundColor: "#F59E0B",
+},
+
+graficoValor: {
+  fontSize: 12,
+  fontWeight: "700",
+  color: "#4B5563",
+},
 
   graficoPlaceholderTexto: {
     fontSize: 20,

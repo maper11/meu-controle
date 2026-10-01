@@ -1246,17 +1246,19 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
               );
 
             return (
-              <Pressable
+              <View
                 key={dia.data}
                 style={
                   styles.historicoCard
                 }
-                onPress={() =>
-                  abrirDetalhesHistorico(
-                    dia
-                  )
-                }
               >
+                <Pressable
+                  onPress={() =>
+                    abrirDetalhesHistorico(
+                      dia
+                    )
+                  }
+                >
                 <Text
                   style={
                     styles.historicoCardData
@@ -1292,20 +1294,20 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                 >
                   Ver detalhes
                 </Text>
+                </Pressable>
+
                 <Pressable
-  style={styles.botaoExcluirHistorico}
-onPress={(evento) => {
-  evento.stopPropagation();
-  console.log("ABRINDO CONFIRMAÇÃO");
-  setDiaParaExcluir(dia.data);
-  setModalConfirmarExclusao(true);
-}}
->
-  <Text style={styles.botaoExcluirHistoricoTexto}>
-    🗑️ Excluir
-  </Text>
-</Pressable>
-              </Pressable>
+                  style={styles.botaoExcluirHistorico}
+                  onPress={() => {
+                    setDiaParaExcluir(dia.data);
+                    setModalConfirmarExclusao(true);
+                  }}
+                >
+                  <Text style={styles.botaoExcluirHistoricoTexto}>
+                    🗑️ Excluir
+                  </Text>
+                </Pressable>
+              </View>
             );
           }
         )}
@@ -1764,55 +1766,7 @@ onPress={(evento) => {
       
     );
   }
-<Modal
-  visible={modalConfirmarExclusao}
-  transparent={true}
-  animationType="fade"
-  onRequestClose={() =>
-    setModalConfirmarExclusao(false)
-  }
->
-  <View style={styles.modalConfirmacaoFundo}>
-    <View style={styles.modalConfirmacao}>
-      <Text style={styles.modalConfirmacaoTitulo}>
-        Excluir registro?
-      </Text>
 
-      <Text style={styles.modalConfirmacaoTexto}>
-        Tem certeza que deseja excluir o dia{" "}
-        {diaParaExcluir
-          ? formatarData(diaParaExcluir)
-          : ""}?
-      </Text>
-
-      <View style={styles.modalConfirmacaoBotoes}>
-        <Pressable
-          style={styles.botaoCancelarExclusao}
-          onPress={() =>
-            setModalConfirmarExclusao(false)
-          }
-        >
-          <Text style={styles.botaoCancelarExclusaoTexto}>
-            Cancelar
-          </Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.botaoConfirmarExclusao}
-          onPress={() => {
-            excluirDiaDoHistorico(diaParaExcluir);
-            setModalConfirmarExclusao(false);
-            setDiaParaExcluir(null);
-          }}
-        >
-          <Text style={styles.botaoConfirmarExclusaoTexto}>
-            Excluir
-          </Text>
-        </Pressable>
-      </View>
-    </View>
-  </View>
-</Modal>
   // ==========================================
   // TELA
   // ==========================================
@@ -3224,6 +3178,56 @@ onPress={(evento) => {
       {/* DETALHES DO HISTÓRICO */}
 
       {renderizarDetalhesHistorico()}
+
+      <Modal
+  visible={modalConfirmarExclusao}
+  transparent={true}
+  animationType="fade"
+  onRequestClose={() =>
+    setModalConfirmarExclusao(false)
+  }
+>
+  <View style={styles.modalConfirmacaoFundo}>
+    <View style={styles.modalConfirmacao}>
+      <Text style={styles.modalConfirmacaoTitulo}>
+        Excluir registro?
+      </Text>
+
+      <Text style={styles.modalConfirmacaoTexto}>
+        Tem certeza que deseja excluir o dia{" "}
+        {diaParaExcluir
+          ? formatarData(diaParaExcluir)
+          : ""}?
+      </Text>
+
+      <View style={styles.modalConfirmacaoBotoes}>
+        <Pressable
+          style={styles.botaoCancelarExclusao}
+          onPress={() =>
+            setModalConfirmarExclusao(false)
+          }
+        >
+          <Text style={styles.botaoCancelarExclusaoTexto}>
+            Cancelar
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.botaoConfirmarExclusao}
+          onPress={() => {
+            excluirDiaDoHistorico(diaParaExcluir);
+            setModalConfirmarExclusao(false);
+            setDiaParaExcluir(null);
+          }}
+        >
+          <Text style={styles.botaoConfirmarExclusaoTexto}>
+            Excluir
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  </View>
+</Modal>
     </View>
   );
 }

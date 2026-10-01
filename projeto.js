@@ -216,6 +216,9 @@ export default function App() {
   const [itemGraficoSelecionado, setItemGraficoSelecionado] =
     useState(null);
 
+  const [mesGraficoSelecionado, setMesGraficoSelecionado] =
+    useState(null);
+
   // ==========================================
   // SELEÇÕES
   // ==========================================
@@ -1914,6 +1917,7 @@ function obterDadosGrafico() {
   function fecharDetalhesDoGrafico() {
     setModalGraficoDetalhes(false);
     setItemGraficoSelecionado(null);
+    setMesGraficoSelecionado(null);
   }
 
   function obterRegistrosDoMes(ano, mes) {
@@ -2062,9 +2066,6 @@ function obterDadosGrafico() {
                           <View style={styles.graficoDiaCabecalho}>
                             <View style={styles.graficoDiaNome}>
                               <Text style={styles.graficoRotulo}>{item.rotulo}</Text>
-                              <Text style={styles.graficoData}>
-                                {String(item.data).padStart(2, "0")}
-                              </Text>
                             </View>
                             <Text style={styles.graficoValorVertical}>
                               {item.valor === 0 ? "R$ 0" : formatarMoeda(item.valor)}
@@ -3557,13 +3558,58 @@ function obterDadosGrafico() {
                   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
                 ];
 
+                if (mesGraficoSelecionado) {
+                  const mes = mesGraficoSelecionado.mes;
+                  const registros = obterRegistrosDoMes(ano, mes);
+
+                  return (
+                    <ScrollView contentContainerStyle={styles.modalGraficoLista}>
+                      <Text style={styles.modalGraficoResumo}>
+                        {meses[mes]} • Total líquido: {formatarMoeda(mesGraficoSelecionado.valor)}
+                      </Text>
+
+                      {registros.length === 0 ? (
+                        <Text style={styles.modalGraficoVazio}>
+                          Nenhum dia cadastrado neste mês.
+                        </Text>
+                      ) : (
+                        registros.map((dia) => {
+                          const dados = calcularDadosDoDia(dia);
+                          return (
+                            <Pressable
+                              key={dia.data}
+                              style={styles.cardDiaGrafico}
+                              onPress={() => {
+                                setDiaHistoricoSelecionado(dia);
+                                setModalGraficoDetalhes(false);
+                                setModalDetalhesHistorico(true);
+                              }}
+                            >
+                              <View>
+                                <Text style={styles.cardDiaGraficoTitulo}>
+                                  Dia {Number(dia.data.slice(8, 10))}
+                                </Text>
+                                <Text style={styles.cardDiaGraficoSubtitulo}>
+                                  Toque para ver os detalhes
+                                </Text>
+                              </View>
+                              <Text style={styles.cardDiaGraficoValor}>
+                                {formatarMoeda(dados.liquidoDia)}
+                              </Text>
+                            </Pressable>
+                          );
+                        })
+                      )}
+                    </ScrollView>
+                  );
+                }
+
                 return (
-                  <ScrollView
-                    contentContainerStyle={styles.modalGraficoLista}
-                  >
+                  <ScrollView contentContainerStyle={styles.modalGraficoLista}>
                     <Text style={styles.modalGraficoResumo}>
                       Total do ano: {formatarMoeda(itemGraficoSelecionado.valor)}
                     </Text>
+
                     {meses.map((nomeMes, mes) => {
                       const registros = obterRegistrosDoMes(ano, mes);
                       const valorMes = registros.reduce(
@@ -3573,13 +3619,31 @@ function obterDadosGrafico() {
                       );
 
                       return (
-                        <View key={mes} style={styles.cardMesGrafico}>
+                        <Pressable
+                          key={mes}
+                          style={styles.cardMesGrafico}
+                          onPress={() => {
+                            setMesGraficoSelecionado({
+                              mes,
+                              valor: valorMes,
+                            });
+                          }}
+                        >
                           <View style={styles.cardMesGraficoCabecalho}>
-                            <Text style={styles.cardMesGraficoTitulo}>{nomeMes}</Text>
+                            <Text style={styles.cardMesGraficoTitulo}>
+                              {nomeMes}
+                            </Text>
                             <Text style={styles.cardMesGraficoValor}>
                               {formatarMoeda(valorMes)}
                             </Text>
                           </View>
+                        </Pressable>
+                      );
+                    })}
+                  </ScrollView>
+                );
+              })()}
+          </View>
                           {registros.length === 0 ? (
                             <Text style={styles.cardMesGraficoVazio}>
                               Nenhum dia cadastrado

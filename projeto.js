@@ -218,6 +218,12 @@ export default function App() {
   const [historico, setHistorico] =
     useState([]);
 
+    const [diaParaExcluir, setDiaParaExcluir] =
+  useState(null);
+
+const [modalConfirmarExclusao, setModalConfirmarExclusao] =
+  useState(false);
+
   const [filtroHistorico, setFiltroHistorico] =
     useState("todos");
 
@@ -1288,10 +1294,11 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
                 </Text>
                 <Pressable
   style={styles.botaoExcluirHistorico}
-  onPress={(evento) => {
+onPress={(evento) => {
   evento.stopPropagation();
-
-
+  console.log("ABRINDO CONFIRMAÇÃO");
+  setDiaParaExcluir(dia.data);
+  setModalConfirmarExclusao(true);
 }}
 >
   <Text style={styles.botaoExcluirHistoricoTexto}>
@@ -1754,9 +1761,58 @@ async function excluirDiaDoHistorico(dataParaExcluir) {
           </ScrollView>
         </View>
       </Modal>
+      
     );
   }
+<Modal
+  visible={modalConfirmarExclusao}
+  transparent={true}
+  animationType="fade"
+  onRequestClose={() =>
+    setModalConfirmarExclusao(false)
+  }
+>
+  <View style={styles.modalConfirmacaoFundo}>
+    <View style={styles.modalConfirmacao}>
+      <Text style={styles.modalConfirmacaoTitulo}>
+        Excluir registro?
+      </Text>
 
+      <Text style={styles.modalConfirmacaoTexto}>
+        Tem certeza que deseja excluir o dia{" "}
+        {diaParaExcluir
+          ? formatarData(diaParaExcluir)
+          : ""}?
+      </Text>
+
+      <View style={styles.modalConfirmacaoBotoes}>
+        <Pressable
+          style={styles.botaoCancelarExclusao}
+          onPress={() =>
+            setModalConfirmarExclusao(false)
+          }
+        >
+          <Text style={styles.botaoCancelarExclusaoTexto}>
+            Cancelar
+          </Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.botaoConfirmarExclusao}
+          onPress={() => {
+            excluirDiaDoHistorico(diaParaExcluir);
+            setModalConfirmarExclusao(false);
+            setDiaParaExcluir(null);
+          }}
+        >
+          <Text style={styles.botaoConfirmarExclusaoTexto}>
+            Excluir
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  </View>
+</Modal>
   // ==========================================
   // TELA
   // ==========================================
@@ -3975,6 +4031,68 @@ botaoHistoricoTexto: {
       height: 2,
     },
   },
+
+modalConfirmacaoFundo: {
+  flex: 1,
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: 20,
+},
+
+modalConfirmacao: {
+  width: "100%",
+  maxWidth: 380,
+  backgroundColor: "#FFFFFF",
+  borderRadius: 20,
+  padding: 24,
+},
+
+modalConfirmacaoTitulo: {
+  fontSize: 22,
+  fontWeight: "700",
+  color: "#111827",
+  marginBottom: 12,
+},
+
+modalConfirmacaoTexto: {
+  fontSize: 16,
+  color: "#4B5563",
+  lineHeight: 24,
+  marginBottom: 24,
+},
+
+modalConfirmacaoBotoes: {
+  flexDirection: "row",
+  justifyContent: "flex-end",
+  gap: 10,
+},
+
+botaoCancelarExclusao: {
+  paddingVertical: 12,
+  paddingHorizontal: 18,
+  borderRadius: 12,
+  backgroundColor: "#E5E7EB",
+},
+
+botaoCancelarExclusaoTexto: {
+  fontSize: 15,
+  fontWeight: "600",
+  color: "#374151",
+},
+
+botaoConfirmarExclusao: {
+  paddingVertical: 12,
+  paddingHorizontal: 18,
+  borderRadius: 12,
+  backgroundColor: "#DC2626",
+},
+
+botaoConfirmarExclusaoTexto: {
+  fontSize: 15,
+  fontWeight: "600",
+  color: "#FFFFFF",
+},
 
   detalhesIcone: {
     fontSize: 24,

@@ -1649,6 +1649,59 @@ const maiorValorGrafico = Math.max(
           </View>
         </View>
 
+        {(() => {
+          const resumoMes = obterResumoMesAtual();
+
+          return (
+            <View style={styles.historicoResumoMes}>
+              <Text style={styles.historicoResumoMesTitulo}>
+                📅 Resumo deste mês
+              </Text>
+
+              <View style={styles.historicoResumoMesGrid}>
+                <View style={styles.historicoResumoMesItem}>
+                  <Text style={styles.historicoResumoMesLabel}>
+                    Líquido
+                  </Text>
+                  <Text
+                    style={styles.detalhesValorLiquido}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                  >
+                    {formatarMoeda(resumoMes.liquido)}
+                  </Text>
+                </View>
+
+                <View style={styles.historicoResumoMesItem}>
+                  <Text style={styles.historicoResumoMesLabel}>
+                    Faturamento
+                  </Text>
+                  <Text
+                    style={styles.detalhesValor}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                  >
+                    {formatarMoeda(resumoMes.faturamento)}
+                  </Text>
+                </View>
+
+                <View style={styles.historicoResumoMesItem}>
+                  <Text style={styles.historicoResumoMesLabel}>
+                    Despesas
+                  </Text>
+                  <Text
+                    style={styles.detalhesValorVermelho}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                  >
+                    {formatarMoeda(resumoMes.despesas)}
+                  </Text>
+                </View>
+              </View>
+            </View>
+          );
+        })()}
+
         {resumo.diasTrabalhados === 0 && (
           <View style={styles.historicoVazio}>
             <Text style={styles.historicoVazioIcone}>📊</Text>
@@ -5170,6 +5223,42 @@ botaoHistoricoTexto: {
   historicoScroll: {
     padding: 16,
     paddingBottom: 40,
+  },
+
+  historicoResumoMes: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 15,
+    marginTop: 4,
+    marginBottom: 12,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  historicoResumoMesTitulo: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#1F2937",
+    marginBottom: 10,
+  },
+
+  historicoResumoMesGrid: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  historicoResumoMesItem: {
+    width: "31.5%",
+    alignItems: "center",
+  },
+
+  historicoResumoMesLabel: {
+    fontSize: 11,
+    color: "#6B7280",
+    marginBottom: 4,
   },
 
   historicoGrid: {

@@ -13,9 +13,6 @@ import {
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as FileSystem from "expo-file-system";
-import * as Sharing from "expo-sharing";
-import * as DocumentPicker from "expo-document-picker";
 
 const CHAVE_DADOS = "@meu_controle_dados";
 const CHAVE_CONFIG = "@meu_controle_config";
@@ -100,6 +97,9 @@ export default function App() {
 
   const [telaAtual, setTelaAtual] =
     useState("inicio");
+
+  const [telaConfiguracoes, setTelaConfiguracoes] =
+    useState(false);
 
   const [periodoSelecionado, setPeriodoSelecionado] =
     useState("semanal");
@@ -430,96 +430,22 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   }
 
   // ==========================================
-  // BACKUP E RESTAURAÇÃO
+  // CONFIGURAÇÕES
   // ==========================================
 
-  async function fazerBackup() {
-    try {
-      const dadosSalvos = await AsyncStorage.getItem(CHAVE_DADOS);
-      const configSalva = await AsyncStorage.getItem(CHAVE_CONFIG);
-
-      const backup = {
-        versao: 1,
-        aplicativo: "Meu Controle",
-        dataBackup: new Date().toISOString(),
-        dados: dadosSalvos ? JSON.parse(dadosSalvos) : {},
-        config: configSalva ? JSON.parse(configSalva) : {},
-      };
-
-      const dataArquivo = obterDataAtual().replace(/-/g, "");
-      const nomeArquivo = "meu-controle-backup-" + dataArquivo + ".json";
-      const caminho = FileSystem.cacheDirectory + nomeArquivo;
-
-      await FileSystem.writeAsStringAsync(
-        caminho,
-        JSON.stringify(backup, null, 2),
-        { encoding: FileSystem.EncodingType.UTF8 }
-      );
-
-      const disponivel = await Sharing.isAvailableAsync();
-
-      if (!disponivel) {
-        Alert.alert(
-          "Backup criado",
-          "O arquivo foi criado, mas o compartilhamento não está disponível neste dispositivo."
-        );
-        return;
-      }
-
-      await Sharing.shareAsync(caminho, {
-        mimeType: "application/json",
-        dialogTitle: "Salvar backup do Meu Controle",
-        UTI: "public.json",
-      });
-    } catch (erro) {
-      console.log("Erro ao fazer backup:", erro);
-      Alert.alert("Erro", "Não foi possível criar o backup.");
-    }
+  function abrirConfiguracoes() {
+    setTelaConfiguracoes(true);
   }
 
-  async function restaurarBackup() {
-    try {
-      const resultado = await DocumentPicker.getDocumentAsync({
-        type: "application/json",
-        copyToCacheDirectory: true,
-      });
+  function fecharConfiguracoes() {
+    setTelaConfiguracoes(false);
+  }
 
-      if (resultado.canceled) {
-        return;
-      }
-
-      const arquivo = resultado.assets?.[0];
-
-      if (!arquivo?.uri) {
-        return;
-      }
-
-      const conteudo = await FileSystem.readAsStringAsync(arquivo.uri);
-      const backup = JSON.parse(conteudo);
-
-      if (
-        !backup ||
-        backup.aplicativo !== "Meu Controle" ||
-        typeof backup.dados !== "object" ||
-        typeof backup.config !== "object"
-      ) {
-        Alert.alert(
-          "Arquivo inválido",
-          "Esse arquivo não parece ser um backup do Meu Controle."
-        );
-        return;
-      }
-
-      await AsyncStorage.setItem(CHAVE_DADOS, JSON.stringify(backup.dados));
-      await AsyncStorage.setItem(CHAVE_CONFIG, JSON.stringify(backup.config));
-
-      await carregarDados();
-
-      Alert.alert("Backup restaurado", "Seus dados foram restaurados com sucesso.");
-    } catch (erro) {
-      console.log("Erro ao restaurar backup:", erro);
-      Alert.alert("Erro", "Não foi possível restaurar esse backup.");
-    }
+  function abrirOpcaoEmBreve(nome) {
+    Alert.alert(
+      nome,
+      "Essa opção será implementada nas próximas versões do Meu Controle."
+    );
   }
 
   // ==========================================
@@ -2093,7 +2019,61 @@ const maiorValorGrafico = Math.max(
       {/* DASHBOARD INICIAL */}
       {/* ====================================== */}
 
-      {telaAtual === "inicio" ? (
+      {telaConfiguracoes ? (
+        <View style={styles.configuracoesTela}>
+          <View style={styles.configuracoesHeader}>
+            <View>
+              <Text style={styles.configuracoesTitulo}>Configurações</Text>
+              <Text style={styles.configuracoesSubtitulo}>Opções do Meu Controle</Text>
+            </View>
+
+            <Pressable
+              style={styles.botaoFecharConfiguracoes}
+              onPress={fecharConfiguracoes}
+            >
+              <Text style={styles.botaoFecharConfiguracoesTexto}>✕</Text>
+            </Pressable>
+          </View>
+
+          <ScrollView contentContainerStyle={styles.configuracoesScroll}>
+            <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Minha conta")}>
+              <Text style={styles.configuracaoIcone}>👤</Text>
+              <View style={styles.configuracaoTextoArea}>
+                <Text style={styles.configuracaoTitulo}>Minha conta</Text>
+                <Text style={styles.configuracaoDescricao}>Dados e informações da sua conta</Text>
+              </View>
+              <Text style={styles.configuracaoSeta}>›</Text>
+            </Pressable>
+
+            <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Backup")}>
+              <Text style={styles.configuracaoIcone}>💾</Text>
+              <View style={styles.configuracaoTextoArea}>
+                <Text style={styles.configuracaoTitulo}>Backup</Text>
+                <Text style={styles.configuracaoDescricao}>Salvar uma cópia dos seus dados</Text>
+              </View>
+              <Text style={styles.configuracaoSeta}>›</Text>
+            </Pressable>
+
+            <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Restaurar backup")}>
+              <Text style={styles.configuracaoIcone}>📥</Text>
+              <View style={styles.configuracaoTextoArea}>
+                <Text style={styles.configuracaoTitulo}>Restaurar backup</Text>
+                <Text style={styles.configuracaoDescricao}>Recuperar dados de uma cópia salva</Text>
+              </View>
+              <Text style={styles.configuracaoSeta}>›</Text>
+            </Pressable>
+
+            <Pressable style={styles.configuracaoCard} onPress={() => setModalMetaMensal(true)}>
+              <Text style={styles.configuracaoIcone}>🎯</Text>
+              <View style={styles.configuracaoTextoArea}>
+                <Text style={styles.configuracaoTitulo}>Meta mensal</Text>
+                <Text style={styles.configuracaoDescricao}>Definir seu objetivo de faturamento</Text>
+              </View>
+              <Text style={styles.configuracaoSeta}>›</Text>
+            </Pressable>
+          </ScrollView>
+        </View>
+      ) :       {telaAtual === "inicio" ? (
         <>
           <View
             style={
@@ -2103,6 +2083,13 @@ const maiorValorGrafico = Math.max(
             <Text style={styles.titulo}>
               Meu Controle
             </Text>
+
+            <Pressable
+              style={styles.botaoConfiguracoes}
+              onPress={abrirConfiguracoes}
+            >
+              <Text style={styles.botaoConfiguracoesTexto}>⚙️</Text>
+            </Pressable>
           </View>
           <View
             style={
@@ -2371,23 +2358,6 @@ const maiorValorGrafico = Math.max(
               </Text>
             </Pressable>
 
-            <Pressable
-              style={styles.botaoHistorico}
-              onPress={fazerBackup}
-            >
-              <Text style={styles.botaoHistoricoTexto}>
-                💾 Fazer backup
-              </Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.botaoHistorico}
-              onPress={restaurarBackup}
-            >
-              <Text style={styles.botaoHistoricoTexto}>
-                📥 Restaurar backup
-              </Text>
-            </Pressable>
           </ScrollView>
         </>
       ) : (
@@ -3920,6 +3890,111 @@ const styles = StyleSheet.create({
   // ==========================================
   // DASHBOARD
   // ==========================================
+
+  configuracoesTela: {
+    flex: 1,
+    backgroundColor: "#F5F7FA",
+  },
+
+  configuracoesHeader: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+
+  configuracoesTitulo: {
+    fontSize: 25,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
+  configuracoesSubtitulo: {
+    fontSize: 13,
+    color: "#6B7280",
+    marginTop: 3,
+  },
+
+  botaoFecharConfiguracoes: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    backgroundColor: "#F3F4F6",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  botaoFecharConfiguracoesTexto: {
+    fontSize: 22,
+    color: "#1F2937",
+  },
+
+  configuracoesScroll: {
+    padding: 16,
+    paddingBottom: 40,
+  },
+
+  configuracaoCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  configuracaoIcone: {
+    fontSize: 27,
+    width: 42,
+  },
+
+  configuracaoTextoArea: {
+    flex: 1,
+    marginLeft: 8,
+  },
+
+  configuracaoTitulo: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#1F2937",
+  },
+
+  configuracaoDescricao: {
+    fontSize: 12,
+    color: "#6B7280",
+    marginTop: 4,
+  },
+
+  configuracaoSeta: {
+    fontSize: 28,
+    color: "#9CA3AF",
+    marginLeft: 8,
+  },
+
+  botaoConfiguracoes: {
+    position: "absolute",
+    left: 16,
+    top: 18,
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: "#F3F4F6",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  botaoConfiguracoesTexto: {
+    fontSize: 23,
+  },
 
   dashboardHeader: {
     backgroundColor: "#FFFFFF",

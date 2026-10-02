@@ -390,7 +390,8 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
 
   async function salvarConfiguracao(
     listaAplicativos = aplicativos,
-    listaDespesas = despesas
+    listaDespesas = despesas,
+    metaMensalSalva = metaMensal
   ) {
     try {
       const config = {
@@ -410,7 +411,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
           })
         ),
 
-        metaMensal: Number(metaMensal || 5000),
+        metaMensal: Number(metaMensalSalva || 5000),
       };
 
       await AsyncStorage.setItem(
@@ -1030,7 +1031,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
 
     setMetaMensal(valor);
     setModalMetaMensal(false);
-    salvarConfiguracao(aplicativos, despesas);
+    salvarConfiguracao(aplicativos, despesas, valor);
   }
 
 const dadosGrafico = obterDadosGrafico();

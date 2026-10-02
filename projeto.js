@@ -4539,11 +4539,53 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
-  resumoGeralGrid: {
+  resumoGeralLista: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    marginBottom: 20,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  resumoGeralLinha: {
+    minHeight: 52,
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
-    marginBottom: 18,
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3F4F6",
+  },
+
+  resumoGeralLabel: {
+    flex: 1,
+    fontSize: 14,
+    color: "#4B5563",
+    fontWeight: "700",
+  },
+
+  resumoGeralValor: {
+    fontSize: 15,
+    fontWeight: "900",
+    color: "#1F2937",
+    marginLeft: 12,
+  },
+
+  resumoGeralValorVerde: {
+    fontSize: 15,
+    fontWeight: "900",
+    color: "#087A36",
+    marginLeft: 12,
+  },
+
+  resumoGeralValorVermelho: {
+    fontSize: 15,
+    fontWeight: "900",
+    color: "#C62828",
+    marginLeft: 12,
   },
 
   botaoResumoGeral: {

@@ -1489,57 +1489,31 @@ function obterDadosGrafico() {
   // ==========================================
 
   function renderizarDetalhesHistorico() {
-    if (
-      !diaHistoricoSelecionado
-    ) {
+    if (!diaHistoricoSelecionado) {
       return null;
     }
 
-    const dia =
-      diaHistoricoSelecionado;
-
-    const dados =
-      calcularDadosDoDia(dia);
+    const dia = diaHistoricoSelecionado;
+    const dados = calcularDadosDoDia(dia);
+    const km = Number(dia.quilometragem || 0);
+    const ganhoPorKm = km > 0 ? dados.liquidoDia / km : 0;
+    const custoPorKm = km > 0 ? dados.totalDespesasDia / km : 0;
 
     return (
       <Modal
-        visible={
-          modalDetalhesHistorico
-        }
+        visible={modalDetalhesHistorico}
         animationType="slide"
-        onRequestClose={
-          fecharDetalhesHistorico
-        }
+        onRequestClose={fecharDetalhesHistorico}
       >
-        <View
-          style={
-            styles.detalhesTela
-          }
-        >
-          <View
-            style={
-              styles.detalhesHeader
-            }
-          >
+        <View style={styles.detalhesTela}>
+          <View style={styles.detalhesHeader}>
             <View>
-              <Text
-                style={
-                  styles.detalhesTitulo
-                }
-              >
-                {formatarData(
-                  dia.data
-                )}
+              <Text style={styles.detalhesTitulo}>
+                {formatarData(dia.data)}
               </Text>
 
-              <Text
-                style={
-                  styles.detalhesSubtitulo
-                }
-              >
-                {dataEmEdicao
-                  ? "Editando este dia"
-                  : "Resumo do dia"}
+              <Text style={styles.detalhesSubtitulo}>
+                {dataEmEdicao ? "Editando este dia" : "Resumo do dia"}
               </Text>
             </View>
 
@@ -1554,404 +1528,145 @@ function obterDadosGrafico() {
               </Pressable>
 
               <Pressable
-                style={
-                  styles.botaoFecharHistorico
-                }
-                onPress={
-                  fecharDetalhesHistorico
-                }
-            >
-                <Text
-                  style={
-                    styles.botaoFecharHistoricoTexto
-                  }
-                >
+                style={styles.botaoFecharHistorico}
+                onPress={fecharDetalhesHistorico}
+              >
+                <Text style={styles.botaoFecharHistoricoTexto}>
                   ✕
                 </Text>
               </Pressable>
             </View>
           </View>
 
-          <ScrollView
-            contentContainerStyle={
-              styles.detalhesScroll
-            }
-          >
-            <View
-              style={
-                styles.detalhesGrid
-              }
-            >
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  💰
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Líquido
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValorLiquido
-                  }
-                >
-                  {formatarMoeda(
-                    dados.liquidoDia
-                  )}
+          <ScrollView contentContainerStyle={styles.detalhesScroll}>
+            {/* RESUMO PRINCIPAL */}
+            <View style={styles.detalhesGrid}>
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>💰</Text>
+                <Text style={styles.detalhesLabel}>Líquido</Text>
+                <Text style={styles.detalhesValorLiquido}>
+                  {formatarMoeda(dados.liquidoDia)}
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  ⏱️
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Horas trabalhadas
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValor
-                  }
-                >
-                  {dia.horasTrabalhadas ||
-                    "0h"}
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>📈</Text>
+                <Text style={styles.detalhesLabel}>Faturamento</Text>
+                <Text style={styles.detalhesValorVerde}>
+                  {formatarMoeda(dados.faturamentoDia)}
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  💵
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Faturamento
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValorVerde
-                  }
-                >
-                  {formatarMoeda(
-                    dados.faturamentoDia
-                  )}
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>💸</Text>
+                <Text style={styles.detalhesLabel}>Despesas</Text>
+                <Text style={styles.detalhesValorVermelho}>
+                  {formatarMoeda(dados.totalDespesasDia)}
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  📈
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>⏱️</Text>
+                <Text style={styles.detalhesLabel}>Horas</Text>
+                <Text style={styles.detalhesValor}>
+                  {dia.horasTrabalhadas || "0h"}
                 </Text>
+              </View>
 
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Ganho por hora
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValorVerde
-                  }
-                >
-                  {dados.horasNumericas >
-                  0
-                    ? formatarMoeda(
-                        dados.ganhoPorHora
-                      )
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>💵</Text>
+                <Text style={styles.detalhesLabel}>Ganho/h</Text>
+                <Text style={styles.detalhesValorVerde}>
+                  {dados.horasNumericas > 0
+                    ? formatarMoeda(dados.ganhoPorHora)
                     : "—"}
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  🧾
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Despesas
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValorVermelho
-                  }
-                >
-                  {formatarMoeda(
-                    dados.totalDespesasDia
-                  )}
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>🚗</Text>
+                <Text style={styles.detalhesLabel}>Km</Text>
+                <Text style={styles.detalhesValor}>
+                  {km} km
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.detalhesCard
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesIcone
-                  }
-                >
-                  🚗
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>💰</Text>
+                <Text style={styles.detalhesLabel}>Ganho/km</Text>
+                <Text style={styles.detalhesValorVerde}>
+                  {km > 0 ? formatarMoeda(ganhoPorKm) : "—"}
                 </Text>
+              </View>
 
-                <Text
-                  style={
-                    styles.detalhesLabel
-                  }
-                >
-                  Quilometragem
-                </Text>
-
-                <Text
-                  style={
-                    styles.detalhesValor
-                  }
-                >
-                  {dia.quilometragem ||
-                    0}{" "}
-                  km
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>⛽</Text>
+                <Text style={styles.detalhesLabel}>Custo/km</Text>
+                <Text style={styles.detalhesValorVermelho}>
+                  {km > 0 ? formatarMoeda(custoPorKm) : "—"}
                 </Text>
               </View>
             </View>
 
-            {(dia.aplicativos || [])
-              .length > 0 && (
-              <View
-                style={
-                  styles.detalhesSecao
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesSecaoTitulo
-                  }
-                >
-                  📱 Aplicativos
+            {/* GANHOS POR APLICATIVO */}
+            {(dia.aplicativos || []).length > 0 && (
+              <View style={styles.detalhesSecao}>
+                <Text style={styles.detalhesSecaoTitulo}>
+                  📱 Ganhos por aplicativo
                 </Text>
 
-                {dia.aplicativos.map(
-                  (app) => (
-                    <View
-                      key={app.id}
-                      style={
-                        styles.detalheLinha
-                      }
-                    >
-                      <Text
-                        style={
-                          styles.detalheLinhaNome
-                        }
-                      >
-                        {app.icone}{" "}
-                        {app.nome}
-                      </Text>
+                {dia.aplicativos.map((app) => (
+                  <View key={app.id} style={styles.detalheLinha}>
+                    <Text style={styles.detalheLinhaNome}>
+                      {app.icone} {app.nome}
+                    </Text>
 
-                      <Text
-                        style={
-                          styles.detalheLinhaValor
-                        }
-                      >
-                        {formatarMoeda(
-                          app.valor
-                        )}
-                      </Text>
-                    </View>
-                  )
-                )}
+                    <Text style={styles.detalheLinhaValor}>
+                      {formatarMoeda(app.valor)}
+                    </Text>
+                  </View>
+                ))}
               </View>
             )}
 
-            {(dia.despesas || [])
-              .length > 0 && (
-              <View
-                style={
-                  styles.detalhesSecao
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesSecaoTitulo
-                  }
-                >
-                  🧾 Outras despesas
+            {/* DESPESAS */}
+            {((dia.despesas || []).length > 0 ||
+              Number(dia.combustivel?.total || 0) > 0) && (
+              <View style={styles.detalhesSecao}>
+                <Text style={styles.detalhesSecaoTitulo}>
+                  💸 Despesas
                 </Text>
 
-                {dia.despesas.map(
-                  (despesa) => (
-                    <View
-                      key={despesa.id}
-                      style={
-                        styles.detalheLinha
-                      }
-                    >
-                      <Text
-                        style={
-                          styles.detalheLinhaNome
-                        }
-                      >
-                        {despesa.icone}{" "}
-                        {despesa.nome}
-                      </Text>
+                {(dia.despesas || []).map((despesa) => (
+                  <View key={despesa.id} style={styles.detalheLinha}>
+                    <Text style={styles.detalheLinhaNome}>
+                      {despesa.icone} {despesa.nome}
+                    </Text>
 
-                      <Text
-                        style={
-                          styles.detalheLinhaValorVermelho
-                        }
-                      >
-                        {formatarMoeda(
-                          despesa.valor
-                        )}
-                      </Text>
-                    </View>
-                  )
+                    <Text style={styles.detalheLinhaValorVermelho}>
+                      {formatarMoeda(despesa.valor)}
+                    </Text>
+                  </View>
+                ))}
+
+                {Number(dia.combustivel?.total || 0) > 0 && (
+                  <View style={styles.detalheLinha}>
+                    <Text style={styles.detalheLinhaNome}>
+                      {dia.combustivel?.tipo === "Elétrico"
+                        ? "⚡ Energia"
+                        : "⛽ Combustível"}
+                    </Text>
+
+                    <Text style={styles.detalheLinhaValorVermelho}>
+                      {formatarMoeda(dia.combustivel?.total)}
+                    </Text>
+                  </View>
                 )}
-              </View>
-            )}
-
-            {Number(
-              dia.combustivel
-                ?.total || 0
-            ) > 0 && (
-              <View
-                style={
-                  styles.detalhesSecao
-                }
-              >
-                <Text
-                  style={
-                    styles.detalhesSecaoTitulo
-                  }
-                >
-                  {dia.combustivel?.tipo === "Elétrico"
-                    ? "⚡ Energia"
-                    : "⛽ Combustível"}
-                </Text>
-
-                <View
-                  style={
-                    styles.detalheLinha
-                  }
-                >
-                  <Text
-                    style={
-                      styles.detalheLinhaNome
-                    }
-                  >
-                    {dia.combustivel?.tipo === "Elétrico"
-                      ? (dia.combustivel?.kwh || 0) + " kWh"
-                      : (dia.combustivel?.litros || 0) + " litros"}
-                  </Text>
-
-                  <Text
-                    style={
-                      styles.detalheLinhaValorVermelho
-                    }
-                  >
-                    {formatarMoeda(
-                      dia.combustivel?.total
-                    )}
-                  </Text>
-                </View>
-
-                <View
-                  style={
-                    styles.detalheLinha
-                  }
-                >
-                  <Text
-                    style={
-                      styles.detalheLinhaNome
-                    }
-                  >
-                    {dia.combustivel?.tipo === "Elétrico"
-                      ? "Preço por kWh"
-                      : "Preço por litro"}
-                  </Text>
-
-                  <Text
-                    style={
-                      styles.detalheLinhaValor
-                    }
-                  >
-                    {formatarMoeda(
-                      dia.combustivel?.tipo === "Elétrico"
-                        ? dia.combustivel?.precoKwh
-                        : dia.combustivel?.precoLitro
-                    )}
-                    {dia.combustivel?.tipo === "Elétrico"
-                      ? "/kWh"
-                      : "/L"}
-                  </Text>
-                </View>
               </View>
             )}
           </ScrollView>
         </View>
       </Modal>
-      
     );
   }
 
@@ -4684,10 +4399,11 @@ botaoHistoricoTexto: {
   },
 
   detalhesCard: {
-    width: "48%",
+    width: "23.5%",
+    minHeight: 92,
     backgroundColor: "#FFFFFF",
-    padding: 14,
-    borderRadius: 12,
+    padding: 10,
+    borderRadius: 14,
     marginBottom: 12,
     elevation: 2,
     shadowColor: "#000",

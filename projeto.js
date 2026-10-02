@@ -46,6 +46,28 @@ function dataDoHistoricoParaDate(data) {
   return new Date(ano, mes - 1, dia);
 }
 
+function obterIconeAplicativo(nome) {
+  const texto = String(nome || "").toLowerCase().trim();
+
+  if (texto.includes("uber")) {
+    return "U";
+  }
+
+  if (texto === "99" || texto.includes("99pop") || texto.includes("99 ")) {
+    return "99";
+  }
+
+  if (texto.includes("ifood") || texto.includes("i food")) {
+    return "iF";
+  }
+
+  if (texto.includes("indrive")) {
+    return "in";
+  }
+
+  return "🚗";
+}
+
 function converterHorasParaNumero(horas) {
   if (!horas) {
     return 0;
@@ -587,7 +609,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     const novo = {
       id: Date.now(),
       nome,
-      icone: "🚗",
+      icone: obterIconeAplicativo(nome),
       valor: isNaN(valor)
         ? 0
         : valor,
@@ -887,8 +909,32 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   }
 
   function salvarHorasTrabalhadas() {
+    const texto = horasTrabalhadasInput.trim();
+
+    if (!texto) {
+      setHorasTrabalhadas("");
+      setModalHorasTrabalhadas(false);
+      return;
+    }
+
+    const textoNormalizado = texto
+      .replace(/\\s*horas?$/i, "h")
+      .replace(/\\s*minutos?$/i, "min");
+
+    const possuiUnidade =
+      /h/i.test(textoNormalizado) ||
+      /min/i.test(textoNormalizado);
+
+    const valorNumerico = Number(
+      textoNormalizado.replace(",", ".")
+    );
+
     setHorasTrabalhadas(
-      horasTrabalhadasInput.trim()
+      possuiUnidade
+        ? textoNormalizado
+        : !isNaN(valorNumerico)
+          ? textoNormalizado + "h"
+          : textoNormalizado
     );
 
     setModalHorasTrabalhadas(false);
@@ -1544,7 +1590,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>💰</Text>
                 <Text style={styles.detalhesLabel}>Líquido</Text>
-                <Text style={styles.detalhesValorLiquido}>
+                <Text
+                  style={styles.detalhesValorLiquido}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {formatarMoeda(dados.liquidoDia)}
                 </Text>
               </View>
@@ -1552,7 +1603,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>📈</Text>
                 <Text style={styles.detalhesLabel}>Faturamento</Text>
-                <Text style={styles.detalhesValorVerde}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {formatarMoeda(dados.faturamentoDia)}
                 </Text>
               </View>
@@ -1560,7 +1616,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>💸</Text>
                 <Text style={styles.detalhesLabel}>Despesas</Text>
-                <Text style={styles.detalhesValorVermelho}>
+                <Text
+                  style={styles.detalhesValorVermelho}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {formatarMoeda(dados.totalDespesasDia)}
                 </Text>
               </View>
@@ -1568,7 +1629,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>⏱️</Text>
                 <Text style={styles.detalhesLabel}>Horas</Text>
-                <Text style={styles.detalhesValor}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {dia.horasTrabalhadas || "0h"}
                 </Text>
               </View>
@@ -1576,7 +1642,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>💵</Text>
                 <Text style={styles.detalhesLabel}>Ganho/h</Text>
-                <Text style={styles.detalhesValorVerde}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {dados.horasNumericas > 0
                     ? formatarMoeda(dados.ganhoPorHora)
                     : "—"}
@@ -1586,7 +1657,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>🚗</Text>
                 <Text style={styles.detalhesLabel}>Km</Text>
-                <Text style={styles.detalhesValor}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {km} km
                 </Text>
               </View>
@@ -1594,7 +1670,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>💰</Text>
                 <Text style={styles.detalhesLabel}>Ganho/km</Text>
-                <Text style={styles.detalhesValorVerde}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {km > 0 ? formatarMoeda(ganhoPorKm) : "—"}
                 </Text>
               </View>
@@ -1602,7 +1683,12 @@ function obterDadosGrafico() {
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>⛽</Text>
                 <Text style={styles.detalhesLabel}>Custo/km</Text>
-                <Text style={styles.detalhesValorVermelho}>
+                <Text
+                  style={styles.detalhesValor}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
                   {km > 0 ? formatarMoeda(custoPorKm) : "—"}
                 </Text>
               </View>
@@ -1618,7 +1704,7 @@ function obterDadosGrafico() {
                 {dia.aplicativos.map((app) => (
                   <View key={app.id} style={styles.detalheLinha}>
                     <Text style={styles.detalheLinhaNome}>
-                      {app.icone} {app.nome}
+                      {obterIconeAplicativo(app.nome)} {app.nome}
                     </Text>
 
                     <Text style={styles.detalheLinhaValor}>
@@ -2137,7 +2223,7 @@ function obterDadosGrafico() {
                             styles.cardIcone
                           }
                         >
-                          {app.icone}
+                          {obterIconeAplicativo(app.nome)}
                         </Text>
 
                         <Text
@@ -4488,31 +4574,35 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesValor: {
-    fontSize: 17,
+    fontSize: 13,
     fontWeight: "900",
     color: "#1F2937",
     marginTop: 4,
+    textAlign: "center",
   },
 
   detalhesValorVerde: {
-    fontSize: 17,
+    fontSize: 13,
     fontWeight: "900",
     color: "#087A36",
     marginTop: 4,
+    textAlign: "center",
   },
 
   detalhesValorVermelho: {
-    fontSize: 17,
+    fontSize: 13,
     fontWeight: "900",
     color: "#C62828",
     marginTop: 4,
+    textAlign: "center",
   },
 
   detalhesValorLiquido: {
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: "900",
     color: "#087A36",
     marginTop: 4,
+    textAlign: "center",
   },
 
   detalhesSecao: {

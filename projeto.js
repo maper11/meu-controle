@@ -1060,7 +1060,7 @@ const maiorValorGrafico = Math.max(
       return data.getFullYear() === anoAtual;
     });
 
-    const resumo = registrosDoAno.reduce(
+    return registrosDoAno.reduce(
       (total, dia) => {
         const dados = calcularDadosDoDia(dia);
 
@@ -1078,33 +1078,9 @@ const maiorValorGrafico = Math.max(
         liquido: 0,
         horas: 0,
         km: 0,
+        diasTrabalhados: registrosDoAno.length,
       }
     );
-
-    resumo.ganhoPorHora =
-      resumo.horas > 0
-        ? resumo.liquido / resumo.horas
-        : 0;
-
-    resumo.ganhoPorKm =
-      resumo.km > 0
-        ? resumo.liquido / resumo.km
-        : 0;
-
-    resumo.custoPorKm =
-      resumo.km > 0
-        ? resumo.despesas / resumo.km
-        : 0;
-
-    resumo.mediaPorDia =
-      registrosDoAno.length > 0
-        ? resumo.liquido / registrosDoAno.length
-        : 0;
-
-    resumo.diasTrabalhados = registrosDoAno.length;
-    resumo.ano = anoAtual;
-
-    return resumo;
   }
 
   function formatarHorasTotais(horas) {
@@ -1134,46 +1110,31 @@ const maiorValorGrafico = Math.max(
         <View style={styles.detalhesGrid}>
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>💰</Text>
-            <Text style={styles.detalhesLabel}>Líquido</Text>
-            <Text
-              style={styles.detalhesValorLiquido}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
+            <Text style={styles.detalhesLabel}>Líquido total</Text>
+            <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.liquido)}
             </Text>
           </View>
 
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>📈</Text>
-            <Text style={styles.detalhesLabel}>Faturamento</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
+            <Text style={styles.detalhesLabel}>Faturamento total</Text>
+            <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.faturamento)}
             </Text>
           </View>
 
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>💸</Text>
-            <Text style={styles.detalhesLabel}>Despesas</Text>
-            <Text
-              style={styles.detalhesValorVermelho}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
+            <Text style={styles.detalhesLabel}>Despesas totais</Text>
+            <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.despesas)}
             </Text>
           </View>
 
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>📅</Text>
-            <Text style={styles.detalhesLabel}>Dias</Text>
+            <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
             <Text style={styles.detalhesValor}>
               {resumo.diasTrabalhados}
             </Text>
@@ -1181,87 +1142,17 @@ const maiorValorGrafico = Math.max(
 
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>⏱️</Text>
-            <Text style={styles.detalhesLabel}>Horas</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
+            <Text style={styles.detalhesLabel}>Horas trabalhadas</Text>
+            <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarHorasTotais(resumo.horas)}
             </Text>
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>💵</Text>
-            <Text style={styles.detalhesLabel}>Ganho/h</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
-              {resumo.horas > 0
-                ? formatarMoeda(resumo.ganhoPorHora)
-                : "—"}
-            </Text>
-          </View>
-
-          <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>🚗</Text>
-            <Text style={styles.detalhesLabel}>Km</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
+            <Text style={styles.detalhesLabel}>Km rodados</Text>
+            <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {resumo.km} km
-            </Text>
-          </View>
-
-          <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>💰</Text>
-            <Text style={styles.detalhesLabel}>Ganho/km</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
-              {resumo.km > 0
-                ? formatarMoeda(resumo.ganhoPorKm)
-                : "—"}
-            </Text>
-          </View>
-
-          <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>⛽</Text>
-            <Text style={styles.detalhesLabel}>Custo/km</Text>
-            <Text
-              style={styles.detalhesValor}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
-              {resumo.km > 0
-                ? formatarMoeda(resumo.custoPorKm)
-                : "—"}
-            </Text>
-          </View>
-
-          <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>📊</Text>
-            <Text style={styles.detalhesLabel}>Média/dia</Text>
-            <Text
-              style={styles.detalhesValorVerde}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.5}
-            >
-              {resumo.diasTrabalhados > 0
-                ? formatarMoeda(resumo.mediaPorDia)
-                : "—"}
             </Text>
           </View>
         </View>
@@ -1278,415 +1169,6 @@ const maiorValorGrafico = Math.max(
           </View>
         )}
       </ScrollView>
-    );
-  }
-
-  function obterHistoricoFiltrado() {
-    const hoje =
-      dataDoHistoricoParaDate(
-        obterDataAtual()
-      );
-
-    if (
-      filtroHistorico ===
-      "todos"
-    ) {
-      return historico;
-    }
-
-    return historico.filter(
-      (dia) => {
-        const data =
-          dataDoHistoricoParaDate(
-            dia.data
-          );
-
-        if (
-          filtroHistorico ===
-          "semana"
-        ) {
-          const diaSemana =
-            hoje.getDay();
-
-          const diferencaParaSegunda =
-            diaSemana === 0
-              ? 6
-              : diaSemana - 1;
-
-          const inicioSemana =
-            new Date(hoje);
-
-          inicioSemana.setDate(
-            hoje.getDate() -
-              diferencaParaSegunda
-          );
-
-          inicioSemana.setHours(
-            0,
-            0,
-            0,
-            0
-          );
-
-          const fimSemana =
-            new Date(
-              inicioSemana
-            );
-
-          fimSemana.setDate(
-            inicioSemana.getDate() +
-              6
-          );
-
-          fimSemana.setHours(
-            23,
-            59,
-            59,
-            999
-          );
-
-          return (
-            data >= inicioSemana &&
-            data <= fimSemana
-          );
-        }
-
-        if (
-          filtroHistorico ===
-          "mes"
-        ) {
-          return (
-            data.getFullYear() ===
-              hoje.getFullYear() &&
-            data.getMonth() ===
-              hoje.getMonth()
-          );
-        }
-
-        if (
-          filtroHistorico ===
-          "ano"
-        ) {
-          return (
-            data.getFullYear() ===
-            hoje.getFullYear()
-          );
-        }
-
-        return true;
-      }
-    );
-  }
-  
-
-
-
-function obterDadosGrafico() {
-  const hoje = dataDoHistoricoParaDate(
-    obterDataAtual()
-  );
-
-  if (periodoSelecionado === "semanal") {
-    const diaSemana = hoje.getDay();
-    const diferencaParaSegunda =
-      diaSemana === 0 ? 6 : diaSemana - 1;
-
-    const inicioSemana = new Date(hoje);
-    inicioSemana.setDate(
-      hoje.getDate() - diferencaParaSegunda
-    );
-    inicioSemana.setHours(0, 0, 0, 0);
-
-    return Array.from({ length: 7 }, (_, indice) => {
-      const data = new Date(inicioSemana);
-      data.setDate(
-        inicioSemana.getDate() + indice
-      );
-
-      const chave = [
-        data.getFullYear(),
-        String(data.getMonth() + 1).padStart(2, "0"),
-        String(data.getDate()).padStart(2, "0"),
-      ].join("-");
-
-      const registro = historico.find(
-        (dia) => dia.data === chave
-      );
-
-      const dados = registro
-        ? calcularDadosDoDia(registro)
-        : { liquidoDia: 0 };
-
-      const nomesDias = [
-        "Seg",
-        "Ter",
-        "Qua",
-        "Qui",
-        "Sex",
-        "Sáb",
-        "Dom",
-      ];
-
-      return {
-        chave,
-        rotulo: nomesDias[indice],
-        data: data.getDate(),
-        valor: dados.liquidoDia,
-        temRegistro: !!registro,
-      };
-    });
-  }
-
-  if (periodoSelecionado === "mensal") {
-    const nomesMeses = [
-      "Jan",
-      "Fev",
-      "Mar",
-      "Abr",
-      "Mai",
-      "Jun",
-      "Jul",
-      "Ago",
-      "Set",
-      "Out",
-      "Nov",
-      "Dez",
-    ];
-
-    return nomesMeses.map((rotulo, mes) => {
-      const registros = historico.filter((dia) => {
-        const data = dataDoHistoricoParaDate(
-          dia.data
-        );
-
-        return (
-          data.getFullYear() === hoje.getFullYear() &&
-          data.getMonth() === mes
-        );
-      });
-
-      const valor = registros.reduce(
-        (total, dia) =>
-          total + calcularDadosDoDia(dia).liquidoDia,
-        0
-      );
-
-      return {
-        chave: `${hoje.getFullYear()}-${String(
-          mes + 1
-        ).padStart(2, "0")}`,
-        rotulo,
-        valor,
-        temRegistro: registros.length > 0,
-      };
-    });
-  }
-
-  const anosRegistrados = historico.map((dia) =>
-    dataDoHistoricoParaDate(dia.data).getFullYear()
-  );
-
-  const primeiroAno =
-    anosRegistrados.length > 0
-      ? Math.min(...anosRegistrados)
-      : hoje.getFullYear();
-
-  const quantidadeAnos =
-    hoje.getFullYear() - primeiroAno + 1;
-
-  return Array.from(
-    { length: quantidadeAnos },
-    (_, indice) => {
-      const ano = primeiroAno + indice;
-
-      const registros = historico.filter((dia) => {
-        const data = dataDoHistoricoParaDate(
-          dia.data
-        );
-
-        return data.getFullYear() === ano;
-      });
-
-      const valor = registros.reduce(
-        (total, dia) =>
-          total + calcularDadosDoDia(dia).liquidoDia,
-        0
-      );
-
-      return {
-        chave: String(ano),
-        rotulo: String(ano),
-        valor,
-        temRegistro: registros.length > 0,
-      };
-    }
-  );
-}
-
-
-  async function excluirDiaDoHistorico(
-    dataParaExcluir
-  ) {
-    try {
-      const dadosSalvos =
-        await AsyncStorage.getItem(CHAVE_DADOS);
-
-      const dados = dadosSalvos
-        ? JSON.parse(dadosSalvos)
-        : {};
-
-      delete dados[dataParaExcluir];
-
-      await AsyncStorage.setItem(
-        CHAVE_DADOS,
-        JSON.stringify(dados)
-      );
-
-      const historicoAtualizado =
-        Object.values(dados).sort((a, b) =>
-          b.data.localeCompare(a.data)
-        );
-
-      setHistorico(historicoAtualizado);
-
-      if (
-        diaHistoricoSelecionado?.data ===
-        dataParaExcluir
-      ) {
-        setDiaHistoricoSelecionado(null);
-        setModalDetalhesHistorico(false);
-      }
-    } catch (erro) {
-      console.log(
-        "Erro ao excluir dia:",
-        erro
-      );
-    }
-  }
-
-
-  function calcularDadosDoDia(
-    dia
-  ) {
-    const faturamentoDia =
-      (
-        dia.aplicativos || []
-      ).reduce(
-        (total, app) =>
-          total +
-          Number(
-            app.valor || 0
-          ),
-        0
-      );
-
-    const despesasDia =
-      (
-        dia.despesas || []
-      ).reduce(
-        (total, despesa) =>
-          total +
-          Number(
-            despesa.valor || 0
-          ),
-        0
-      );
-
-    const combustivelDia =
-      Number(
-        dia.combustivel
-          ?.total || 0
-      );
-
-    const totalDespesasDia =
-      despesasDia +
-      combustivelDia;
-
-    const liquidoDia =
-      faturamentoDia -
-      totalDespesasDia;
-
-    const horasNumericas =
-      converterHorasParaNumero(
-        dia.horasTrabalhadas
-      );
-
-    const ganhoPorHora =
-      horasNumericas > 0
-        ? liquidoDia /
-          horasNumericas
-        : 0;
-
-    return {
-      faturamentoDia,
-      despesasDia,
-      combustivelDia,
-      totalDespesasDia,
-      liquidoDia,
-      horasNumericas,
-      ganhoPorHora,
-    };
-  }
-
-  function abrirDetalhesHistorico(
-    dia
-  ) {
-    setDiaHistoricoSelecionado(
-      dia
-    );
-
-    setModalDetalhesHistorico(
-      true
-    );
-  }
-
-  function editarDiaHistorico(diaParaEditar = diaHistoricoSelecionado) {
-    if (!diaParaEditar) {
-      return;
-    }
-
-    setDataEmEdicao(diaParaEditar.data);
-
-    setAplicativos(
-      (diaParaEditar.aplicativos || []).map((app) => ({
-        ...app,
-        valor: Number(app.valor || 0),
-      }))
-    );
-
-    setDespesas(
-      (diaParaEditar.despesas || []).map((despesa) => ({
-        ...despesa,
-        valor: Number(despesa.valor || 0),
-      }))
-    );
-
-    const combustivelDoDia = diaParaEditar.combustivel || {};
-
-    setCombustivel({
-      tipo: combustivelDoDia.tipo || "",
-      litros: Number(combustivelDoDia.litros || 0),
-      precoLitro: Number(combustivelDoDia.precoLitro || 0),
-      kwh: Number(combustivelDoDia.kwh || 0),
-      precoKwh: Number(combustivelDoDia.precoKwh || 0),
-      total: Number(combustivelDoDia.total || 0),
-    });
-
-    setQuilometragem(Number(diaParaEditar.quilometragem || 0));
-    setHorasTrabalhadas(diaParaEditar.horasTrabalhadas || "");
-
-    setModalDetalhesHistorico(false);
-    setDiaHistoricoSelecionado(null);
-    setTelaAtual("cadastro");
-  }
-
-  function fecharDetalhesHistorico() {
-    setModalDetalhesHistorico(
-      false
-    );
-
-    setDiaHistoricoSelecionado(
-      null
     );
   }
 

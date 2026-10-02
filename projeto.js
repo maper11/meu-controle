@@ -896,6 +896,23 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       return;
     }
 
+    const textoComDoisPontos = texto.match(
+      /^(\d+)\s*:\s*(\d{1,2})$/
+    );
+
+    if (textoComDoisPontos) {
+      const horas = Number(textoComDoisPontos[1]);
+      const minutos = Number(textoComDoisPontos[2]);
+
+      if (minutos < 60) {
+        setHorasTrabalhadas(
+          horas + "h" + (minutos > 0 ? minutos + "min" : "")
+        );
+        setModalHorasTrabalhadas(false);
+        return;
+      }
+    }
+
     const textoNormalizado = texto
       .replace(/\s*horas?$/i, "h")
       .replace(/\s*minutos?$/i, "min");

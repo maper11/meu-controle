@@ -211,6 +211,9 @@ export default function App() {
   const [modalHistorico, setModalHistorico] =
     useState(false);
 
+  const [modalResumoGeral, setModalResumoGeral] =
+    useState(false);
+
   const [modalDetalhesHistorico, setModalDetalhesHistorico] =
     useState(false);
 
@@ -2316,132 +2319,6 @@ const maiorValorGrafico = Math.max(
               styles.dashboardScroll
             }
           >
-            {(() => {
-              const resumoHoje = obterResumoHoje();
-              const resumoMes = obterResumoMesAtual();
-
-              return (
-                <>
-                  <Text style={styles.resumoDashboardTitulo}>
-                    Resumo de hoje
-                  </Text>
-
-                  <View style={styles.resumoDashboardGrid}>
-                    <View style={styles.resumoDashboardCard}>
-                      <Text style={styles.resumoDashboardIcone}>💰</Text>
-                      <Text style={styles.resumoDashboardLabel}>Líquido</Text>
-                      <Text
-                        style={styles.resumoDashboardValorVerde}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.55}
-                      >
-                        {formatarMoeda(resumoHoje.liquido)}
-                      </Text>
-                    </View>
-
-                    <View style={styles.resumoDashboardCard}>
-                      <Text style={styles.resumoDashboardIcone}>📈</Text>
-                      <Text style={styles.resumoDashboardLabel}>Faturamento</Text>
-                      <Text
-                        style={styles.resumoDashboardValor}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.55}
-                      >
-                        {formatarMoeda(resumoHoje.faturamento)}
-                      </Text>
-                    </View>
-
-                    <View style={styles.resumoDashboardCard}>
-                      <Text style={styles.resumoDashboardIcone}>💸</Text>
-                      <Text style={styles.resumoDashboardLabel}>Despesas</Text>
-                      <Text
-                        style={styles.resumoDashboardValorVermelho}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.55}
-                      >
-                        {formatarMoeda(resumoHoje.despesas)}
-                      </Text>
-                    </View>
-
-                    <View style={styles.resumoDashboardCard}>
-                      <Text style={styles.resumoDashboardIcone}>⏱️</Text>
-                      <Text style={styles.resumoDashboardLabel}>Ganho/h</Text>
-                      <Text
-                        style={styles.resumoDashboardValor}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.55}
-                      >
-                        {resumoHoje.horas > 0
-                          ? formatarMoeda(resumoHoje.liquido / resumoHoje.horas)
-                          : "—"}
-                      </Text>
-                    </View>
-                  </View>
-
-                  <View style={styles.resumoMesCard}>
-                    <View style={styles.resumoMesCabecalho}>
-                      <View>
-                        <Text style={styles.resumoMesTitulo}>
-                          📊 Resumo do mês
-                        </Text>
-                        <Text style={styles.resumoMesSubtitulo}>
-                          {new Date().toLocaleDateString("pt-BR", {
-                            month: "long",
-                            year: "numeric",
-                          })}
-                        </Text>
-                      </View>
-
-                      <Text style={styles.resumoMesDias}>
-                        {resumoMes.dias} {resumoMes.dias === 1 ? "dia" : "dias"}
-                      </Text>
-                    </View>
-
-                    <View style={styles.resumoMesGrid}>
-                      <View style={styles.resumoMesItem}>
-                        <Text style={styles.resumoMesLabel}>Líquido</Text>
-                        <Text style={styles.resumoMesValorVerde} numberOfLines={1} adjustsFontSizeToFit>
-                          {formatarMoeda(resumoMes.liquido)}
-                        </Text>
-                      </View>
-
-                      <View style={styles.resumoMesItem}>
-                        <Text style={styles.resumoMesLabel}>Faturamento</Text>
-                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
-                          {formatarMoeda(resumoMes.faturamento)}
-                        </Text>
-                      </View>
-
-                      <View style={styles.resumoMesItem}>
-                        <Text style={styles.resumoMesLabel}>Despesas</Text>
-                        <Text style={styles.resumoMesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
-                          {formatarMoeda(resumoMes.despesas)}
-                        </Text>
-                      </View>
-
-                      <View style={styles.resumoMesItem}>
-                        <Text style={styles.resumoMesLabel}>Horas</Text>
-                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
-                          {formatarHorasTotais(resumoMes.horas)}
-                        </Text>
-                      </View>
-
-                      <View style={styles.resumoMesItem}>
-                        <Text style={styles.resumoMesLabel}>Km rodados</Text>
-                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
-                          {resumoMes.km} km
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </>
-              );
-            })()}
-
             <View
               style={
                 styles.graficoCard
@@ -2603,6 +2480,15 @@ const maiorValorGrafico = Math.max(
                   : "Cadastrar Dia"}
               </Text>
             </Pressable>
+            <Pressable
+              style={styles.botaoResumoGeral}
+              onPress={() => setModalResumoGeral(true)}
+            >
+              <Text style={styles.botaoResumoGeralTexto}>
+                📊 Resumo geral
+              </Text>
+            </Pressable>
+
             <Pressable
               style={styles.botaoHistorico}
               onPress={abrirHistorico}
@@ -3837,6 +3723,135 @@ const maiorValorGrafico = Math.max(
       </Modal>
 
       {/* ====================================== */}
+      {/* MODAL - RESUMO GERAL */}
+      {/* ====================================== */}
+
+      <Modal
+        visible={modalResumoGeral}
+        animationType="slide"
+        onRequestClose={() => setModalResumoGeral(false)}
+      >
+        <View style={styles.resumoGeralTela}>
+          <View style={styles.resumoGeralHeader}>
+            <View>
+              <Text style={styles.resumoGeralTitulo}>Resumo geral</Text>
+              <Text style={styles.resumoGeralSubtitulo}>
+                Visão dos seus resultados
+              </Text>
+            </View>
+
+            <Pressable
+              style={styles.botaoFecharHistorico}
+              onPress={() => setModalResumoGeral(false)}
+            >
+              <Text style={styles.botaoFecharHistoricoTexto}>✕</Text>
+            </Pressable>
+          </View>
+
+          <ScrollView contentContainerStyle={styles.resumoGeralScroll}>
+            {(() => {
+              const mes = obterResumoMesAtual();
+              const ano = obterResumoHistoricoGeral();
+
+              return (
+                <>
+                  <Text style={styles.resumoGeralSecaoTitulo}>📅 Este mês</Text>
+                  <View style={styles.resumoGeralGrid}>
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>💰</Text>
+                      <Text style={styles.detalhesLabel}>Líquido</Text>
+                      <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(mes.liquido)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>📈</Text>
+                      <Text style={styles.detalhesLabel}>Faturamento</Text>
+                      <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(mes.faturamento)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>💸</Text>
+                      <Text style={styles.detalhesLabel}>Despesas</Text>
+                      <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(mes.despesas)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>⏱️</Text>
+                      <Text style={styles.detalhesLabel}>Horas</Text>
+                      <Text style={styles.detalhesValor}>{formatarHorasTotais(mes.horas)}</Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>🚗</Text>
+                      <Text style={styles.detalhesLabel}>Km rodados</Text>
+                      <Text style={styles.detalhesValor}>{mes.km} km</Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>📅</Text>
+                      <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
+                      <Text style={styles.detalhesValor}>{mes.dias}</Text>
+                    </View>
+                  </View>
+
+                  <Text style={styles.resumoGeralSecaoTitulo}>📊 Acumulado do ano</Text>
+                  <View style={styles.resumoGeralGrid}>
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>💰</Text>
+                      <Text style={styles.detalhesLabel}>Líquido total</Text>
+                      <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(ano.liquido)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>📈</Text>
+                      <Text style={styles.detalhesLabel}>Faturamento total</Text>
+                      <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(ano.faturamento)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>💸</Text>
+                      <Text style={styles.detalhesLabel}>Despesas totais</Text>
+                      <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
+                        {formatarMoeda(ano.despesas)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>📅</Text>
+                      <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
+                      <Text style={styles.detalhesValor}>{ano.diasTrabalhados}</Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>⏱️</Text>
+                      <Text style={styles.detalhesLabel}>Horas trabalhadas</Text>
+                      <Text style={styles.detalhesValor}>{formatarHorasTotais(ano.horas)}</Text>
+                    </View>
+
+                    <View style={styles.detalhesCard}>
+                      <Text style={styles.detalhesIcone}>🚗</Text>
+                      <Text style={styles.detalhesLabel}>Km rodados</Text>
+                      <Text style={styles.detalhesValor}>{ano.km} km</Text>
+                    </View>
+                  </View>
+                </>
+              );
+            })()}
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* ====================================== */}
       {/* MODAL - HISTÓRICO */}
       {/* ====================================== */}
 
@@ -4503,6 +4518,72 @@ const styles = StyleSheet.create({
     fontWeight: "900",
     color: "#C62828",
     marginTop: 4,
+  },
+
+  resumoGeralTela: {
+    flex: 1,
+    backgroundColor: "#F5F7FA",
+  },
+
+  resumoGeralHeader: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: "#E5E7EB",
+  },
+
+  resumoGeralTitulo: {
+    fontSize: 25,
+    fontWeight: "900",
+    color: "#087A36",
+  },
+
+  resumoGeralSubtitulo: {
+    fontSize: 13,
+    color: "#6B7280",
+    marginTop: 3,
+  },
+
+  resumoGeralScroll: {
+    padding: 16,
+    paddingBottom: 40,
+  },
+
+  resumoGeralSecaoTitulo: {
+    fontSize: 18,
+    fontWeight: "900",
+    color: "#1F2937",
+    marginBottom: 10,
+    marginTop: 4,
+  },
+
+  resumoGeralGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginBottom: 18,
+  },
+
+  botaoResumoGeral: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#087A36",
+    borderRadius: 12,
+    paddingVertical: 14,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 8,
+  },
+
+  botaoResumoGeralTexto: {
+    color: "#087A36",
+    fontSize: 15,
+    fontWeight: "900",
   },
 
   dashboardScroll: {

@@ -3468,6 +3468,11 @@ function obterDadosGrafico() {
 
                     {meses.map((nomeMes, mes) => {
                       const registros = obterRegistrosDoMes(ano, mes);
+
+                      if (registros.length === 0) {
+                        return null;
+                      }
+
                       const valorMes = registros.reduce(
                         (total, dia) =>
                           total + calcularDadosDoDia(dia).liquidoDia,

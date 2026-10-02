@@ -46,27 +46,6 @@ function dataDoHistoricoParaDate(data) {
   return new Date(ano, mes - 1, dia);
 }
 
-function obterIconeAplicativo(nome) {
-  const texto = String(nome || "").toLowerCase().trim();
-
-  if (texto.includes("uber")) {
-    return "U";
-  }
-
-  if (texto === "99" || texto.includes("99pop") || texto.includes("99 ")) {
-    return "99";
-  }
-
-  if (texto.includes("ifood") || texto.includes("i food")) {
-    return "iF";
-  }
-
-  if (texto.includes("indrive")) {
-    return "in";
-  }
-
-  return "🚗";
-}
 
 function converterHorasParaNumero(horas) {
   if (!horas) {
@@ -609,7 +588,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     const novo = {
       id: Date.now(),
       nome,
-      icone: obterIconeAplicativo(nome),
+      icone: "🚗",
       valor: isNaN(valor)
         ? 0
         : valor,
@@ -1704,7 +1683,7 @@ function obterDadosGrafico() {
                 {dia.aplicativos.map((app) => (
                   <View key={app.id} style={styles.detalheLinha}>
                     <Text style={styles.detalheLinhaNome}>
-                      {obterIconeAplicativo(app.nome)} {app.nome}
+                      {app.nome}
                     </Text>
 
                     <Text style={styles.detalheLinhaValor}>
@@ -2223,7 +2202,7 @@ function obterDadosGrafico() {
                             styles.cardIcone
                           }
                         >
-                          {obterIconeAplicativo(app.nome)}
+                          
                         </Text>
 
                         <Text

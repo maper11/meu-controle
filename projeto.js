@@ -1037,6 +1037,72 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     return { totalMes, meta, percentual, percentualBarra, falta };
   }
 
+  function obterResumoDosRegistros(registros) {
+    return registros.reduce(
+      (total, dia) => {
+        const dados = calcularDadosDoDia(dia);
+
+        total.faturamento += dados.faturamentoDia;
+        total.despesas += dados.totalDespesasDia;
+        total.liquido += dados.liquidoDia;
+        total.horas += dados.horasNumericas;
+        total.km += Number(dia.quilometragem || 0);
+
+        return total;
+      },
+      {
+        faturamento: 0,
+        despesas: 0,
+        liquido: 0,
+        horas: 0,
+        km: 0,
+      }
+    );
+  }
+
+  function obterResumoHoje() {
+    const hoje = obterDataAtual();
+    const registro = historico.find((dia) => dia.data === hoje);
+
+    if (!registro) {
+      return {
+        faturamento: 0,
+        despesas: 0,
+        liquido: 0,
+        horas: 0,
+        km: 0,
+      };
+    }
+
+    return obterResumoDosRegistros([registro]);
+  }
+
+  function obterResumoMesAtual() {
+    const hoje = dataDoHistoricoParaDate(obterDataAtual());
+
+    const registros = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(dia.data);
+
+      return (
+        data.getFullYear() === hoje.getFullYear() &&
+        data.getMonth() === hoje.getMonth()
+      );
+    });
+
+    return {
+      ...obterResumoDosRegistros(registros),
+      dias: registros.length,
+    };
+  }
+
+  function abrirSobreAplicativo() {
+    Alert.alert(
+      "Meu Controle",
+      "Aplicativo para acompanhar faturamento, despesas, horas e quilometragem do trabalho.",
+      [{ text: "OK" }]
+    );
+  }
+
   function abrirMetaMensal() {
     setMetaMensalInput(
       String(metaMensal || "").replace(".", ",")
@@ -2071,6 +2137,15 @@ const maiorValorGrafico = Math.max(
               </View>
               <Text style={styles.configuracaoSeta}>›</Text>
             </Pressable>
+
+            <Pressable style={styles.configuracaoCard} onPress={abrirSobreAplicativo}>
+              <Text style={styles.configuracaoIcone}>ℹ️</Text>
+              <View style={styles.configuracaoTextoArea}>
+                <Text style={styles.configuracaoTitulo}>Sobre o aplicativo</Text>
+                <Text style={styles.configuracaoDescricao}>Informações sobre o Meu Controle</Text>
+              </View>
+              <Text style={styles.configuracaoSeta}>›</Text>
+            </Pressable>
           </ScrollView>
         </View>
       ) : telaAtual === "inicio" ? (
@@ -2188,6 +2263,132 @@ const maiorValorGrafico = Math.max(
               styles.dashboardScroll
             }
           >
+            {(() => {
+              const resumoHoje = obterResumoHoje();
+              const resumoMes = obterResumoMesAtual();
+
+              return (
+                <>
+                  <Text style={styles.resumoDashboardTitulo}>
+                    Resumo de hoje
+                  </Text>
+
+                  <View style={styles.resumoDashboardGrid}>
+                    <View style={styles.resumoDashboardCard}>
+                      <Text style={styles.resumoDashboardIcone}>💰</Text>
+                      <Text style={styles.resumoDashboardLabel}>Líquido</Text>
+                      <Text
+                        style={styles.resumoDashboardValorVerde}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.55}
+                      >
+                        {formatarMoeda(resumoHoje.liquido)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.resumoDashboardCard}>
+                      <Text style={styles.resumoDashboardIcone}>📈</Text>
+                      <Text style={styles.resumoDashboardLabel}>Faturamento</Text>
+                      <Text
+                        style={styles.resumoDashboardValor}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.55}
+                      >
+                        {formatarMoeda(resumoHoje.faturamento)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.resumoDashboardCard}>
+                      <Text style={styles.resumoDashboardIcone}>💸</Text>
+                      <Text style={styles.resumoDashboardLabel}>Despesas</Text>
+                      <Text
+                        style={styles.resumoDashboardValorVermelho}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.55}
+                      >
+                        {formatarMoeda(resumoHoje.despesas)}
+                      </Text>
+                    </View>
+
+                    <View style={styles.resumoDashboardCard}>
+                      <Text style={styles.resumoDashboardIcone}>⏱️</Text>
+                      <Text style={styles.resumoDashboardLabel}>Ganho/h</Text>
+                      <Text
+                        style={styles.resumoDashboardValor}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.55}
+                      >
+                        {resumoHoje.horas > 0
+                          ? formatarMoeda(resumoHoje.liquido / resumoHoje.horas)
+                          : "—"}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.resumoMesCard}>
+                    <View style={styles.resumoMesCabecalho}>
+                      <View>
+                        <Text style={styles.resumoMesTitulo}>
+                          📊 Resumo do mês
+                        </Text>
+                        <Text style={styles.resumoMesSubtitulo}>
+                          {new Date().toLocaleDateString("pt-BR", {
+                            month: "long",
+                            year: "numeric",
+                          })}
+                        </Text>
+                      </View>
+
+                      <Text style={styles.resumoMesDias}>
+                        {resumoMes.dias} {resumoMes.dias === 1 ? "dia" : "dias"}
+                      </Text>
+                    </View>
+
+                    <View style={styles.resumoMesGrid}>
+                      <View style={styles.resumoMesItem}>
+                        <Text style={styles.resumoMesLabel}>Líquido</Text>
+                        <Text style={styles.resumoMesValorVerde} numberOfLines={1} adjustsFontSizeToFit>
+                          {formatarMoeda(resumoMes.liquido)}
+                        </Text>
+                      </View>
+
+                      <View style={styles.resumoMesItem}>
+                        <Text style={styles.resumoMesLabel}>Faturamento</Text>
+                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
+                          {formatarMoeda(resumoMes.faturamento)}
+                        </Text>
+                      </View>
+
+                      <View style={styles.resumoMesItem}>
+                        <Text style={styles.resumoMesLabel}>Despesas</Text>
+                        <Text style={styles.resumoMesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
+                          {formatarMoeda(resumoMes.despesas)}
+                        </Text>
+                      </View>
+
+                      <View style={styles.resumoMesItem}>
+                        <Text style={styles.resumoMesLabel}>Horas</Text>
+                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
+                          {formatarHorasTotais(resumoMes.horas)}
+                        </Text>
+                      </View>
+
+                      <View style={styles.resumoMesItem}>
+                        <Text style={styles.resumoMesLabel}>Km rodados</Text>
+                        <Text style={styles.resumoMesValor} numberOfLines={1} adjustsFontSizeToFit>
+                          {resumoMes.km} km
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </>
+              );
+            })()}
+
             <View
               style={
                 styles.graficoCard
@@ -4109,6 +4310,146 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#4B5563",
     marginTop: 9,
+  },
+
+  resumoDashboardTitulo: {
+    fontSize: 18,
+    fontWeight: "900",
+    color: "#1F2937",
+    marginBottom: 10,
+  },
+
+  resumoDashboardGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginBottom: 18,
+  },
+
+  resumoDashboardCard: {
+    width: "48.5%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 13,
+    marginBottom: 10,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  resumoDashboardIcone: {
+    fontSize: 22,
+    marginBottom: 4,
+  },
+
+  resumoDashboardLabel: {
+    fontSize: 12,
+    color: "#6B7280",
+    fontWeight: "700",
+  },
+
+  resumoDashboardValor: {
+    fontSize: 17,
+    color: "#1F2937",
+    fontWeight: "900",
+    marginTop: 5,
+  },
+
+  resumoDashboardValorVerde: {
+    fontSize: 17,
+    color: "#087A36",
+    fontWeight: "900",
+    marginTop: 5,
+  },
+
+  resumoDashboardValorVermelho: {
+    fontSize: 17,
+    color: "#C62828",
+    fontWeight: "900",
+    marginTop: 5,
+  },
+
+  resumoMesCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 20,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  resumoMesCabecalho: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 14,
+  },
+
+  resumoMesTitulo: {
+    fontSize: 18,
+    fontWeight: "900",
+    color: "#1F2937",
+  },
+
+  resumoMesSubtitulo: {
+    fontSize: 12,
+    color: "#6B7280",
+    marginTop: 3,
+    textTransform: "capitalize",
+  },
+
+  resumoMesDias: {
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#087A36",
+    backgroundColor: "#E8F5EE",
+    paddingHorizontal: 9,
+    paddingVertical: 6,
+    borderRadius: 10,
+  },
+
+  resumoMesGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+
+  resumoMesItem: {
+    width: "48%",
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#F3F4F6",
+  },
+
+  resumoMesLabel: {
+    fontSize: 12,
+    color: "#6B7280",
+  },
+
+  resumoMesValor: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#1F2937",
+    marginTop: 4,
+  },
+
+  resumoMesValorVerde: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#087A36",
+    marginTop: 4,
+  },
+
+  resumoMesValorVermelho: {
+    fontSize: 16,
+    fontWeight: "900",
+    color: "#C62828",
+    marginTop: 4,
   },
 
   dashboardScroll: {

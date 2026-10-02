@@ -13,6 +13,9 @@ import {
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import * as DocumentPicker from "expo-document-picker";
 
 const CHAVE_DADOS = "@meu_controle_dados";
 const CHAVE_CONFIG = "@meu_controle_config";
@@ -423,6 +426,99 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
         "Erro ao salvar configuração:",
         erro
       );
+    }
+  }
+
+  // ==========================================
+  // BACKUP E RESTAURAÇÃO
+  // ==========================================
+
+  async function fazerBackup() {
+    try {
+      const dadosSalvos = await AsyncStorage.getItem(CHAVE_DADOS);
+      const configSalva = await AsyncStorage.getItem(CHAVE_CONFIG);
+
+      const backup = {
+        versao: 1,
+        aplicativo: "Meu Controle",
+        dataBackup: new Date().toISOString(),
+        dados: dadosSalvos ? JSON.parse(dadosSalvos) : {},
+        config: configSalva ? JSON.parse(configSalva) : {},
+      };
+
+      const dataArquivo = obterDataAtual().replace(/-/g, "");
+      const nomeArquivo = "meu-controle-backup-" + dataArquivo + ".json";
+      const caminho = FileSystem.cacheDirectory + nomeArquivo;
+
+      await FileSystem.writeAsStringAsync(
+        caminho,
+        JSON.stringify(backup, null, 2),
+        { encoding: FileSystem.EncodingType.UTF8 }
+      );
+
+      const disponivel = await Sharing.isAvailableAsync();
+
+      if (!disponivel) {
+        Alert.alert(
+          "Backup criado",
+          "O arquivo foi criado, mas o compartilhamento não está disponível neste dispositivo."
+        );
+        return;
+      }
+
+      await Sharing.shareAsync(caminho, {
+        mimeType: "application/json",
+        dialogTitle: "Salvar backup do Meu Controle",
+        UTI: "public.json",
+      });
+    } catch (erro) {
+      console.log("Erro ao fazer backup:", erro);
+      Alert.alert("Erro", "Não foi possível criar o backup.");
+    }
+  }
+
+  async function restaurarBackup() {
+    try {
+      const resultado = await DocumentPicker.getDocumentAsync({
+        type: "application/json",
+        copyToCacheDirectory: true,
+      });
+
+      if (resultado.canceled) {
+        return;
+      }
+
+      const arquivo = resultado.assets?.[0];
+
+      if (!arquivo?.uri) {
+        return;
+      }
+
+      const conteudo = await FileSystem.readAsStringAsync(arquivo.uri);
+      const backup = JSON.parse(conteudo);
+
+      if (
+        !backup ||
+        backup.aplicativo !== "Meu Controle" ||
+        typeof backup.dados !== "object" ||
+        typeof backup.config !== "object"
+      ) {
+        Alert.alert(
+          "Arquivo inválido",
+          "Esse arquivo não parece ser um backup do Meu Controle."
+        );
+        return;
+      }
+
+      await AsyncStorage.setItem(CHAVE_DADOS, JSON.stringify(backup.dados));
+      await AsyncStorage.setItem(CHAVE_CONFIG, JSON.stringify(backup.config));
+
+      await carregarDados();
+
+      Alert.alert("Backup restaurado", "Seus dados foram restaurados com sucesso.");
+    } catch (erro) {
+      console.log("Erro ao restaurar backup:", erro);
+      Alert.alert("Erro", "Não foi possível restaurar esse backup.");
     }
   }
 
@@ -2267,13 +2363,31 @@ const maiorValorGrafico = Math.max(
               </Text>
             </Pressable>
             <Pressable
-  style={styles.botaoHistorico}
-  onPress={abrirHistorico}
->
-  <Text style={styles.botaoHistoricoTexto}>
-    Histórico geral
-  </Text>
-</Pressable>
+              style={styles.botaoHistorico}
+              onPress={abrirHistorico}
+            >
+              <Text style={styles.botaoHistoricoTexto}>
+                Histórico geral
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.botaoHistorico}
+              onPress={fazerBackup}
+            >
+              <Text style={styles.botaoHistoricoTexto}>
+                💾 Fazer backup
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.botaoHistorico}
+              onPress={restaurarBackup}
+            >
+              <Text style={styles.botaoHistoricoTexto}>
+                📥 Restaurar backup
+              </Text>
+            </Pressable>
           </ScrollView>
         </>
       ) : (

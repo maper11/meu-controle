@@ -1594,7 +1594,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValorLiquido}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {formatarMoeda(dados.liquidoDia)}
                 </Text>
@@ -1607,7 +1607,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {formatarMoeda(dados.faturamentoDia)}
                 </Text>
@@ -1620,7 +1620,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValorVermelho}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {formatarMoeda(dados.totalDespesasDia)}
                 </Text>
@@ -1633,7 +1633,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {dia.horasTrabalhadas || "0h"}
                 </Text>
@@ -1646,7 +1646,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {dados.horasNumericas > 0
                     ? formatarMoeda(dados.ganhoPorHora)
@@ -1661,7 +1661,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {km} km
                 </Text>
@@ -1674,7 +1674,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {km > 0 ? formatarMoeda(ganhoPorKm) : "—"}
                 </Text>
@@ -1687,7 +1687,7 @@ function obterDadosGrafico() {
                   style={styles.detalhesValor}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.75}
+                  minimumFontScale={0.5}
                 >
                   {km > 0 ? formatarMoeda(custoPorKm) : "—"}
                 </Text>
@@ -4364,7 +4364,7 @@ botaoHistoricoTexto: {
   },
 
   historicoCardData: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#1F2937",
     marginBottom: 8,
@@ -4574,7 +4574,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesValor: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#1F2937",
     marginTop: 4,
@@ -4582,7 +4582,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesValorVerde: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#087A36",
     marginTop: 4,
@@ -4590,7 +4590,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesValorVermelho: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#C62828",
     marginTop: 4,
@@ -4598,11 +4598,12 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesValorLiquido: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#087A36",
     marginTop: 4,
     textAlign: "center",
+    flexShrink: 1,
   },
 
   detalhesSecao: {
@@ -4825,7 +4826,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   cardDiaAnoValor: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "900",
     color: "#087A36",
   },

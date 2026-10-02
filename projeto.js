@@ -918,8 +918,8 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     }
 
     const textoNormalizado = texto
-      .replace(/\\s*horas?$/i, "h")
-      .replace(/\\s*minutos?$/i, "min");
+      .replace(/\s*horas?$/i, "h")
+      .replace(/\s*minutos?$/i, "min");
 
     const possuiUnidade =
       /h/i.test(textoNormalizado) ||

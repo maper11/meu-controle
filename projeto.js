@@ -2073,7 +2073,7 @@ const maiorValorGrafico = Math.max(
             </Pressable>
           </ScrollView>
         </View>
-      ) :       {telaAtual === "inicio" ? (
+      ) : (\n      {telaAtual === "inicio" ? (
         <>
           <View
             style={

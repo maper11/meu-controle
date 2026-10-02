@@ -1052,6 +1052,235 @@ const maiorValorGrafico = Math.max(
     setModalHistorico(true);
   }
 
+  function obterResumoHistoricoGeral() {
+    const anoAtual = dataDoHistoricoParaDate(obterDataAtual()).getFullYear();
+
+    const registrosDoAno = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(dia.data);
+      return data.getFullYear() === anoAtual;
+    });
+
+    const resumo = registrosDoAno.reduce(
+      (total, dia) => {
+        const dados = calcularDadosDoDia(dia);
+
+        total.faturamento += dados.faturamentoDia;
+        total.despesas += dados.totalDespesasDia;
+        total.liquido += dados.liquidoDia;
+        total.horas += dados.horasNumericas;
+        total.km += Number(dia.quilometragem || 0);
+
+        return total;
+      },
+      {
+        faturamento: 0,
+        despesas: 0,
+        liquido: 0,
+        horas: 0,
+        km: 0,
+      }
+    );
+
+    resumo.ganhoPorHora =
+      resumo.horas > 0
+        ? resumo.liquido / resumo.horas
+        : 0;
+
+    resumo.ganhoPorKm =
+      resumo.km > 0
+        ? resumo.liquido / resumo.km
+        : 0;
+
+    resumo.custoPorKm =
+      resumo.km > 0
+        ? resumo.despesas / resumo.km
+        : 0;
+
+    resumo.mediaPorDia =
+      registrosDoAno.length > 0
+        ? resumo.liquido / registrosDoAno.length
+        : 0;
+
+    resumo.diasTrabalhados = registrosDoAno.length;
+    resumo.ano = anoAtual;
+
+    return resumo;
+  }
+
+  function formatarHorasTotais(horas) {
+    if (!horas || horas <= 0) {
+      return "0h";
+    }
+
+    const horasInteiras = Math.floor(horas);
+    const minutos = Math.round((horas - horasInteiras) * 60);
+
+    if (minutos === 60) {
+      return (horasInteiras + 1) + "h";
+    }
+
+    if (minutos === 0) {
+      return horasInteiras + "h";
+    }
+
+    return horasInteiras + "h" + minutos + "min";
+  }
+
+  function renderizarHistoricoGeral() {
+    const resumo = obterResumoHistoricoGeral();
+
+    return (
+      <ScrollView contentContainerStyle={styles.detalhesScroll}>
+        <View style={styles.detalhesGrid}>
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>💰</Text>
+            <Text style={styles.detalhesLabel}>Líquido</Text>
+            <Text
+              style={styles.detalhesValorLiquido}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {formatarMoeda(resumo.liquido)}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>📈</Text>
+            <Text style={styles.detalhesLabel}>Faturamento</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {formatarMoeda(resumo.faturamento)}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>💸</Text>
+            <Text style={styles.detalhesLabel}>Despesas</Text>
+            <Text
+              style={styles.detalhesValorVermelho}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {formatarMoeda(resumo.despesas)}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>📅</Text>
+            <Text style={styles.detalhesLabel}>Dias</Text>
+            <Text style={styles.detalhesValor}>
+              {resumo.diasTrabalhados}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>⏱️</Text>
+            <Text style={styles.detalhesLabel}>Horas</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {formatarHorasTotais(resumo.horas)}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>💵</Text>
+            <Text style={styles.detalhesLabel}>Ganho/h</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {resumo.horas > 0
+                ? formatarMoeda(resumo.ganhoPorHora)
+                : "—"}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>🚗</Text>
+            <Text style={styles.detalhesLabel}>Km</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {resumo.km} km
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>💰</Text>
+            <Text style={styles.detalhesLabel}>Ganho/km</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {resumo.km > 0
+                ? formatarMoeda(resumo.ganhoPorKm)
+                : "—"}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>⛽</Text>
+            <Text style={styles.detalhesLabel}>Custo/km</Text>
+            <Text
+              style={styles.detalhesValor}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {resumo.km > 0
+                ? formatarMoeda(resumo.custoPorKm)
+                : "—"}
+            </Text>
+          </View>
+
+          <View style={styles.detalhesCard}>
+            <Text style={styles.detalhesIcone}>📊</Text>
+            <Text style={styles.detalhesLabel}>Média/dia</Text>
+            <Text
+              style={styles.detalhesValorVerde}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.5}
+            >
+              {resumo.diasTrabalhados > 0
+                ? formatarMoeda(resumo.mediaPorDia)
+                : "—"}
+            </Text>
+          </View>
+        </View>
+
+        {resumo.diasTrabalhados === 0 && (
+          <View style={styles.historicoVazio}>
+            <Text style={styles.historicoVazioIcone}>📊</Text>
+            <Text style={styles.historicoVazioTitulo}>
+              Nenhum registro neste ano
+            </Text>
+            <Text style={styles.historicoVazioTexto}>
+              Cadastre seus dias para acompanhar o resultado do ano.
+            </Text>
+          </View>
+        )}
+      </ScrollView>
+    );
+  }
+
   function obterHistoricoFiltrado() {
     const hoje =
       dataDoHistoricoParaDate(
@@ -2156,7 +2385,7 @@ function obterDadosGrafico() {
   onPress={abrirHistorico}
 >
   <Text style={styles.botaoHistoricoTexto}>
-    Histórico
+    Histórico geral
   </Text>
 </Pressable>
           </ScrollView>
@@ -3412,7 +3641,7 @@ function obterDadosGrafico() {
                   styles.historicoTitulo
                 }
               >
-                Histórico
+                Histórico geral
               </Text>
 
               <Text
@@ -3420,7 +3649,7 @@ function obterDadosGrafico() {
                   styles.historicoSubtitulo
                 }
               >
-                Consulte seus registros
+                Resumo do ano {new Date().getFullYear()}
               </Text>
             </View>
 
@@ -3444,64 +3673,7 @@ function obterDadosGrafico() {
             </Pressable>
           </View>
 
-          <View
-            style={
-              styles.filtrosHistorico
-            }
-          >
-            {[
-              {
-                id: "semana",
-                texto: "Semana",
-              },
-              {
-                id: "mes",
-                texto: "Mês",
-              },
-              {
-                id: "ano",
-                texto: "Ano",
-              },
-              {
-                id: "todos",
-                texto: "Todos",
-              },
-            ].map((filtro) => (
-              <Pressable
-                key={filtro.id}
-                style={[
-                  styles.filtroBotao,
-                  filtroHistorico ===
-                    filtro.id &&
-                    styles.filtroBotaoAtivo,
-                ]}
-                onPress={() =>
-                  setFiltroHistorico(
-                    filtro.id
-                  )
-                }
-              >
-                <Text
-                  style={[
-                    styles.filtroTexto,
-                    filtroHistorico ===
-                      filtro.id &&
-                      styles.filtroTextoAtivo,
-                  ]}
-                >
-                  {filtro.texto}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          <ScrollView
-            contentContainerStyle={
-              styles.historicoScroll
-            }
-          >
-            {renderizarHistorico()}
-          </ScrollView>
+          {renderizarHistoricoGeral()}
         </View>
       </Modal>
 

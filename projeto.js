@@ -1273,7 +1273,7 @@ function obterHistoricoFiltrado() {
   );
 }
 
-  function excluirDiaDoHistorico(
+  async function excluirDiaDoHistorico(
     dataParaExcluir
   ) {
     try {

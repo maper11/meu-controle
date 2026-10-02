@@ -252,6 +252,19 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   const [filtroHistorico, setFiltroHistorico] =
     useState("todos");
 
+  // ==========================================
+  // META MENSAL
+  // ==========================================
+
+  const [metaMensal, setMetaMensal] =
+    useState(5000);
+
+  const [metaMensalInput, setMetaMensalInput] =
+    useState("");
+
+  const [modalMetaMensal, setModalMetaMensal] =
+    useState(false);
+
     function iniciarNovoDia() {
   setAplicativos([]);
   setNovoApp("");
@@ -308,7 +321,12 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
         : {
             aplicativos: [],
             despesas: [],
+            metaMensal: 5000,
           };
+
+      setMetaMensal(
+        Number(config.metaMensal || 5000)
+      );
 
       const historicoCarregado =
         Object.values(dados).sort((a, b) =>
@@ -391,6 +409,8 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
             icone: despesa.icone,
           })
         ),
+
+        metaMensal: Number(metaMensal || 5000),
       };
 
       await AsyncStorage.setItem(
@@ -969,6 +989,49 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   const liquido =
     faturamento -
     totalDespesas;
+
+  function obterResumoMetaMensal() {
+    const hoje = dataDoHistoricoParaDate(obterDataAtual());
+
+    const registrosDoMes = historico.filter((dia) => {
+      const data = dataDoHistoricoParaDate(dia.data);
+      return (
+        data.getFullYear() === hoje.getFullYear() &&
+        data.getMonth() === hoje.getMonth()
+      );
+    });
+
+    const totalMes = registrosDoMes.reduce(
+      (total, dia) => total + calcularDadosDoDia(dia).liquidoDia,
+      0
+    );
+
+    const meta = Number(metaMensal || 0);
+    const percentual = meta > 0 ? (totalMes / meta) * 100 : 0;
+    const percentualBarra = Math.min(Math.max(percentual, 0), 100);
+    const falta = Math.max(meta - totalMes, 0);
+
+    return { totalMes, meta, percentual, percentualBarra, falta };
+  }
+
+  function abrirMetaMensal() {
+    setMetaMensalInput(
+      String(metaMensal || "").replace(".", ",")
+    );
+    setModalMetaMensal(true);
+  }
+
+  function salvarMetaMensal() {
+    const valor = Number(metaMensalInput.replace(",", "."));
+
+    if (isNaN(valor) || valor <= 0) {
+      return;
+    }
+
+    setMetaMensal(valor);
+    setModalMetaMensal(false);
+    salvarConfiguracao(aplicativos, despesas);
+  }
 
 const dadosGrafico = obterDadosGrafico();
 
@@ -1688,6 +1751,21 @@ function obterDadosGrafico() {
                   {km > 0 ? formatarMoeda(custoPorKm) : "—"}
                 </Text>
               </View>
+
+              <View style={styles.detalhesCard}>
+                <Text style={styles.detalhesIcone}>🎯</Text>
+                <Text style={styles.detalhesLabel}>% da meta</Text>
+                <Text
+                  style={styles.detalhesValorVerde}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.5}
+                >
+                  {metaMensal > 0
+                    ? `${((dados.liquidoDia / metaMensal) * 100).toFixed(1).replace(".", ",")}%`
+                    : "—"}
+                </Text>
+              </View>
             </View>
 
             {/* GANHOS POR APLICATIVO */}
@@ -1860,6 +1938,51 @@ function obterDadosGrafico() {
               </Pressable>
             ))}
           </View>
+
+          {(() => {
+            const meta = obterResumoMetaMensal();
+
+            return (
+              <Pressable
+                style={styles.metaMensalCard}
+                onPress={abrirMetaMensal}
+              >
+                <View style={styles.metaMensalCabecalho}>
+                  <View>
+                    <Text style={styles.metaMensalTitulo}>
+                      🎯 Meta mensal
+                    </Text>
+                    <Text style={styles.metaMensalValor}>
+                      {formatarMoeda(meta.meta)}
+                    </Text>
+                  </View>
+
+                  <Text style={styles.metaMensalEditar}>
+                    ✏️ Editar
+                  </Text>
+                </View>
+
+                <Text style={styles.metaMensalProgressoTexto}>
+                  {formatarMoeda(meta.totalMes)} de {formatarMoeda(meta.meta)}
+                </Text>
+
+                <View style={styles.metaMensalBarraFundo}>
+                  <View
+                    style={[
+                      styles.metaMensalBarraValor,
+                      { width: `${meta.percentualBarra}%` },
+                    ]}
+                  />
+                </View>
+
+                <Text style={styles.metaMensalFalta}>
+                  {meta.falta > 0
+                    ? `Faltam ${formatarMoeda(meta.falta)} para atingir a meta`
+                    : "Meta mensal atingida! 🎉"}
+                </Text>
+              </Pressable>
+            );
+          })()}
 
           <ScrollView
             contentContainerStyle={
@@ -3210,6 +3333,56 @@ function obterDadosGrafico() {
       </Modal>
 
       {/* ====================================== */}
+      {/* MODAL - META MENSAL */}
+      {/* ====================================== */}
+
+      <Modal
+        visible={modalMetaMensal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalMetaMensal(false)}
+      >
+        <View style={styles.modalFundo}>
+          <View style={styles.modal}>
+            <Text style={styles.modalTitulo}>
+              Meta mensal
+            </Text>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Ex.: 5000"
+              value={metaMensalInput}
+              onChangeText={setMetaMensalInput}
+              keyboardType="decimal-pad"
+              autoFocus
+            />
+
+            <Text style={styles.dicaHoras}>
+              Defina quanto você deseja ganhar de líquido por mês.
+            </Text>
+
+            <View style={styles.modalBotoes}>
+              <Pressable
+                style={styles.botaoCancelar}
+                onPress={() => setModalMetaMensal(false)}
+              >
+                <Text>Cancelar</Text>
+              </Pressable>
+
+              <Pressable
+                style={styles.botaoConfirmar}
+                onPress={salvarMetaMensal}
+              >
+                <Text style={styles.botaoConfirmarTexto}>
+                  Salvar
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* ====================================== */}
       {/* MODAL - HISTÓRICO */}
       {/* ====================================== */}
 
@@ -3620,6 +3793,74 @@ const styles = StyleSheet.create({
 
   periodoTextoAtivo: {
     color: "#FFFFFF",
+  },
+
+  metaMensalCard: {
+    backgroundColor: "#FFFFFF",
+    marginHorizontal: 16,
+    marginTop: 10,
+    marginBottom: 6,
+    padding: 16,
+    borderRadius: 14,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOpacity: 0.06,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
+  },
+
+  metaMensalCabecalho: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  metaMensalTitulo: {
+    fontSize: 17,
+    fontWeight: "900",
+    color: "#1F2937",
+  },
+
+  metaMensalValor: {
+    fontSize: 20,
+    fontWeight: "900",
+    color: "#087A36",
+    marginTop: 3,
+  },
+
+  metaMensalEditar: {
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#087A36",
+  },
+
+  metaMensalProgressoTexto: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#6B7280",
+    marginTop: 14,
+    marginBottom: 7,
+  },
+
+  metaMensalBarraFundo: {
+    width: "100%",
+    height: 16,
+    backgroundColor: "#E5E7EB",
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+
+  metaMensalBarraValor: {
+    height: "100%",
+    backgroundColor: "#087A36",
+    borderRadius: 10,
+  },
+
+  metaMensalFalta: {
+    fontSize: 12,
+    fontWeight: "700",
+    color: "#4B5563",
+    marginTop: 9,
   },
 
   dashboardScroll: {

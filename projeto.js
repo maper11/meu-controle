@@ -3756,92 +3756,70 @@ const maiorValorGrafico = Math.max(
               return (
                 <>
                   <Text style={styles.resumoGeralSecaoTitulo}>📅 Este mês</Text>
-                  <View style={styles.resumoGeralGrid}>
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>💰</Text>
-                      <Text style={styles.detalhesLabel}>Líquido</Text>
-                      <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(mes.liquido)}
-                      </Text>
+
+                  <View style={styles.resumoGeralLista}>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>💰 Líquido</Text>
+                      <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(mes.liquido)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>📈</Text>
-                      <Text style={styles.detalhesLabel}>Faturamento</Text>
-                      <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(mes.faturamento)}
-                      </Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>📈 Faturamento</Text>
+                      <Text style={styles.resumoGeralValor}>{formatarMoeda(mes.faturamento)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>💸</Text>
-                      <Text style={styles.detalhesLabel}>Despesas</Text>
-                      <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(mes.despesas)}
-                      </Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>💸 Despesas</Text>
+                      <Text style={styles.resumoGeralValorVermelho}>{formatarMoeda(mes.despesas)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>⏱️</Text>
-                      <Text style={styles.detalhesLabel}>Horas</Text>
-                      <Text style={styles.detalhesValor}>{formatarHorasTotais(mes.horas)}</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>⏱️ Horas</Text>
+                      <Text style={styles.resumoGeralValor}>{formatarHorasTotais(mes.horas)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>🚗</Text>
-                      <Text style={styles.detalhesLabel}>Km rodados</Text>
-                      <Text style={styles.detalhesValor}>{mes.km} km</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>🚗 Km rodados</Text>
+                      <Text style={styles.resumoGeralValor}>{mes.km} km</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>📅</Text>
-                      <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
-                      <Text style={styles.detalhesValor}>{mes.dias}</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>📅 Dias trabalhados</Text>
+                      <Text style={styles.resumoGeralValor}>{mes.dias}</Text>
                     </View>
                   </View>
 
                   <Text style={styles.resumoGeralSecaoTitulo}>📊 Acumulado do ano</Text>
-                  <View style={styles.resumoGeralGrid}>
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>💰</Text>
-                      <Text style={styles.detalhesLabel}>Líquido total</Text>
-                      <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(ano.liquido)}
-                      </Text>
+
+                  <View style={styles.resumoGeralLista}>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>💰 Líquido total</Text>
+                      <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(ano.liquido)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>📈</Text>
-                      <Text style={styles.detalhesLabel}>Faturamento total</Text>
-                      <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(ano.faturamento)}
-                      </Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>📈 Faturamento total</Text>
+                      <Text style={styles.resumoGeralValor}>{formatarMoeda(ano.faturamento)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>💸</Text>
-                      <Text style={styles.detalhesLabel}>Despesas totais</Text>
-                      <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit>
-                        {formatarMoeda(ano.despesas)}
-                      </Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>💸 Despesas totais</Text>
+                      <Text style={styles.resumoGeralValorVermelho}>{formatarMoeda(ano.despesas)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>📅</Text>
-                      <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
-                      <Text style={styles.detalhesValor}>{ano.diasTrabalhados}</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>📅 Dias trabalhados</Text>
+                      <Text style={styles.resumoGeralValor}>{ano.diasTrabalhados}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>⏱️</Text>
-                      <Text style={styles.detalhesLabel}>Horas trabalhadas</Text>
-                      <Text style={styles.detalhesValor}>{formatarHorasTotais(ano.horas)}</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>⏱️ Horas trabalhadas</Text>
+                      <Text style={styles.resumoGeralValor}>{formatarHorasTotais(ano.horas)}</Text>
                     </View>
 
-                    <View style={styles.detalhesCard}>
-                      <Text style={styles.detalhesIcone}>🚗</Text>
-                      <Text style={styles.detalhesLabel}>Km rodados</Text>
-                      <Text style={styles.detalhesValor}>{ano.km} km</Text>
+                    <View style={styles.resumoGeralLinha}>
+                      <Text style={styles.resumoGeralLabel}>🚗 Km rodados</Text>
+                      <Text style={styles.resumoGeralValor}>{ano.km} km</Text>
                     </View>
                   </View>
                 </>

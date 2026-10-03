@@ -2386,7 +2386,7 @@ const maiorValorGrafico = Math.max(
                                 {
                                   width: `${largura}%`,
                                   backgroundColor:
-                                    item.valor < 0 ? "#DC2626" : "#087A36",
+                                    item.valor < 0 ? "#FF3B6B" : "#00FF9C",
                                 },
                               ]}
                             />
@@ -2432,7 +2432,7 @@ const maiorValorGrafico = Math.max(
                               {
                                 height: altura,
                                 backgroundColor:
-                                  item.valor < 0 ? "#DC2626" : "#087A36",
+                                  item.valor < 0 ? "#FF3B6B" : "#00FF9C",
                               },
                             ]}
                           />
@@ -4131,7 +4131,7 @@ const maiorValorGrafico = Math.max(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
   },
 
   // ==========================================
@@ -4140,29 +4140,29 @@ const styles = StyleSheet.create({
 
   configuracoesTela: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
   },
 
   configuracoesHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   configuracoesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   configuracoesSubtitulo: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
   },
 
@@ -4170,14 +4170,14 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 10,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#151D29",
     alignItems: "center",
     justifyContent: "center",
   },
 
   botaoFecharConfiguracoesTexto: {
     fontSize: 22,
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   configuracoesScroll: {
@@ -4186,14 +4186,14 @@ const styles = StyleSheet.create({
   },
 
   configuracaoCard: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 16,
     marginBottom: 12,
     flexDirection: "row",
     alignItems: "center",
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4212,18 +4212,18 @@ const styles = StyleSheet.create({
   configuracaoTitulo: {
     fontSize: 16,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   configuracaoDescricao: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 4,
   },
 
   configuracaoSeta: {
     fontSize: 28,
-    color: "#9CA3AF",
+    color: "#687386",
     marginLeft: 8,
   },
 
@@ -4234,7 +4234,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#151D29",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -4244,23 +4244,23 @@ const styles = StyleSheet.create({
   },
 
   dashboardHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingTop: 20,
     paddingBottom: 14,
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   periodos: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 12,
     paddingVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   periodoBotao: {
@@ -4271,34 +4271,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 9,
     borderWidth: 1,
-    borderColor: "#D1D5DB",
-    backgroundColor: "#FFFFFF",
+    borderColor: "#293547",
+    backgroundColor: "#101722",
   },
 
   periodoBotaoAtivo: {
-    backgroundColor: "#087A36",
-    borderColor: "#087A36",
+    backgroundColor: "#00FF9C",
+    borderColor: "#00FF9C",
   },
 
   periodoTexto: {
     fontSize: 13,
     fontWeight: "700",
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   periodoTextoAtivo: {
-    color: "#FFFFFF",
+    color: "#101722",
   },
 
   metaMensalCard: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     marginHorizontal: 16,
     marginTop: 10,
     marginBottom: 6,
     padding: 16,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4313,26 +4313,26 @@ const styles = StyleSheet.create({
   metaMensalTitulo: {
     fontSize: 17,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   metaMensalValor: {
     fontSize: 20,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 3,
   },
 
   metaMensalEditar: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   metaMensalProgressoTexto: {
     fontSize: 12,
     fontWeight: "700",
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 14,
     marginBottom: 7,
   },
@@ -4340,28 +4340,28 @@ const styles = StyleSheet.create({
   metaMensalBarraFundo: {
     width: "100%",
     height: 16,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#1D2633",
     borderRadius: 10,
     overflow: "hidden",
   },
 
   metaMensalBarraValor: {
     height: "100%",
-    backgroundColor: "#087A36",
+    backgroundColor: "#00FF9C",
     borderRadius: 10,
   },
 
   metaMensalFalta: {
     fontSize: 12,
     fontWeight: "700",
-    color: "#4B5563",
+    color: "#AAB5C4",
     marginTop: 9,
   },
 
   resumoDashboardTitulo: {
     fontSize: 18,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 10,
   },
 
@@ -4374,12 +4374,12 @@ const styles = StyleSheet.create({
 
   resumoDashboardCard: {
     width: "48.5%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 13,
     marginBottom: 10,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4392,38 +4392,38 @@ const styles = StyleSheet.create({
 
   resumoDashboardLabel: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
     fontWeight: "700",
   },
 
   resumoDashboardValor: {
     fontSize: 17,
-    color: "#1F2937",
+    color: "#F4F7FB",
     fontWeight: "900",
     marginTop: 5,
   },
 
   resumoDashboardValorVerde: {
     fontSize: 17,
-    color: "#087A36",
+    color: "#00FF9C",
     fontWeight: "900",
     marginTop: 5,
   },
 
   resumoDashboardValorVermelho: {
     fontSize: 17,
-    color: "#C62828",
+    color: "#FF3B6B",
     fontWeight: "900",
     marginTop: 5,
   },
 
   resumoMesCard: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4439,12 +4439,12 @@ const styles = StyleSheet.create({
   resumoMesTitulo: {
     fontSize: 18,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   resumoMesSubtitulo: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
     textTransform: "capitalize",
   },
@@ -4452,8 +4452,8 @@ const styles = StyleSheet.create({
   resumoMesDias: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#087A36",
-    backgroundColor: "#E8F5EE",
+    color: "#00FF9C",
+    backgroundColor: "#12352B",
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 10,
@@ -4469,60 +4469,60 @@ const styles = StyleSheet.create({
     width: "48%",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: "#151D29",
   },
 
   resumoMesLabel: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
   },
 
   resumoMesValor: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginTop: 4,
   },
 
   resumoMesValorVerde: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 4,
   },
 
   resumoMesValorVermelho: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#C62828",
+    color: "#FF3B6B",
     marginTop: 4,
   },
 
   resumoGeralTela: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
   },
 
   resumoGeralHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   resumoGeralTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   resumoGeralSubtitulo: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
   },
 
@@ -4534,18 +4534,18 @@ const styles = StyleSheet.create({
   resumoGeralSecaoTitulo: {
     fontSize: 18,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 10,
     marginTop: 4,
   },
 
   resumoGeralLista: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     paddingHorizontal: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4557,41 +4557,41 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: "#151D29",
   },
 
   resumoGeralLabel: {
     flex: 1,
     fontSize: 14,
-    color: "#4B5563",
+    color: "#AAB5C4",
     fontWeight: "700",
   },
 
   resumoGeralValor: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginLeft: 12,
   },
 
   resumoGeralValorVerde: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginLeft: 12,
   },
 
   resumoGeralValorVermelho: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#C62828",
+    color: "#FF3B6B",
     marginLeft: 12,
   },
 
   botaoResumoGeral: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderWidth: 1,
-    borderColor: "#087A36",
+    borderColor: "#00FF9C",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
@@ -4601,7 +4601,7 @@ const styles = StyleSheet.create({
   },
 
   botaoResumoGeralTexto: {
-    color: "#087A36",
+    color: "#00FF9C",
     fontSize: 15,
     fontWeight: "900",
   },
@@ -4612,12 +4612,12 @@ const styles = StyleSheet.create({
   },
 
   graficoCard: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4629,13 +4629,13 @@ const styles = StyleSheet.create({
   graficoTitulo: {
     fontSize: 18,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 4,
   },
 
   graficoSubtitulo: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginBottom: 12,
   },
 
@@ -4643,11 +4643,11 @@ const styles = StyleSheet.create({
   graficoPlaceholder: {
     height: 260,
     borderRadius: 10,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: "#0D131D",
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#1D2633",
   },
 
   graficoArea: {
@@ -4696,7 +4696,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: "#151D29",
   },
 
   graficoDiaCabecalho: {
@@ -4715,14 +4715,14 @@ const styles = StyleSheet.create({
   graficoValorVertical: {
     fontSize: 10,
     fontWeight: "800",
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   graficoLinhaFundo: {
     width: "100%",
     height: 10,
     borderRadius: 6,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: "#1D2633",
     overflow: "hidden",
   },
 
@@ -4734,7 +4734,7 @@ const styles = StyleSheet.create({
 
 graficoBarraLiquido: {
   height: 150,
-  backgroundColor: "#087A36",
+  backgroundColor: "#00FF9C",
 },
 
 graficoBarraDespesas: {
@@ -4745,25 +4745,25 @@ graficoBarraDespesas: {
   graficoValor: {
     fontSize: 9,
     fontWeight: "700",
-    color: "#4B5563",
+    color: "#AAB5C4",
     marginBottom: 5,
   },
 
   graficoRotulo: {
     fontSize: 11,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   graficoData: {
     fontSize: 9,
-    color: "#9CA3AF",
+    color: "#687386",
     marginTop: 2,
   },
 
   graficoLegenda: {
     fontSize: 11,
-    color: "#6B7280",
+    color: "#8B96A8",
     textAlign: "center",
     marginTop: 10,
   },
@@ -4772,24 +4772,24 @@ graficoBarraDespesas: {
   graficoPlaceholderTexto: {
     fontSize: 20,
     fontWeight: "800",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   graficoPlaceholderSubtexto: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 5,
   },
 
   botaoCadastrarDia: {
-    backgroundColor: "#087A36",
+    backgroundColor: "#00FF9C",
     borderRadius: 12,
     minHeight: 58,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.08,
     shadowRadius: 5,
     shadowOffset: {
@@ -4799,31 +4799,31 @@ graficoBarraDespesas: {
   },
 
   botaoCadastrarDiaIcone: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontSize: 25,
     fontWeight: "500",
     marginRight: 8,
   },
 
   botaoCadastrarDiaTexto: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontSize: 16,
     fontWeight: "800",
   },
 
 botaoHistorico: {
   marginTop: 12,
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#101722",
   borderRadius: 12,
   minHeight: 52,
   alignItems: "center",
   justifyContent: "center",
   borderWidth: 1,
-  borderColor: "#087A36",
+  borderColor: "#00FF9C",
 },
 
 botaoHistoricoTexto: {
-  color: "#087A36",
+  color: "#00FF9C",
   fontSize: 15,
   fontWeight: "800",
 },
@@ -4833,20 +4833,20 @@ botaoHistoricoTexto: {
   // ==========================================
 
   cadastroHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingVertical: 14,
     flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   botaoVoltar: {
     width: 42,
     height: 42,
     borderRadius: 10,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#151D29",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -4854,7 +4854,7 @@ botaoHistoricoTexto: {
 
   botaoVoltarTexto: {
     fontSize: 26,
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   cadastroHeaderTexto: {
@@ -4873,22 +4873,22 @@ botaoHistoricoTexto: {
   titulo: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   subtitulo: {
     fontSize: 14,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
   },
 
   resumo: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 16,
     marginBottom: 20,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4906,38 +4906,38 @@ botaoHistoricoTexto: {
 
   resumoLabel: {
     fontSize: 15,
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   resumoValorVerde: {
     fontSize: 17,
     fontWeight: "800",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   resumoValorVermelho: {
     fontSize: 17,
     fontWeight: "800",
-    color: "#C62828",
+    color: "#FF3B6B",
   },
 
   resumoValorLiquido: {
     fontSize: 19,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   secaoTitulo: {
     fontSize: 20,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 10,
     marginTop: 8,
   },
 
   textoVazio: {
     fontSize: 14,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginBottom: 12,
   },
 
@@ -4949,12 +4949,12 @@ botaoHistoricoTexto: {
 
   gridCard: {
     width: "48%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     marginBottom: 12,
     borderRadius: 12,
     overflow: "hidden",
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4965,12 +4965,12 @@ botaoHistoricoTexto: {
 
   cardNormal: {
     width: "100%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 16,
     marginBottom: 12,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4991,36 +4991,36 @@ botaoHistoricoTexto: {
   cardTitulo: {
     fontSize: 16,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   cardValorVerde: {
     fontSize: 17,
     fontWeight: "800",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 5,
   },
 
   cardValorVermelho: {
     fontSize: 17,
     fontWeight: "800",
-    color: "#C62828",
+    color: "#FF3B6B",
     marginTop: 5,
   },
 
   cardDescricao: {
     fontSize: 11,
-    color: "#9CA3AF",
+    color: "#687386",
     marginTop: 5,
   },
 
   botaoApagar: {
-    backgroundColor: "#C62828",
+    backgroundColor: "#FF3B6B",
     paddingVertical: 8,
   },
 
   botaoApagarTexto: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontSize: 12,
     fontWeight: "700",
     textAlign: "center",
@@ -5028,7 +5028,7 @@ botaoHistoricoTexto: {
 
   botaoAdicionar: {
     width: "100%",
-    backgroundColor: "#087A36",
+    backgroundColor: "#00FF9C",
     paddingVertical: 13,
     alignItems: "center",
     marginBottom: 18,
@@ -5036,7 +5036,7 @@ botaoHistoricoTexto: {
   },
 
   botaoAdicionarTexto: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontSize: 14,
     fontWeight: "800",
   },
@@ -5049,12 +5049,12 @@ botaoHistoricoTexto: {
 
   infoCard: {
     width: "48%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 14,
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5071,19 +5071,19 @@ botaoHistoricoTexto: {
   infoTitulo: {
     fontSize: 14,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   infoValorVerde: {
     fontSize: 18,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 5,
   },
 
   infoDescricao: {
     fontSize: 10,
-    color: "#9CA3AF",
+    color: "#687386",
     marginTop: 4,
   },
 
@@ -5092,13 +5092,13 @@ botaoHistoricoTexto: {
   // ==========================================
 
   lancarArea: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 16,
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5110,13 +5110,13 @@ botaoHistoricoTexto: {
   lancarTitulo: {
     fontSize: 18,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     textAlign: "center",
   },
 
   lancarDescricao: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     textAlign: "center",
     lineHeight: 19,
     marginTop: 6,
@@ -5124,7 +5124,7 @@ botaoHistoricoTexto: {
   },
 
   botaoLancarDia: {
-    backgroundColor: "#087A36",
+    backgroundColor: "#00FF9C",
     borderRadius: 12,
     minHeight: 58,
     alignItems: "center",
@@ -5132,7 +5132,7 @@ botaoHistoricoTexto: {
   },
 
   botaoLancarDiaTexto: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontSize: 17,
     fontWeight: "900",
   },
@@ -5150,7 +5150,7 @@ botaoHistoricoTexto: {
   },
 
   modal: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 20,
     borderRadius: 14,
   },
@@ -5158,24 +5158,24 @@ botaoHistoricoTexto: {
   modalTitulo: {
     fontSize: 21,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 16,
   },
 
   input: {
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: "#293547",
     paddingHorizontal: 12,
     paddingVertical: 11,
     fontSize: 15,
     marginBottom: 12,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 8,
   },
 
   dicaHoras: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginBottom: 10,
   },
 
@@ -5188,8 +5188,8 @@ botaoHistoricoTexto: {
 
   tipoCombustivelBotao: {
     borderWidth: 1,
-    borderColor: "#D1D5DB",
-    backgroundColor: "#FFFFFF",
+    borderColor: "#293547",
+    backgroundColor: "#101722",
     borderRadius: 20,
     paddingVertical: 9,
     paddingHorizontal: 12,
@@ -5197,18 +5197,18 @@ botaoHistoricoTexto: {
   },
 
   tipoCombustivelBotaoAtivo: {
-    backgroundColor: "#087A36",
-    borderColor: "#087A36",
+    backgroundColor: "#00FF9C",
+    borderColor: "#00FF9C",
   },
 
   tipoCombustivelTexto: {
     fontSize: 13,
     fontWeight: "700",
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   tipoCombustivelTextoAtivo: {
-    color: "#FFFFFF",
+    color: "#101722",
   },
 
   modalBotoes: {
@@ -5222,19 +5222,19 @@ botaoHistoricoTexto: {
     paddingHorizontal: 16,
     marginRight: 8,
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: "#293547",
     borderRadius: 8,
   },
 
   botaoConfirmar: {
-    backgroundColor: "#087A36",
+    backgroundColor: "#00FF9C",
     paddingVertical: 11,
     paddingHorizontal: 18,
     borderRadius: 8,
   },
 
   botaoConfirmarTexto: {
-    color: "#FFFFFF",
+    color: "#101722",
     fontWeight: "700",
   },
 
@@ -5244,29 +5244,29 @@ botaoHistoricoTexto: {
 
   historicoTela: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
   },
 
   historicoHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   historicoTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   historicoSubtitulo: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
   },
 
@@ -5275,23 +5275,23 @@ botaoHistoricoTexto: {
     height: 42,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#151D29",
     borderRadius: 10,
   },
 
   botaoFecharHistoricoTexto: {
     fontSize: 22,
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   filtrosHistorico: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 13,
     paddingVertical: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   filtroBotao: {
@@ -5300,25 +5300,25 @@ botaoHistoricoTexto: {
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#D1D5DB",
+    borderColor: "#293547",
     marginHorizontal: 3,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 10,
   },
 
   filtroBotaoAtivo: {
-    backgroundColor: "#087A36",
-    borderColor: "#087A36",
+    backgroundColor: "#00FF9C",
+    borderColor: "#00FF9C",
   },
 
   filtroTexto: {
     fontSize: 13,
     fontWeight: "700",
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   filtroTextoAtivo: {
-    color: "#FFFFFF",
+    color: "#101722",
   },
 
   historicoScroll: {
@@ -5327,13 +5327,13 @@ botaoHistoricoTexto: {
   },
 
   historicoResumoMes: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 15,
     marginTop: 4,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -5342,7 +5342,7 @@ botaoHistoricoTexto: {
   historicoResumoMesTitulo: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 10,
   },
 
@@ -5358,7 +5358,7 @@ botaoHistoricoTexto: {
 
   historicoResumoMesLabel: {
     fontSize: 11,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginBottom: 4,
   },
 
@@ -5370,12 +5370,12 @@ botaoHistoricoTexto: {
 
   historicoCard: {
     width: "31.5%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     marginBottom: 12,
     padding: 10,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5387,35 +5387,35 @@ botaoHistoricoTexto: {
   historicoCardData: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 8,
     textAlign: "center",
   },
 
   historicoCardLabel: {
     fontSize: 10,
-    color: "#6B7280",
+    color: "#8B96A8",
     textAlign: "center",
   },
 
   historicoCardLiquido: {
     fontSize: 14,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 3,
     textAlign: "center",
   },
 
   historicoCardToque: {
     fontSize: 9,
-    color: "#9CA3AF",
+    color: "#687386",
     marginTop: 7,
     textAlign: "center",
   },
 
   historicoVazio: {
     width: "100%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 30,
     alignItems: "center",
     marginTop: 10,
@@ -5430,13 +5430,13 @@ botaoHistoricoTexto: {
   historicoVazioTitulo: {
     fontSize: 18,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
     textAlign: "center",
   },
 
   historicoVazioTexto: {
     fontSize: 14,
-    color: "#6B7280",
+    color: "#8B96A8",
     textAlign: "center",
     marginTop: 6,
   },
@@ -5447,7 +5447,7 @@ botaoHistoricoTexto: {
 
   detalhesTela: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
   },
 
   detalhesHeaderBotoes: {
@@ -5460,37 +5460,37 @@ botaoHistoricoTexto: {
     minHeight: 42,
     paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: "#E8F5EE",
+    backgroundColor: "#12352B",
     alignItems: "center",
     justifyContent: "center",
   },
 
   botaoEditarDiaTexto: {
-    color: "#087A36",
+    color: "#00FF9C",
     fontSize: 13,
     fontWeight: "800",
   },
 
   detalhesHeader: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   detalhesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   detalhesSubtitulo: {
     fontSize: 13,
-    color: "#6B7280",
+    color: "#8B96A8",
     marginTop: 3,
   },
 
@@ -5508,12 +5508,12 @@ botaoHistoricoTexto: {
   detalhesCard: {
     width: "23.5%",
     minHeight: 92,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 10,
     borderRadius: 14,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5533,7 +5533,7 @@ modalConfirmacaoFundo: {
 modalConfirmacao: {
   width: "100%",
   maxWidth: 380,
-  backgroundColor: "#FFFFFF",
+  backgroundColor: "#101722",
   borderRadius: 20,
   padding: 24,
 },
@@ -5541,13 +5541,13 @@ modalConfirmacao: {
 modalConfirmacaoTitulo: {
   fontSize: 22,
   fontWeight: "700",
-  color: "#111827",
+  color: "#F4F7FB",
   marginBottom: 12,
 },
 
 modalConfirmacaoTexto: {
   fontSize: 16,
-  color: "#4B5563",
+  color: "#AAB5C4",
   lineHeight: 24,
   marginBottom: 24,
 },
@@ -5562,26 +5562,26 @@ botaoCancelarExclusao: {
   paddingVertical: 12,
   paddingHorizontal: 18,
   borderRadius: 12,
-  backgroundColor: "#E5E7EB",
+  backgroundColor: "#1D2633",
 },
 
 botaoCancelarExclusaoTexto: {
   fontSize: 15,
   fontWeight: "600",
-  color: "#374151",
+  color: "#C9D2DF",
 },
 
 botaoConfirmarExclusao: {
   paddingVertical: 12,
   paddingHorizontal: 18,
   borderRadius: 12,
-  backgroundColor: "#DC2626",
+  backgroundColor: "#FF3B6B",
 },
 
 botaoConfirmarExclusaoTexto: {
   fontSize: 15,
   fontWeight: "600",
-  color: "#FFFFFF",
+  color: "#101722",
 },
 
   detalhesIcone: {
@@ -5591,13 +5591,13 @@ botaoConfirmarExclusaoTexto: {
 
   detalhesLabel: {
     fontSize: 12,
-    color: "#6B7280",
+    color: "#8B96A8",
   },
 
   detalhesValor: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginTop: 4,
     textAlign: "center",
   },
@@ -5605,7 +5605,7 @@ botaoConfirmarExclusaoTexto: {
   detalhesValorVerde: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 4,
     textAlign: "center",
   },
@@ -5613,7 +5613,7 @@ botaoConfirmarExclusaoTexto: {
   detalhesValorVermelho: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#C62828",
+    color: "#FF3B6B",
     marginTop: 4,
     textAlign: "center",
   },
@@ -5621,19 +5621,19 @@ botaoConfirmarExclusaoTexto: {
   detalhesValorLiquido: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
     marginTop: 4,
     textAlign: "center",
     flexShrink: 1,
   },
 
   detalhesSecao: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     padding: 15,
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "#00D9FF",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5645,7 +5645,7 @@ botaoConfirmarExclusaoTexto: {
   detalhesSecaoTitulo: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
     marginBottom: 12,
   },
 
@@ -5655,25 +5655,25 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     paddingVertical: 7,
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: "#151D29",
   },
 
   detalheLinhaNome: {
     fontSize: 14,
-    color: "#4B5563",
+    color: "#AAB5C4",
     flex: 1,
   },
 
   detalheLinhaValor: {
     fontSize: 14,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   detalheLinhaValorVermelho: {
     fontSize: 14,
     fontWeight: "800",
-    color: "#C62828",
+    color: "#FF3B6B",
   },
 
   // ==========================================
@@ -5689,7 +5689,7 @@ botaoConfirmarExclusaoTexto: {
   modalGraficoDetalhes: {
     width: "100%",
     maxHeight: "85%",
-    backgroundColor: "#F5F7FA",
+    backgroundColor: "#080B12",
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
     paddingBottom: 20,
@@ -5697,35 +5697,35 @@ botaoConfirmarExclusaoTexto: {
   },
 
   modalGraficoCabecalho: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     paddingHorizontal: 18,
     paddingVertical: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#E5E7EB",
+    borderBottomColor: "#1D2633",
   },
 
   modalGraficoTitulo: {
     flex: 1,
     fontSize: 20,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   modalGraficoFechar: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: "#151D29",
     alignItems: "center",
     justifyContent: "center",
   },
 
   modalGraficoFecharTexto: {
     fontSize: 25,
-    color: "#1F2937",
+    color: "#F4F7FB",
     lineHeight: 28,
   },
 
@@ -5735,28 +5735,28 @@ botaoConfirmarExclusaoTexto: {
   },
 
   modalGraficoResumo: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 12,
     padding: 14,
     marginBottom: 12,
     fontSize: 15,
     fontWeight: "800",
-    color: "#1F2937",
+    color: "#F4F7FB",
     elevation: 2,
   },
 
   modalGraficoVazio: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 12,
     padding: 22,
     textAlign: "center",
-    color: "#6B7280",
+    color: "#8B96A8",
   },
 
   cardDiaGrafico: {
     width: "100%",
     minHeight: 70,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 15,
     marginBottom: 10,
@@ -5764,36 +5764,36 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#1D2633",
     elevation: 2,
   },
 
   cardDiaGraficoTitulo: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   cardDiaGraficoSubtitulo: {
     fontSize: 11,
-    color: "#9CA3AF",
+    color: "#687386",
     marginTop: 3,
   },
 
   cardDiaGraficoValor: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   cardMesGrafico: {
     width: "100%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#101722",
     borderRadius: 14,
     padding: 14,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#1D2633",
     elevation: 2,
   },
 
@@ -5804,31 +5804,31 @@ botaoConfirmarExclusaoTexto: {
     paddingBottom: 10,
     marginBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#F3F4F6",
+    borderBottomColor: "#151D29",
   },
 
   cardMesGraficoTitulo: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#1F2937",
+    color: "#F4F7FB",
   },
 
   cardMesGraficoValor: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
   cardMesGraficoVazio: {
     fontSize: 12,
-    color: "#9CA3AF",
+    color: "#687386",
     paddingVertical: 4,
   },
 
   cardDiaAnoGrafico: {
     width: "100%",
     minHeight: 42,
-    backgroundColor: "#F9FAFB",
+    backgroundColor: "#0D131D",
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 9,
@@ -5837,19 +5837,19 @@ botaoConfirmarExclusaoTexto: {
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: "#1D2633",
   },
 
   cardDiaAnoTexto: {
     fontSize: 13,
     fontWeight: "800",
-    color: "#4B5563",
+    color: "#AAB5C4",
   },
 
   cardDiaAnoValor: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#087A36",
+    color: "#00FF9C",
   },
 
 });

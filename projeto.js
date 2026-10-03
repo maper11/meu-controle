@@ -196,7 +196,7 @@ export default function App() {
   const [modalAdicionarDespesa, setModalAdicionarDespesa] =
     useState(false);
 
-  const [modalGanho Bruto, setModalGanho Bruto] =
+  const [modalGanhoBruto, setModalGanhoBruto] =
     useState(false);
 
   const [modalCombustivel, setModalCombustivel] =
@@ -239,7 +239,7 @@ export default function App() {
   const [dataEmEdicao, setDataEmEdicao] =
     useState(null);
 
-  const [valorGanho BrutoInput, setValorGanho BrutoInput] =
+  const [valorGanhoBrutoInput, setValorGanhoBrutoInput] =
     useState("");
 
   // ==========================================
@@ -301,7 +301,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   setHorasTrabalhadas("");
   setHorasTrabalhadasInput("");
 
-  setValorGanho BrutoInput("");
+  setValorGanhoBrutoInput("");
 
   setTelaAtual("cadastro");
 }
@@ -657,21 +657,21 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     setModalAdicionarApp(false);
   }
 
-  function abrirGanho Bruto(app) {
+  function abrirGanhoBruto(app) {
     setAppSelecionado(app);
 
-    setValorGanho BrutoInput(
+    setValorGanhoBrutoInput(
       String(
         app.valor || ""
       ).replace(".", ",")
     );
 
-    setModalGanho Bruto(true);
+    setModalGanhoBruto(true);
   }
 
-  function salvarGanho Bruto() {
+  function salvarGanhoBruto() {
     const valor = Number(
-      valorGanho BrutoInput.replace(
+      valorGanhoBrutoInput.replace(
         ",",
         "."
       )
@@ -691,9 +691,9 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       )
     );
 
-    setModalGanho Bruto(false);
+    setModalGanhoBruto(false);
     setAppSelecionado(null);
-    setValorGanho BrutoInput("");
+    setValorGanhoBrutoInput("");
   }
 
   function apagarAplicativo(id) {
@@ -2672,7 +2672,7 @@ const maiorValorGrafico = Math.max(
                           styles.cardConteudo
                         }
                         onPress={() =>
-                          abrirGanho Bruto(
+                          abrirGanhoBruto(
                             app
                           )
                         }
@@ -3177,12 +3177,12 @@ const maiorValorGrafico = Math.max(
 
       <Modal
         visible={
-          modalGanho Bruto
+          modalGanhoBruto
         }
         transparent
         animationType="fade"
         onRequestClose={() =>
-          setModalGanho Bruto(
+          setModalGanhoBruto(
             false
           )
         }
@@ -3205,10 +3205,10 @@ const maiorValorGrafico = Math.max(
               style={styles.input}
               placeholder="Valor do dia"
               value={
-                valorGanho BrutoInput
+                valorGanhoBrutoInput
               }
               onChangeText={
-                setValorGanho BrutoInput
+                setValorGanhoBrutoInput
               }
               keyboardType="decimal-pad"
               autoFocus
@@ -3224,7 +3224,7 @@ const maiorValorGrafico = Math.max(
                   styles.botaoCancelar
                 }
                 onPress={() =>
-                  setModalGanho Bruto(
+                  setModalGanhoBruto(
                     false
                   )
                 }
@@ -3239,7 +3239,7 @@ const maiorValorGrafico = Math.max(
                   styles.botaoConfirmar
                 }
                 onPress={
-                  salvarGanho Bruto
+                  salvarGanhoBruto
                 }
               >
                 <Text

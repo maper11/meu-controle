@@ -196,7 +196,7 @@ export default function App() {
   const [modalAdicionarDespesa, setModalAdicionarDespesa] =
     useState(false);
 
-  const [modalFaturamento, setModalFaturamento] =
+  const [modalGanho Bruto, setModalGanho Bruto] =
     useState(false);
 
   const [modalCombustivel, setModalCombustivel] =
@@ -239,7 +239,7 @@ export default function App() {
   const [dataEmEdicao, setDataEmEdicao] =
     useState(null);
 
-  const [valorFaturamentoInput, setValorFaturamentoInput] =
+  const [valorGanho BrutoInput, setValorGanho BrutoInput] =
     useState("");
 
   // ==========================================
@@ -301,7 +301,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
   setHorasTrabalhadas("");
   setHorasTrabalhadasInput("");
 
-  setValorFaturamentoInput("");
+  setValorGanho BrutoInput("");
 
   setTelaAtual("cadastro");
 }
@@ -657,21 +657,21 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     setModalAdicionarApp(false);
   }
 
-  function abrirFaturamento(app) {
+  function abrirGanho Bruto(app) {
     setAppSelecionado(app);
 
-    setValorFaturamentoInput(
+    setValorGanho BrutoInput(
       String(
         app.valor || ""
       ).replace(".", ",")
     );
 
-    setModalFaturamento(true);
+    setModalGanho Bruto(true);
   }
 
-  function salvarFaturamento() {
+  function salvarGanho Bruto() {
     const valor = Number(
-      valorFaturamentoInput.replace(
+      valorGanho BrutoInput.replace(
         ",",
         "."
       )
@@ -691,9 +691,9 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
       )
     );
 
-    setModalFaturamento(false);
+    setModalGanho Bruto(false);
     setAppSelecionado(null);
-    setValorFaturamentoInput("");
+    setValorGanho BrutoInput("");
   }
 
   function apagarAplicativo(id) {
@@ -1605,7 +1605,7 @@ const maiorValorGrafico = Math.max(
         <View style={styles.detalhesGrid}>
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>💰</Text>
-            <Text style={styles.detalhesLabel}>Líquido total</Text>
+            <Text style={styles.detalhesLabel}>Ganho Líquido total</Text>
             <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.liquido)}
             </Text>
@@ -1613,7 +1613,7 @@ const maiorValorGrafico = Math.max(
 
           <View style={styles.detalhesCard}>
             <Text style={styles.detalhesIcone}>📈</Text>
-            <Text style={styles.detalhesLabel}>Faturamento total</Text>
+            <Text style={styles.detalhesLabel}>Ganho Bruto total</Text>
             <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.faturamento)}
             </Text>
@@ -1664,7 +1664,7 @@ const maiorValorGrafico = Math.max(
               <View style={styles.historicoResumoMesGrid}>
                 <View style={styles.historicoResumoMesItem}>
                   <Text style={styles.historicoResumoMesLabel}>
-                    Líquido
+                    Ganho Líquido
                   </Text>
                   <Text
                     style={styles.detalhesValorLiquido}
@@ -1677,7 +1677,7 @@ const maiorValorGrafico = Math.max(
 
                 <View style={styles.historicoResumoMesItem}>
                   <Text style={styles.historicoResumoMesLabel}>
-                    Faturamento
+                    Ganho Bruto
                   </Text>
                   <Text
                     style={styles.detalhesValor}
@@ -1808,7 +1808,7 @@ const maiorValorGrafico = Math.max(
                     styles.historicoCardLabel
                   }
                 >
-                  Líquido
+                  Ganho Líquido
                 </Text>
 
                 <Text
@@ -1908,7 +1908,7 @@ const maiorValorGrafico = Math.max(
             <View style={styles.detalhesGrid}>
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>💰</Text>
-                <Text style={styles.detalhesLabel}>Líquido</Text>
+                <Text style={styles.detalhesLabel}>Ganho Líquido</Text>
                 <Text
                   style={styles.detalhesValorLiquido}
                   numberOfLines={1}
@@ -1921,7 +1921,7 @@ const maiorValorGrafico = Math.max(
 
               <View style={styles.detalhesCard}>
                 <Text style={styles.detalhesIcone}>📈</Text>
-                <Text style={styles.detalhesLabel}>Faturamento</Text>
+                <Text style={styles.detalhesLabel}>Ganho Bruto</Text>
                 <Text
                   style={styles.detalhesValor}
                   numberOfLines={1}
@@ -2341,7 +2341,7 @@ const maiorValorGrafico = Math.max(
                   styles.graficoSubtitulo
                 }
               >
-                Líquido
+                Ganho Líquido
               </Text>
 
               <ScrollView
@@ -2572,7 +2572,7 @@ const maiorValorGrafico = Math.max(
                     styles.resumoLabel
                   }
                 >
-                  Faturamento
+                  Ganho Bruto
                 </Text>
 
                 <Text
@@ -2620,7 +2620,7 @@ const maiorValorGrafico = Math.max(
                     styles.resumoLabel
                   }
                 >
-                  Líquido
+                  Ganho Líquido
                 </Text>
 
                 <Text
@@ -2672,7 +2672,7 @@ const maiorValorGrafico = Math.max(
                           styles.cardConteudo
                         }
                         onPress={() =>
-                          abrirFaturamento(
+                          abrirGanho Bruto(
                             app
                           )
                         }
@@ -3120,7 +3120,7 @@ const maiorValorGrafico = Math.max(
 
             <TextInput
               style={styles.input}
-              placeholder="Faturamento do dia"
+              placeholder="Ganho Bruto do dia"
               value={
                 valorNovoApp
               }
@@ -3177,12 +3177,12 @@ const maiorValorGrafico = Math.max(
 
       <Modal
         visible={
-          modalFaturamento
+          modalGanho Bruto
         }
         transparent
         animationType="fade"
         onRequestClose={() =>
-          setModalFaturamento(
+          setModalGanho Bruto(
             false
           )
         }
@@ -3205,10 +3205,10 @@ const maiorValorGrafico = Math.max(
               style={styles.input}
               placeholder="Valor do dia"
               value={
-                valorFaturamentoInput
+                valorGanho BrutoInput
               }
               onChangeText={
-                setValorFaturamentoInput
+                setValorGanho BrutoInput
               }
               keyboardType="decimal-pad"
               autoFocus
@@ -3224,7 +3224,7 @@ const maiorValorGrafico = Math.max(
                   styles.botaoCancelar
                 }
                 onPress={() =>
-                  setModalFaturamento(
+                  setModalGanho Bruto(
                     false
                   )
                 }
@@ -3239,7 +3239,7 @@ const maiorValorGrafico = Math.max(
                   styles.botaoConfirmar
                 }
                 onPress={
-                  salvarFaturamento
+                  salvarGanho Bruto
                 }
               >
                 <Text
@@ -3759,12 +3759,12 @@ const maiorValorGrafico = Math.max(
 
                   <View style={styles.resumoGeralLista}>
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💰 Líquido</Text>
+                      <Text style={styles.resumoGeralLabel}>💰 Ganho Líquido</Text>
                       <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(mes.liquido)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📈 Faturamento</Text>
+                      <Text style={styles.resumoGeralLabel}>📈 Ganho Bruto</Text>
                       <Text style={styles.resumoGeralValor}>{formatarMoeda(mes.faturamento)}</Text>
                     </View>
 
@@ -3793,12 +3793,12 @@ const maiorValorGrafico = Math.max(
 
                   <View style={styles.resumoGeralLista}>
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💰 Líquido total</Text>
+                      <Text style={styles.resumoGeralLabel}>💰 Ganho Líquido total</Text>
                       <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(ano.liquido)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📈 Faturamento total</Text>
+                      <Text style={styles.resumoGeralLabel}>📈 Ganho Bruto total</Text>
                       <Text style={styles.resumoGeralValor}>{formatarMoeda(ano.faturamento)}</Text>
                     </View>
 

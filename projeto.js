@@ -12,6 +12,8 @@ import {
   AppState,
 } from "react-native";
 
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CHAVE_DADOS = "@meu_controle_dados";
@@ -2135,7 +2137,8 @@ const maiorValorGrafico = Math.max(
   // ==========================================
 
   return (
-    <View style={styles.container}>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
 
       {/* ====================================== */}
       {/* DASHBOARD INICIAL */}
@@ -4108,7 +4111,8 @@ const maiorValorGrafico = Math.max(
     </View>
   </View>
 </Modal>
-    </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -5843,7 +5847,3 @@ botaoConfirmarExclusaoTexto: {
   cardDiaAnoValor: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#3B82F6",
-  },
-
-});

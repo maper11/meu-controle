@@ -2386,7 +2386,7 @@ const maiorValorGrafico = Math.max(
                                 {
                                   width: `${largura}%`,
                                   backgroundColor:
-                                    item.valor < 0 ? "#FF3B6B" : "#00FF9C",
+                                    item.valor < 0 ? "#FF3B6B" : "#A855F7",
                                 },
                               ]}
                             />
@@ -2432,7 +2432,7 @@ const maiorValorGrafico = Math.max(
                               {
                                 height: altura,
                                 backgroundColor:
-                                  item.valor < 0 ? "#FF3B6B" : "#00FF9C",
+                                  item.valor < 0 ? "#FF3B6B" : "#A855F7",
                               },
                             ]}
                           />
@@ -4131,7 +4131,7 @@ const maiorValorGrafico = Math.max(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
   },
 
   // ==========================================
@@ -4140,24 +4140,24 @@ const styles = StyleSheet.create({
 
   configuracoesTela: {
     flex: 1,
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
   },
 
   configuracoesHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   configuracoesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   configuracoesSubtitulo: {
@@ -4170,7 +4170,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 10,
-    backgroundColor: "#151D29",
+    backgroundColor: "#161521",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -4186,14 +4186,14 @@ const styles = StyleSheet.create({
   },
 
   configuracaoCard: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 16,
     marginBottom: 12,
     flexDirection: "row",
     alignItems: "center",
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4234,7 +4234,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: "#151D29",
+    backgroundColor: "#161521",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -4244,23 +4244,23 @@ const styles = StyleSheet.create({
   },
 
   dashboardHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingTop: 20,
     paddingBottom: 14,
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   periodos: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 12,
     paddingVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   periodoBotao: {
@@ -4271,13 +4271,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 9,
     borderWidth: 1,
-    borderColor: "#293547",
-    backgroundColor: "#101722",
+    borderColor: "#30283F",
+    backgroundColor: "#11111A",
   },
 
   periodoBotaoAtivo: {
-    backgroundColor: "#00FF9C",
-    borderColor: "#00FF9C",
+    backgroundColor: "#A855F7",
+    borderColor: "#A855F7",
   },
 
   periodoTexto: {
@@ -4287,18 +4287,18 @@ const styles = StyleSheet.create({
   },
 
   periodoTextoAtivo: {
-    color: "#101722",
+    color: "#11111A",
   },
 
   metaMensalCard: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     marginHorizontal: 16,
     marginTop: 10,
     marginBottom: 6,
     padding: 16,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4319,14 +4319,14 @@ const styles = StyleSheet.create({
   metaMensalValor: {
     fontSize: 20,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
     marginTop: 3,
   },
 
   metaMensalEditar: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   metaMensalProgressoTexto: {
@@ -4340,14 +4340,14 @@ const styles = StyleSheet.create({
   metaMensalBarraFundo: {
     width: "100%",
     height: 16,
-    backgroundColor: "#1D2633",
+    backgroundColor: "#252033",
     borderRadius: 10,
     overflow: "hidden",
   },
 
   metaMensalBarraValor: {
     height: "100%",
-    backgroundColor: "#00FF9C",
+    backgroundColor: "#A855F7",
     borderRadius: 10,
   },
 
@@ -4374,12 +4374,12 @@ const styles = StyleSheet.create({
 
   resumoDashboardCard: {
     width: "48.5%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 13,
     marginBottom: 10,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4405,7 +4405,7 @@ const styles = StyleSheet.create({
 
   resumoDashboardValorVerde: {
     fontSize: 17,
-    color: "#00FF9C",
+    color: "#A855F7",
     fontWeight: "900",
     marginTop: 5,
   },
@@ -4418,12 +4418,12 @@ const styles = StyleSheet.create({
   },
 
   resumoMesCard: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4452,8 +4452,8 @@ const styles = StyleSheet.create({
   resumoMesDias: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#00FF9C",
-    backgroundColor: "#12352B",
+    color: "#A855F7",
+    backgroundColor: "#241633",
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 10,
@@ -4469,7 +4469,7 @@ const styles = StyleSheet.create({
     width: "48%",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#151D29",
+    borderBottomColor: "#161521",
   },
 
   resumoMesLabel: {
@@ -4487,7 +4487,7 @@ const styles = StyleSheet.create({
   resumoMesValorVerde: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
     marginTop: 4,
   },
 
@@ -4500,24 +4500,24 @@ const styles = StyleSheet.create({
 
   resumoGeralTela: {
     flex: 1,
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
   },
 
   resumoGeralHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   resumoGeralTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   resumoGeralSubtitulo: {
@@ -4540,12 +4540,12 @@ const styles = StyleSheet.create({
   },
 
   resumoGeralLista: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     paddingHorizontal: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4557,7 +4557,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#151D29",
+    borderBottomColor: "#161521",
   },
 
   resumoGeralLabel: {
@@ -4577,7 +4577,7 @@ const styles = StyleSheet.create({
   resumoGeralValorVerde: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
     marginLeft: 12,
   },
 
@@ -4589,9 +4589,9 @@ const styles = StyleSheet.create({
   },
 
   botaoResumoGeral: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderWidth: 1,
-    borderColor: "#00FF9C",
+    borderColor: "#A855F7",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
@@ -4601,7 +4601,7 @@ const styles = StyleSheet.create({
   },
 
   botaoResumoGeralTexto: {
-    color: "#00FF9C",
+    color: "#A855F7",
     fontSize: 15,
     fontWeight: "900",
   },
@@ -4612,12 +4612,12 @@ const styles = StyleSheet.create({
   },
 
   graficoCard: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4643,11 +4643,11 @@ const styles = StyleSheet.create({
   graficoPlaceholder: {
     height: 260,
     borderRadius: 10,
-    backgroundColor: "#0D131D",
+    backgroundColor: "#0D0B14",
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#1D2633",
+    borderColor: "#252033",
   },
 
   graficoArea: {
@@ -4696,7 +4696,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#151D29",
+    borderBottomColor: "#161521",
   },
 
   graficoDiaCabecalho: {
@@ -4722,7 +4722,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 10,
     borderRadius: 6,
-    backgroundColor: "#1D2633",
+    backgroundColor: "#252033",
     overflow: "hidden",
   },
 
@@ -4734,7 +4734,7 @@ const styles = StyleSheet.create({
 
 graficoBarraLiquido: {
   height: 150,
-  backgroundColor: "#00FF9C",
+  backgroundColor: "#A855F7",
 },
 
 graficoBarraDespesas: {
@@ -4772,7 +4772,7 @@ graficoBarraDespesas: {
   graficoPlaceholderTexto: {
     fontSize: 20,
     fontWeight: "800",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   graficoPlaceholderSubtexto: {
@@ -4782,14 +4782,14 @@ graficoBarraDespesas: {
   },
 
   botaoCadastrarDia: {
-    backgroundColor: "#00FF9C",
+    backgroundColor: "#A855F7",
     borderRadius: 12,
     minHeight: 58,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.08,
     shadowRadius: 5,
     shadowOffset: {
@@ -4799,31 +4799,31 @@ graficoBarraDespesas: {
   },
 
   botaoCadastrarDiaIcone: {
-    color: "#101722",
+    color: "#11111A",
     fontSize: 25,
     fontWeight: "500",
     marginRight: 8,
   },
 
   botaoCadastrarDiaTexto: {
-    color: "#101722",
+    color: "#11111A",
     fontSize: 16,
     fontWeight: "800",
   },
 
 botaoHistorico: {
   marginTop: 12,
-  backgroundColor: "#101722",
+  backgroundColor: "#11111A",
   borderRadius: 12,
   minHeight: 52,
   alignItems: "center",
   justifyContent: "center",
   borderWidth: 1,
-  borderColor: "#00FF9C",
+  borderColor: "#A855F7",
 },
 
 botaoHistoricoTexto: {
-  color: "#00FF9C",
+  color: "#A855F7",
   fontSize: 15,
   fontWeight: "800",
 },
@@ -4833,20 +4833,20 @@ botaoHistoricoTexto: {
   // ==========================================
 
   cadastroHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingVertical: 14,
     flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   botaoVoltar: {
     width: 42,
     height: 42,
     borderRadius: 10,
-    backgroundColor: "#151D29",
+    backgroundColor: "#161521",
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
@@ -4873,7 +4873,7 @@ botaoHistoricoTexto: {
   titulo: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   subtitulo: {
@@ -4883,12 +4883,12 @@ botaoHistoricoTexto: {
   },
 
   resumo: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 16,
     marginBottom: 20,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4949,12 +4949,12 @@ botaoHistoricoTexto: {
 
   gridCard: {
     width: "48%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     marginBottom: 12,
     borderRadius: 12,
     overflow: "hidden",
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4965,12 +4965,12 @@ botaoHistoricoTexto: {
 
   cardNormal: {
     width: "100%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 16,
     marginBottom: 12,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5020,7 +5020,7 @@ botaoHistoricoTexto: {
   },
 
   botaoApagarTexto: {
-    color: "#101722",
+    color: "#11111A",
     fontSize: 12,
     fontWeight: "700",
     textAlign: "center",
@@ -5028,7 +5028,7 @@ botaoHistoricoTexto: {
 
   botaoAdicionar: {
     width: "100%",
-    backgroundColor: "#00FF9C",
+    backgroundColor: "#A855F7",
     paddingVertical: 13,
     alignItems: "center",
     marginBottom: 18,
@@ -5036,7 +5036,7 @@ botaoHistoricoTexto: {
   },
 
   botaoAdicionarTexto: {
-    color: "#101722",
+    color: "#11111A",
     fontSize: 14,
     fontWeight: "800",
   },
@@ -5049,12 +5049,12 @@ botaoHistoricoTexto: {
 
   infoCard: {
     width: "48%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 14,
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5092,13 +5092,13 @@ botaoHistoricoTexto: {
   // ==========================================
 
   lancarArea: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 16,
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5124,7 +5124,7 @@ botaoHistoricoTexto: {
   },
 
   botaoLancarDia: {
-    backgroundColor: "#00FF9C",
+    backgroundColor: "#A855F7",
     borderRadius: 12,
     minHeight: 58,
     alignItems: "center",
@@ -5132,7 +5132,7 @@ botaoHistoricoTexto: {
   },
 
   botaoLancarDiaTexto: {
-    color: "#101722",
+    color: "#11111A",
     fontSize: 17,
     fontWeight: "900",
   },
@@ -5150,7 +5150,7 @@ botaoHistoricoTexto: {
   },
 
   modal: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 20,
     borderRadius: 14,
   },
@@ -5164,12 +5164,12 @@ botaoHistoricoTexto: {
 
   input: {
     borderWidth: 1,
-    borderColor: "#293547",
+    borderColor: "#30283F",
     paddingHorizontal: 12,
     paddingVertical: 11,
     fontSize: 15,
     marginBottom: 12,
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 8,
   },
 
@@ -5188,8 +5188,8 @@ botaoHistoricoTexto: {
 
   tipoCombustivelBotao: {
     borderWidth: 1,
-    borderColor: "#293547",
-    backgroundColor: "#101722",
+    borderColor: "#30283F",
+    backgroundColor: "#11111A",
     borderRadius: 20,
     paddingVertical: 9,
     paddingHorizontal: 12,
@@ -5197,8 +5197,8 @@ botaoHistoricoTexto: {
   },
 
   tipoCombustivelBotaoAtivo: {
-    backgroundColor: "#00FF9C",
-    borderColor: "#00FF9C",
+    backgroundColor: "#A855F7",
+    borderColor: "#A855F7",
   },
 
   tipoCombustivelTexto: {
@@ -5208,7 +5208,7 @@ botaoHistoricoTexto: {
   },
 
   tipoCombustivelTextoAtivo: {
-    color: "#101722",
+    color: "#11111A",
   },
 
   modalBotoes: {
@@ -5222,19 +5222,19 @@ botaoHistoricoTexto: {
     paddingHorizontal: 16,
     marginRight: 8,
     borderWidth: 1,
-    borderColor: "#293547",
+    borderColor: "#30283F",
     borderRadius: 8,
   },
 
   botaoConfirmar: {
-    backgroundColor: "#00FF9C",
+    backgroundColor: "#A855F7",
     paddingVertical: 11,
     paddingHorizontal: 18,
     borderRadius: 8,
   },
 
   botaoConfirmarTexto: {
-    color: "#101722",
+    color: "#11111A",
     fontWeight: "700",
   },
 
@@ -5244,24 +5244,24 @@ botaoHistoricoTexto: {
 
   historicoTela: {
     flex: 1,
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
   },
 
   historicoHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   historicoTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   historicoSubtitulo: {
@@ -5275,7 +5275,7 @@ botaoHistoricoTexto: {
     height: 42,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#151D29",
+    backgroundColor: "#161521",
     borderRadius: 10,
   },
 
@@ -5285,13 +5285,13 @@ botaoHistoricoTexto: {
   },
 
   filtrosHistorico: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 13,
     paddingVertical: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   filtroBotao: {
@@ -5300,15 +5300,15 @@ botaoHistoricoTexto: {
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#293547",
+    borderColor: "#30283F",
     marginHorizontal: 3,
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 10,
   },
 
   filtroBotaoAtivo: {
-    backgroundColor: "#00FF9C",
-    borderColor: "#00FF9C",
+    backgroundColor: "#A855F7",
+    borderColor: "#A855F7",
   },
 
   filtroTexto: {
@@ -5318,7 +5318,7 @@ botaoHistoricoTexto: {
   },
 
   filtroTextoAtivo: {
-    color: "#101722",
+    color: "#11111A",
   },
 
   historicoScroll: {
@@ -5327,13 +5327,13 @@ botaoHistoricoTexto: {
   },
 
   historicoResumoMes: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 15,
     marginTop: 4,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -5370,12 +5370,12 @@ botaoHistoricoTexto: {
 
   historicoCard: {
     width: "31.5%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     marginBottom: 12,
     padding: 10,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5415,7 +5415,7 @@ botaoHistoricoTexto: {
 
   historicoVazio: {
     width: "100%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 30,
     alignItems: "center",
     marginTop: 10,
@@ -5447,7 +5447,7 @@ botaoHistoricoTexto: {
 
   detalhesTela: {
     flex: 1,
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
   },
 
   detalhesHeaderBotoes: {
@@ -5460,32 +5460,32 @@ botaoHistoricoTexto: {
     minHeight: 42,
     paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: "#12352B",
+    backgroundColor: "#241633",
     alignItems: "center",
     justifyContent: "center",
   },
 
   botaoEditarDiaTexto: {
-    color: "#00FF9C",
+    color: "#A855F7",
     fontSize: 13,
     fontWeight: "800",
   },
 
   detalhesHeader: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 16,
     paddingVertical: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   detalhesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   detalhesSubtitulo: {
@@ -5508,12 +5508,12 @@ botaoHistoricoTexto: {
   detalhesCard: {
     width: "23.5%",
     minHeight: 92,
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 10,
     borderRadius: 14,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5533,7 +5533,7 @@ modalConfirmacaoFundo: {
 modalConfirmacao: {
   width: "100%",
   maxWidth: 380,
-  backgroundColor: "#101722",
+  backgroundColor: "#11111A",
   borderRadius: 20,
   padding: 24,
 },
@@ -5562,7 +5562,7 @@ botaoCancelarExclusao: {
   paddingVertical: 12,
   paddingHorizontal: 18,
   borderRadius: 12,
-  backgroundColor: "#1D2633",
+  backgroundColor: "#252033",
 },
 
 botaoCancelarExclusaoTexto: {
@@ -5581,7 +5581,7 @@ botaoConfirmarExclusao: {
 botaoConfirmarExclusaoTexto: {
   fontSize: 15,
   fontWeight: "600",
-  color: "#101722",
+  color: "#11111A",
 },
 
   detalhesIcone: {
@@ -5628,12 +5628,12 @@ botaoConfirmarExclusaoTexto: {
   },
 
   detalhesSecao: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     padding: 15,
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#00D9FF",
+    shadowColor: "#C084FC",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5655,7 +5655,7 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     paddingVertical: 7,
     borderBottomWidth: 1,
-    borderBottomColor: "#151D29",
+    borderBottomColor: "#161521",
   },
 
   detalheLinhaNome: {
@@ -5689,7 +5689,7 @@ botaoConfirmarExclusaoTexto: {
   modalGraficoDetalhes: {
     width: "100%",
     maxHeight: "85%",
-    backgroundColor: "#080B12",
+    backgroundColor: "#08080D",
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
     paddingBottom: 20,
@@ -5697,28 +5697,28 @@ botaoConfirmarExclusaoTexto: {
   },
 
   modalGraficoCabecalho: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     paddingHorizontal: 18,
     paddingVertical: 15,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#1D2633",
+    borderBottomColor: "#252033",
   },
 
   modalGraficoTitulo: {
     flex: 1,
     fontSize: 20,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   modalGraficoFechar: {
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: "#151D29",
+    backgroundColor: "#161521",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -5735,7 +5735,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   modalGraficoResumo: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 12,
     padding: 14,
     marginBottom: 12,
@@ -5746,7 +5746,7 @@ botaoConfirmarExclusaoTexto: {
   },
 
   modalGraficoVazio: {
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 12,
     padding: 22,
     textAlign: "center",
@@ -5756,7 +5756,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaGrafico: {
     width: "100%",
     minHeight: 70,
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 15,
     marginBottom: 10,
@@ -5764,7 +5764,7 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: "#1D2633",
+    borderColor: "#252033",
     elevation: 2,
   },
 
@@ -5783,17 +5783,17 @@ botaoConfirmarExclusaoTexto: {
   cardDiaGraficoValor: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   cardMesGrafico: {
     width: "100%",
-    backgroundColor: "#101722",
+    backgroundColor: "#11111A",
     borderRadius: 14,
     padding: 14,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: "#1D2633",
+    borderColor: "#252033",
     elevation: 2,
   },
 
@@ -5804,7 +5804,7 @@ botaoConfirmarExclusaoTexto: {
     paddingBottom: 10,
     marginBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#151D29",
+    borderBottomColor: "#161521",
   },
 
   cardMesGraficoTitulo: {
@@ -5816,7 +5816,7 @@ botaoConfirmarExclusaoTexto: {
   cardMesGraficoValor: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
   cardMesGraficoVazio: {
@@ -5828,7 +5828,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaAnoGrafico: {
     width: "100%",
     minHeight: 42,
-    backgroundColor: "#0D131D",
+    backgroundColor: "#0D0B14",
     borderRadius: 10,
     paddingHorizontal: 12,
     paddingVertical: 9,
@@ -5837,7 +5837,7 @@ botaoConfirmarExclusaoTexto: {
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#1D2633",
+    borderColor: "#252033",
   },
 
   cardDiaAnoTexto: {
@@ -5849,7 +5849,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaAnoValor: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#00FF9C",
+    color: "#A855F7",
   },
 
 });

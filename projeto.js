@@ -2386,7 +2386,7 @@ const maiorValorGrafico = Math.max(
                                 {
                                   width: `${largura}%`,
                                   backgroundColor:
-                                    item.valor < 0 ? "#FF3B6B" : "#A855F7",
+                                    item.valor < 0 ? "#FF3B6B" : "#3B82F6",
                                 },
                               ]}
                             />
@@ -2432,7 +2432,7 @@ const maiorValorGrafico = Math.max(
                               {
                                 height: altura,
                                 backgroundColor:
-                                  item.valor < 0 ? "#FF3B6B" : "#A855F7",
+                                  item.valor < 0 ? "#FF3B6B" : "#3B82F6",
                               },
                             ]}
                           />
@@ -4151,13 +4151,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   configuracoesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   configuracoesSubtitulo: {
@@ -4193,7 +4193,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4250,7 +4250,7 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   periodos: {
@@ -4260,7 +4260,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   periodoBotao: {
@@ -4271,13 +4271,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 9,
     borderWidth: 1,
-    borderColor: "#30283F",
+    borderColor: "#263449",
     backgroundColor: "#11111A",
   },
 
   periodoBotaoAtivo: {
-    backgroundColor: "#A855F7",
-    borderColor: "#A855F7",
+    backgroundColor: "#3B82F6",
+    borderColor: "#3B82F6",
   },
 
   periodoTexto: {
@@ -4298,7 +4298,7 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4319,14 +4319,14 @@ const styles = StyleSheet.create({
   metaMensalValor: {
     fontSize: 20,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
     marginTop: 3,
   },
 
   metaMensalEditar: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   metaMensalProgressoTexto: {
@@ -4340,14 +4340,14 @@ const styles = StyleSheet.create({
   metaMensalBarraFundo: {
     width: "100%",
     height: 16,
-    backgroundColor: "#252033",
+    backgroundColor: "#1E293B",
     borderRadius: 10,
     overflow: "hidden",
   },
 
   metaMensalBarraValor: {
     height: "100%",
-    backgroundColor: "#A855F7",
+    backgroundColor: "#3B82F6",
     borderRadius: 10,
   },
 
@@ -4379,7 +4379,7 @@ const styles = StyleSheet.create({
     padding: 13,
     marginBottom: 10,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4405,7 +4405,7 @@ const styles = StyleSheet.create({
 
   resumoDashboardValorVerde: {
     fontSize: 17,
-    color: "#A855F7",
+    color: "#3B82F6",
     fontWeight: "900",
     marginTop: 5,
   },
@@ -4423,7 +4423,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4452,8 +4452,8 @@ const styles = StyleSheet.create({
   resumoMesDias: {
     fontSize: 12,
     fontWeight: "800",
-    color: "#A855F7",
-    backgroundColor: "#241633",
+    color: "#3B82F6",
+    backgroundColor: "#172554",
     paddingHorizontal: 9,
     paddingVertical: 6,
     borderRadius: 10,
@@ -4487,7 +4487,7 @@ const styles = StyleSheet.create({
   resumoMesValorVerde: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
     marginTop: 4,
   },
 
@@ -4511,13 +4511,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   resumoGeralTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   resumoGeralSubtitulo: {
@@ -4545,7 +4545,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -4577,7 +4577,7 @@ const styles = StyleSheet.create({
   resumoGeralValorVerde: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
     marginLeft: 12,
   },
 
@@ -4591,7 +4591,7 @@ const styles = StyleSheet.create({
   botaoResumoGeral: {
     backgroundColor: "#11111A",
     borderWidth: 1,
-    borderColor: "#A855F7",
+    borderColor: "#3B82F6",
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
@@ -4601,7 +4601,7 @@ const styles = StyleSheet.create({
   },
 
   botaoResumoGeralTexto: {
-    color: "#A855F7",
+    color: "#3B82F6",
     fontSize: 15,
     fontWeight: "900",
   },
@@ -4617,7 +4617,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 20,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4647,7 +4647,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#252033",
+    borderColor: "#1E293B",
   },
 
   graficoArea: {
@@ -4722,7 +4722,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 10,
     borderRadius: 6,
-    backgroundColor: "#252033",
+    backgroundColor: "#1E293B",
     overflow: "hidden",
   },
 
@@ -4734,7 +4734,7 @@ const styles = StyleSheet.create({
 
 graficoBarraLiquido: {
   height: 150,
-  backgroundColor: "#A855F7",
+  backgroundColor: "#3B82F6",
 },
 
 graficoBarraDespesas: {
@@ -4772,7 +4772,7 @@ graficoBarraDespesas: {
   graficoPlaceholderTexto: {
     fontSize: 20,
     fontWeight: "800",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   graficoPlaceholderSubtexto: {
@@ -4782,14 +4782,14 @@ graficoBarraDespesas: {
   },
 
   botaoCadastrarDia: {
-    backgroundColor: "#A855F7",
+    backgroundColor: "#3B82F6",
     borderRadius: 12,
     minHeight: 58,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.08,
     shadowRadius: 5,
     shadowOffset: {
@@ -4819,11 +4819,11 @@ botaoHistorico: {
   alignItems: "center",
   justifyContent: "center",
   borderWidth: 1,
-  borderColor: "#A855F7",
+  borderColor: "#3B82F6",
 },
 
 botaoHistoricoTexto: {
-  color: "#A855F7",
+  color: "#3B82F6",
   fontSize: 15,
   fontWeight: "800",
 },
@@ -4839,7 +4839,7 @@ botaoHistoricoTexto: {
     flexDirection: "row",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   botaoVoltar: {
@@ -4873,7 +4873,7 @@ botaoHistoricoTexto: {
   titulo: {
     fontSize: 28,
     fontWeight: "800",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   subtitulo: {
@@ -4888,7 +4888,7 @@ botaoHistoricoTexto: {
     marginBottom: 20,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4954,7 +4954,7 @@ botaoHistoricoTexto: {
     borderRadius: 12,
     overflow: "hidden",
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -4970,7 +4970,7 @@ botaoHistoricoTexto: {
     marginBottom: 12,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5028,7 +5028,7 @@ botaoHistoricoTexto: {
 
   botaoAdicionar: {
     width: "100%",
-    backgroundColor: "#A855F7",
+    backgroundColor: "#3B82F6",
     paddingVertical: 13,
     alignItems: "center",
     marginBottom: 18,
@@ -5054,7 +5054,7 @@ botaoHistoricoTexto: {
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5098,7 +5098,7 @@ botaoHistoricoTexto: {
     marginBottom: 10,
     borderRadius: 14,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5124,7 +5124,7 @@ botaoHistoricoTexto: {
   },
 
   botaoLancarDia: {
-    backgroundColor: "#A855F7",
+    backgroundColor: "#3B82F6",
     borderRadius: 12,
     minHeight: 58,
     alignItems: "center",
@@ -5164,7 +5164,7 @@ botaoHistoricoTexto: {
 
   input: {
     borderWidth: 1,
-    borderColor: "#30283F",
+    borderColor: "#263449",
     paddingHorizontal: 12,
     paddingVertical: 11,
     fontSize: 15,
@@ -5188,7 +5188,7 @@ botaoHistoricoTexto: {
 
   tipoCombustivelBotao: {
     borderWidth: 1,
-    borderColor: "#30283F",
+    borderColor: "#263449",
     backgroundColor: "#11111A",
     borderRadius: 20,
     paddingVertical: 9,
@@ -5197,8 +5197,8 @@ botaoHistoricoTexto: {
   },
 
   tipoCombustivelBotaoAtivo: {
-    backgroundColor: "#A855F7",
-    borderColor: "#A855F7",
+    backgroundColor: "#3B82F6",
+    borderColor: "#3B82F6",
   },
 
   tipoCombustivelTexto: {
@@ -5222,12 +5222,12 @@ botaoHistoricoTexto: {
     paddingHorizontal: 16,
     marginRight: 8,
     borderWidth: 1,
-    borderColor: "#30283F",
+    borderColor: "#263449",
     borderRadius: 8,
   },
 
   botaoConfirmar: {
-    backgroundColor: "#A855F7",
+    backgroundColor: "#3B82F6",
     paddingVertical: 11,
     paddingHorizontal: 18,
     borderRadius: 8,
@@ -5255,13 +5255,13 @@ botaoHistoricoTexto: {
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   historicoTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   historicoSubtitulo: {
@@ -5291,7 +5291,7 @@ botaoHistoricoTexto: {
     flexDirection: "row",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   filtroBotao: {
@@ -5300,15 +5300,15 @@ botaoHistoricoTexto: {
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#30283F",
+    borderColor: "#263449",
     marginHorizontal: 3,
     backgroundColor: "#11111A",
     borderRadius: 10,
   },
 
   filtroBotaoAtivo: {
-    backgroundColor: "#A855F7",
-    borderColor: "#A855F7",
+    backgroundColor: "#3B82F6",
+    borderColor: "#3B82F6",
   },
 
   filtroTexto: {
@@ -5333,7 +5333,7 @@ botaoHistoricoTexto: {
     marginTop: 4,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: { width: 0, height: 2 },
@@ -5375,7 +5375,7 @@ botaoHistoricoTexto: {
     padding: 10,
     borderRadius: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5460,13 +5460,13 @@ botaoHistoricoTexto: {
     minHeight: 42,
     paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: "#241633",
+    backgroundColor: "#172554",
     alignItems: "center",
     justifyContent: "center",
   },
 
   botaoEditarDiaTexto: {
-    color: "#A855F7",
+    color: "#3B82F6",
     fontSize: 13,
     fontWeight: "800",
   },
@@ -5479,13 +5479,13 @@ botaoHistoricoTexto: {
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   detalhesTitulo: {
     fontSize: 25,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   detalhesSubtitulo: {
@@ -5513,7 +5513,7 @@ botaoHistoricoTexto: {
     borderRadius: 14,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5562,7 +5562,7 @@ botaoCancelarExclusao: {
   paddingVertical: 12,
   paddingHorizontal: 18,
   borderRadius: 12,
-  backgroundColor: "#252033",
+  backgroundColor: "#1E293B",
 },
 
 botaoCancelarExclusaoTexto: {
@@ -5633,7 +5633,7 @@ botaoConfirmarExclusaoTexto: {
     borderRadius: 12,
     marginBottom: 12,
     elevation: 2,
-    shadowColor: "#C084FC",
+    shadowColor: "#60A5FA",
     shadowOpacity: 0.06,
     shadowRadius: 5,
     shadowOffset: {
@@ -5704,14 +5704,14 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: "#252033",
+    borderBottomColor: "#1E293B",
   },
 
   modalGraficoTitulo: {
     flex: 1,
     fontSize: 20,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   modalGraficoFechar: {
@@ -5764,7 +5764,7 @@ botaoConfirmarExclusaoTexto: {
     alignItems: "center",
     justifyContent: "space-between",
     borderWidth: 1,
-    borderColor: "#252033",
+    borderColor: "#1E293B",
     elevation: 2,
   },
 
@@ -5783,7 +5783,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaGraficoValor: {
     fontSize: 16,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   cardMesGrafico: {
@@ -5793,7 +5793,7 @@ botaoConfirmarExclusaoTexto: {
     padding: 14,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: "#252033",
+    borderColor: "#1E293B",
     elevation: 2,
   },
 
@@ -5816,7 +5816,7 @@ botaoConfirmarExclusaoTexto: {
   cardMesGraficoValor: {
     fontSize: 15,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
   cardMesGraficoVazio: {
@@ -5837,7 +5837,7 @@ botaoConfirmarExclusaoTexto: {
     justifyContent: "space-between",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#252033",
+    borderColor: "#1E293B",
   },
 
   cardDiaAnoTexto: {
@@ -5849,7 +5849,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaAnoValor: {
     fontSize: 12,
     fontWeight: "900",
-    color: "#A855F7",
+    color: "#3B82F6",
   },
 
 });

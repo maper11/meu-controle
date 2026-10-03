@@ -5847,3 +5847,7 @@ botaoConfirmarExclusaoTexto: {
   cardDiaAnoValor: {
     fontSize: 12,
     fontWeight: "900",
+    color: "#3B82F6",
+  },
+
+});

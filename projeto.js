@@ -3145,9 +3145,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3229,9 +3227,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3323,9 +3319,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3470,9 +3464,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3554,9 +3546,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3646,9 +3636,7 @@ const maiorValorGrafico = Math.max(
                   )
                 }
               >
-                <Text>
-                  Cancelar
-                </Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -3706,7 +3694,7 @@ const maiorValorGrafico = Math.max(
                 style={styles.botaoCancelar}
                 onPress={() => setModalMetaMensal(false)}
               >
-                <Text>Cancelar</Text>
+                <Text style={styles.botaoCancelarTexto}>Cancelar</Text>
               </Pressable>
 
               <Pressable
@@ -5171,6 +5159,7 @@ botaoHistoricoTexto: {
     marginBottom: 12,
     backgroundColor: "#11111A",
     borderRadius: 8,
+    color: "#F4F7FB",
   },
 
   dicaHoras: {
@@ -5224,6 +5213,11 @@ botaoHistoricoTexto: {
     borderWidth: 1,
     borderColor: "#263449",
     borderRadius: 8,
+  },
+
+  botaoCancelarTexto: {
+    color: "#F4F7FB",
+    fontWeight: "700",
   },
 
   botaoConfirmar: {

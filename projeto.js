@@ -421,7 +421,16 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
             (1000 * 60 * 60 * 24)
         );
 
-        setTesteEncerrado(diferencaDias >= DIAS_TESTE);
+        if (diferencaDias >= DIAS_TESTE) {
+          await AsyncStorage.multiRemove([
+            CHAVE_DADOS,
+            CHAVE_CONFIG,
+            chaveTeste,
+          ]);
+          setTesteEncerrado(true);
+        } else {
+          setTesteEncerrado(false);
+        }
       }
 
       setTesteVerificado(true);

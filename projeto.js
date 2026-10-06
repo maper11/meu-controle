@@ -100,6 +100,19 @@ export default function App() {
   const [telaAtual, setTelaAtual] =
     useState("inicio");
 
+  // ==========================================
+  // PERÍODO DE TESTE
+  // ==========================================
+
+  const [testeVerificado, setTesteVerificado] =
+    useState(false);
+
+  const [testeEncerrado, setTesteEncerrado] =
+    useState(false);
+
+  const [mostrarInicioTeste, setMostrarInicioTeste] =
+    useState(false);
+
   const [telaConfiguracoes, setTelaConfiguracoes] =
     useState(false);
 
@@ -387,8 +400,40 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     }
   }
 
+  async function verificarPeriodoTeste() {
+    try {
+      const chaveTeste = "@meu_controle_inicio_teste";
+      const DIAS_TESTE = 3;
+      const hoje = obterDataAtual();
+
+      let dataInicio = await AsyncStorage.getItem(chaveTeste);
+
+      if (!dataInicio) {
+        dataInicio = hoje;
+        await AsyncStorage.setItem(chaveTeste, dataInicio);
+        setTesteEncerrado(false);
+        setMostrarInicioTeste(true);
+      } else {
+        const inicio = dataDoHistoricoParaDate(dataInicio);
+        const atual = dataDoHistoricoParaDate(hoje);
+        const diferencaDias = Math.floor(
+          (atual.getTime() - inicio.getTime()) /
+            (1000 * 60 * 60 * 24)
+        );
+
+        setTesteEncerrado(diferencaDias >= DIAS_TESTE);
+      }
+
+      setTesteVerificado(true);
+    } catch (erro) {
+      console.log("Erro ao verificar período de teste:", erro);
+      setTesteVerificado(true);
+    }
+  }
+
   useEffect(() => {
     carregarDados();
+    verificarPeriodoTeste();
   }, []);
 
   // ==========================================
@@ -2136,10 +2181,44 @@ const maiorValorGrafico = Math.max(
   // TELA
   // ==========================================
 
+  if (!testeVerificado) {
+    return (
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <View style={styles.testeCarregando}>
+            <Text style={styles.testeCarregandoTexto}>
+              Carregando...
+            </Text>
+          </View>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    );
+  }
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
 
+      {testeEncerrado ? (
+        <View style={styles.testeBloqueadoTela}>
+          <View style={styles.testeBloqueadoCard}>
+            <Text style={styles.testeBloqueadoIcone}>🔒</Text>
+
+            <Text style={styles.testeBloqueadoTitulo}>
+              Período de teste encerrado
+            </Text>
+
+            <Text style={styles.testeBloqueadoTexto}>
+              Seu período de teste gratuito de 3 dias terminou.
+            </Text>
+
+            <Text style={styles.testeBloqueadoTextoSecundario}>
+              Obrigado por testar o Meu Controle.
+            </Text>
+          </View>
+        </View>
+      ) : (
+        <>
       {/* ====================================== */}
       {/* DASHBOARD INICIAL */}
       {/* ====================================== */}
@@ -4111,6 +4190,43 @@ const maiorValorGrafico = Math.max(
     </View>
   </View>
 </Modal>
+      {mostrarInicioTeste && (
+        <Modal
+          visible={mostrarInicioTeste}
+          transparent
+          animationType="fade"
+          onRequestClose={() => setMostrarInicioTeste(false)}
+        >
+          <View style={styles.testeModalFundo}>
+            <View style={styles.testeModal}>
+              <Text style={styles.testeModalIcone}>🎉</Text>
+
+              <Text style={styles.testeModalTitulo}>
+                Período de teste
+              </Text>
+
+              <Text style={styles.testeModalTexto}>
+                Você tem 3 dias gratuitos para testar o Meu Controle.
+              </Text>
+
+              <Text style={styles.testeModalTextoSecundario}>
+                Aproveite todos os recursos durante o período de teste.
+              </Text>
+
+              <Pressable
+                style={styles.testeModalBotao}
+                onPress={() => setMostrarInicioTeste(false)}
+              >
+                <Text style={styles.testeModalBotaoTexto}>
+                  Começar teste
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+      )}
+        </>
+      )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -4124,6 +4240,127 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#08080D",
+  },
+
+  testeCarregando: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#08080D",
+  },
+
+  testeCarregandoTexto: {
+    color: "#8B96A8",
+    fontSize: 15,
+  },
+
+  testeModalFundo: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+  },
+
+  testeModal: {
+    width: "100%",
+    maxWidth: 380,
+    backgroundColor: "#11111A",
+    borderRadius: 20,
+    padding: 24,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#263449",
+  },
+
+  testeModalIcone: {
+    fontSize: 44,
+    marginBottom: 12,
+  },
+
+  testeModalTitulo: {
+    fontSize: 24,
+    fontWeight: "900",
+    color: "#F4F7FB",
+    textAlign: "center",
+    marginBottom: 12,
+  },
+
+  testeModalTexto: {
+    fontSize: 16,
+    color: "#F4F7FB",
+    textAlign: "center",
+    lineHeight: 23,
+  },
+
+  testeModalTextoSecundario: {
+    fontSize: 14,
+    color: "#8B96A8",
+    textAlign: "center",
+    lineHeight: 21,
+    marginTop: 8,
+  },
+
+  testeModalBotao: {
+    width: "100%",
+    backgroundColor: "#3B82F6",
+    borderRadius: 12,
+    minHeight: 52,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 22,
+  },
+
+  testeModalBotaoTexto: {
+    color: "#11111A",
+    fontSize: 16,
+    fontWeight: "900",
+  },
+
+  testeBloqueadoTela: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    backgroundColor: "#08080D",
+  },
+
+  testeBloqueadoCard: {
+    width: "100%",
+    maxWidth: 380,
+    backgroundColor: "#11111A",
+    borderRadius: 20,
+    padding: 28,
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#263449",
+  },
+
+  testeBloqueadoIcone: {
+    fontSize: 50,
+    marginBottom: 16,
+  },
+
+  testeBloqueadoTitulo: {
+    fontSize: 23,
+    fontWeight: "900",
+    color: "#F4F7FB",
+    textAlign: "center",
+    marginBottom: 12,
+  },
+
+  testeBloqueadoTexto: {
+    fontSize: 16,
+    color: "#F4F7FB",
+    textAlign: "center",
+    lineHeight: 24,
+  },
+
+  testeBloqueadoTextoSecundario: {
+    fontSize: 14,
+    color: "#8B96A8",
+    textAlign: "center",
+    marginTop: 10,
   },
 
   // ==========================================

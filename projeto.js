@@ -516,19 +516,15 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
 
     setDataAtual(hoje);
 
-    setAplicativos((lista) =>
-      lista.map((app) => ({
-        ...app,
-        valor: 0,
-      }))
-    );
+    // Cada dia começa sem os cards do dia anterior.
+    // O histórico continua guardando os aplicativos e despesas
+    // que foram lançados nos dias anteriores.
+    setAplicativos([]);
+    setDespesas([]);
 
-    setDespesas((lista) =>
-      lista.map((despesa) => ({
-        ...despesa,
-        valor: 0,
-      }))
-    );
+    // Limpa também a configuração temporária dos cards
+    // para que eles não reapareçam ao reabrir o aplicativo.
+    salvarConfiguracao([], [], metaMensal);
 
     setCombustivel({
       tipo: "",

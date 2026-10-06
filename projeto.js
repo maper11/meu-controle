@@ -686,7 +686,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     const novo = {
       id: Date.now(),
       nome,
-      icone: "🚗",
+      icone: "",
       valor: isNaN(valor)
         ? 0
         : valor,
@@ -784,7 +784,7 @@ const [modalConfirmarExclusao, setModalConfirmarExclusao] =
     const nova = {
       id: Date.now(),
       nome,
-      icone: "💸",
+      icone: "",
       valor: isNaN(valor)
         ? 0
         : valor,
@@ -1656,7 +1656,7 @@ const maiorValorGrafico = Math.max(
       <ScrollView contentContainerStyle={styles.detalhesScroll}>
         <View style={styles.detalhesGrid}>
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>💰</Text>
+            <Text style={styles.detalhesIcone}></Text>
             <Text style={styles.detalhesLabel}>Ganho Líquido total</Text>
             <Text style={styles.detalhesValorLiquido} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.liquido)}
@@ -1664,7 +1664,7 @@ const maiorValorGrafico = Math.max(
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>📈</Text>
+            <Text style={styles.detalhesIcone}></Text>
             <Text style={styles.detalhesLabel}>Ganho Bruto total</Text>
             <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.faturamento)}
@@ -1672,7 +1672,7 @@ const maiorValorGrafico = Math.max(
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>💸</Text>
+            <Text style={styles.detalhesIcone}></Text>
             <Text style={styles.detalhesLabel}>Despesas totais</Text>
             <Text style={styles.detalhesValorVermelho} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarMoeda(resumo.despesas)}
@@ -1680,7 +1680,7 @@ const maiorValorGrafico = Math.max(
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>📅</Text>
+            <Text style={styles.detalhesIcone}></Text>
             <Text style={styles.detalhesLabel}>Dias trabalhados</Text>
             <Text style={styles.detalhesValor}>
               {resumo.diasTrabalhados}
@@ -1688,7 +1688,7 @@ const maiorValorGrafico = Math.max(
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>⏱️</Text>
+            <Text style={styles.detalhesIcone}>⏱</Text>
             <Text style={styles.detalhesLabel}>Horas trabalhadas</Text>
             <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {formatarHorasTotais(resumo.horas)}
@@ -1696,7 +1696,7 @@ const maiorValorGrafico = Math.max(
           </View>
 
           <View style={styles.detalhesCard}>
-            <Text style={styles.detalhesIcone}>🚗</Text>
+            <Text style={styles.detalhesIcone}></Text>
             <Text style={styles.detalhesLabel}>Km rodados</Text>
             <Text style={styles.detalhesValor} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.5}>
               {resumo.km} km
@@ -1710,7 +1710,7 @@ const maiorValorGrafico = Math.max(
           return (
             <View style={styles.historicoResumoMes}>
               <Text style={styles.historicoResumoMesTitulo}>
-                📅 Resumo deste mês
+                 Resumo deste mês
               </Text>
 
               <View style={styles.historicoResumoMesGrid}>
@@ -1759,7 +1759,7 @@ const maiorValorGrafico = Math.max(
 
         {resumo.diasTrabalhados === 0 && (
           <View style={styles.historicoVazio}>
-            <Text style={styles.historicoVazioIcone}>📊</Text>
+            <Text style={styles.historicoVazioIcone}></Text>
             <Text style={styles.historicoVazioTitulo}>
               Nenhum registro neste ano
             </Text>
@@ -1795,7 +1795,7 @@ const maiorValorGrafico = Math.max(
               styles.historicoVazioIcone
             }
           >
-            📊
+            
           </Text>
 
           <Text
@@ -1890,7 +1890,7 @@ const maiorValorGrafico = Math.max(
                   }}
                 >
                   <Text style={styles.botaoExcluirHistoricoTexto}>
-                    🗑️ Excluir
+                     Excluir
                   </Text>
                 </Pressable>
               </View>
@@ -1940,7 +1940,7 @@ const maiorValorGrafico = Math.max(
                 onPress={() => editarDiaHistorico(dia)}
               >
                 <Text style={styles.botaoEditarDiaTexto}>
-                  ✏️ Editar
+                   Editar
                 </Text>
               </Pressable>
 
@@ -1949,7 +1949,7 @@ const maiorValorGrafico = Math.max(
                 onPress={fecharDetalhesHistorico}
               >
                 <Text style={styles.botaoFecharHistoricoTexto}>
-                  ✕
+                  
                 </Text>
               </Pressable>
             </View>
@@ -1959,7 +1959,7 @@ const maiorValorGrafico = Math.max(
             {/* RESUMO PRINCIPAL */}
             <View style={styles.detalhesGrid}>
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>💰</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Ganho Líquido</Text>
                 <Text
                   style={styles.detalhesValorLiquido}
@@ -1972,7 +1972,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>📈</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Ganho Bruto</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -1985,7 +1985,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>💸</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Despesas</Text>
                 <Text
                   style={styles.detalhesValorVermelho}
@@ -1998,7 +1998,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>⏱️</Text>
+                <Text style={styles.detalhesIcone}>⏱</Text>
                 <Text style={styles.detalhesLabel}>Horas</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -2011,7 +2011,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>💵</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Ganho/h</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -2026,7 +2026,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>🚗</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Km</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -2039,7 +2039,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>💰</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Ganho/km</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -2052,7 +2052,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>⛽</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>Custo/km</Text>
                 <Text
                   style={styles.detalhesValor}
@@ -2065,7 +2065,7 @@ const maiorValorGrafico = Math.max(
               </View>
 
               <View style={styles.detalhesCard}>
-                <Text style={styles.detalhesIcone}>🎯</Text>
+                <Text style={styles.detalhesIcone}></Text>
                 <Text style={styles.detalhesLabel}>% da meta</Text>
                 <Text
                   style={styles.detalhesValorVerde}
@@ -2084,7 +2084,7 @@ const maiorValorGrafico = Math.max(
             {(dia.aplicativos || []).length > 0 && (
               <View style={styles.detalhesSecao}>
                 <Text style={styles.detalhesSecaoTitulo}>
-                  📱 Ganhos por aplicativo
+                   Ganhos por aplicativo
                 </Text>
 
                 {dia.aplicativos.map((app) => (
@@ -2106,7 +2106,7 @@ const maiorValorGrafico = Math.max(
               Number(dia.combustivel?.total || 0) > 0) && (
               <View style={styles.detalhesSecao}>
                 <Text style={styles.detalhesSecaoTitulo}>
-                  💸 Despesas
+                   Despesas
                 </Text>
 
                 {(dia.despesas || []).map((despesa) => (
@@ -2125,8 +2125,8 @@ const maiorValorGrafico = Math.max(
                   <View style={styles.detalheLinha}>
                     <Text style={styles.detalheLinhaNome}>
                       {dia.combustivel?.tipo === "Elétrico"
-                        ? "⚡ Energia"
-                        : "⛽ Combustível"}
+                        ? " Energia"
+                        : " Combustível"}
                     </Text>
 
                     <Text style={styles.detalheLinhaValorVermelho}>
@@ -2207,7 +2207,7 @@ const maiorValorGrafico = Math.max(
       {testeEncerrado ? (
         <View style={styles.testeBloqueadoTela}>
           <View style={styles.testeBloqueadoCard}>
-            <Text style={styles.testeBloqueadoIcone}>🔒</Text>
+            <Text style={styles.testeBloqueadoIcone}></Text>
 
             <Text style={styles.testeBloqueadoTitulo}>
               Período de teste encerrado
@@ -2240,13 +2240,13 @@ const maiorValorGrafico = Math.max(
               style={styles.botaoFecharConfiguracoes}
               onPress={fecharConfiguracoes}
             >
-              <Text style={styles.botaoFecharConfiguracoesTexto}>✕</Text>
+              <Text style={styles.botaoFecharConfiguracoesTexto}></Text>
             </Pressable>
           </View>
 
           <ScrollView contentContainerStyle={styles.configuracoesScroll}>
             <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Minha conta")}>
-              <Text style={styles.configuracaoIcone}>👤</Text>
+              <Text style={styles.configuracaoIcone}></Text>
               <View style={styles.configuracaoTextoArea}>
                 <Text style={styles.configuracaoTitulo}>Minha conta</Text>
                 <Text style={styles.configuracaoDescricao}>Dados e informações da sua conta</Text>
@@ -2255,7 +2255,7 @@ const maiorValorGrafico = Math.max(
             </Pressable>
 
             <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Backup")}>
-              <Text style={styles.configuracaoIcone}>💾</Text>
+              <Text style={styles.configuracaoIcone}></Text>
               <View style={styles.configuracaoTextoArea}>
                 <Text style={styles.configuracaoTitulo}>Backup</Text>
                 <Text style={styles.configuracaoDescricao}>Salvar uma cópia dos seus dados</Text>
@@ -2264,7 +2264,7 @@ const maiorValorGrafico = Math.max(
             </Pressable>
 
             <Pressable style={styles.configuracaoCard} onPress={() => abrirOpcaoEmBreve("Restaurar backup")}>
-              <Text style={styles.configuracaoIcone}>📥</Text>
+              <Text style={styles.configuracaoIcone}></Text>
               <View style={styles.configuracaoTextoArea}>
                 <Text style={styles.configuracaoTitulo}>Restaurar backup</Text>
                 <Text style={styles.configuracaoDescricao}>Recuperar dados de uma cópia salva</Text>
@@ -2273,7 +2273,7 @@ const maiorValorGrafico = Math.max(
             </Pressable>
 
             <Pressable style={styles.configuracaoCard} onPress={() => setModalMetaMensal(true)}>
-              <Text style={styles.configuracaoIcone}>🎯</Text>
+              <Text style={styles.configuracaoIcone}></Text>
               <View style={styles.configuracaoTextoArea}>
                 <Text style={styles.configuracaoTitulo}>Meta mensal</Text>
                 <Text style={styles.configuracaoDescricao}>Definir seu objetivo de faturamento</Text>
@@ -2282,7 +2282,7 @@ const maiorValorGrafico = Math.max(
             </Pressable>
 
             <Pressable style={styles.configuracaoCard} onPress={abrirSobreAplicativo}>
-              <Text style={styles.configuracaoIcone}>ℹ️</Text>
+              <Text style={styles.configuracaoIcone}>ℹ</Text>
               <View style={styles.configuracaoTextoArea}>
                 <Text style={styles.configuracaoTitulo}>Sobre o aplicativo</Text>
                 <Text style={styles.configuracaoDescricao}>Informações sobre o Meu Controle</Text>
@@ -2306,7 +2306,7 @@ const maiorValorGrafico = Math.max(
               style={styles.botaoConfiguracoes}
               onPress={abrirConfiguracoes}
             >
-              <Text style={styles.botaoConfiguracoesTexto}>⚙️</Text>
+              <Text style={styles.botaoConfiguracoesTexto}></Text>
             </Pressable>
           </View>
           <View
@@ -2367,7 +2367,7 @@ const maiorValorGrafico = Math.max(
                 <View style={styles.metaMensalCabecalho}>
                   <View>
                     <Text style={styles.metaMensalTitulo}>
-                      🎯 Meta mensal
+                       Meta mensal
                     </Text>
                     <Text style={styles.metaMensalValor}>
                       {formatarMoeda(meta.meta)}
@@ -2375,7 +2375,7 @@ const maiorValorGrafico = Math.max(
                   </View>
 
                   <Text style={styles.metaMensalEditar}>
-                    ✏️ Editar
+                     Editar
                   </Text>
                 </View>
 
@@ -2395,7 +2395,7 @@ const maiorValorGrafico = Math.max(
                 <Text style={styles.metaMensalFalta}>
                   {meta.falta > 0
                     ? `Faltam ${formatarMoeda(meta.falta)} para atingir a meta`
-                    : "Meta mensal atingida! 🎉"}
+                    : "Meta mensal atingida! "}
                 </Text>
               </Pressable>
             );
@@ -2572,7 +2572,7 @@ const maiorValorGrafico = Math.max(
               onPress={() => setModalResumoGeral(true)}
             >
               <Text style={styles.botaoResumoGeralTexto}>
-                📊 Resumo geral
+                 Resumo geral
               </Text>
             </Pressable>
 
@@ -2859,8 +2859,8 @@ const maiorValorGrafico = Math.max(
                   }
                 >
                   {combustivel.tipo === "Elétrico"
-                    ? "⚡"
-                    : "    ⛽        ⚡"}
+                    ? ""
+                    : "            "}
                 </Text>
 
                 <Text
@@ -2927,7 +2927,7 @@ const maiorValorGrafico = Math.max(
                     styles.infoIcone
                   }
                 >
-                  🚗
+                  
                 </Text>
 
                 <Text
@@ -2968,7 +2968,7 @@ const maiorValorGrafico = Math.max(
                     styles.infoIcone
                   }
                 >
-                  ⏱️
+                  ⏱
                 </Text>
 
                 <Text
@@ -3157,7 +3157,7 @@ const maiorValorGrafico = Math.max(
                     styles.botaoLancarDiaTexto
                   }
                 >
-                  ✓ LANÇAR DIA
+                   LANÇAR DIA
                 </Text>
               </Pressable>
             </View>
@@ -3819,7 +3819,7 @@ const maiorValorGrafico = Math.max(
               style={styles.botaoFecharHistorico}
               onPress={() => setModalResumoGeral(false)}
             >
-              <Text style={styles.botaoFecharHistoricoTexto}>✕</Text>
+              <Text style={styles.botaoFecharHistoricoTexto}></Text>
             </Pressable>
           </View>
 
@@ -3830,70 +3830,70 @@ const maiorValorGrafico = Math.max(
 
               return (
                 <>
-                  <Text style={styles.resumoGeralSecaoTitulo}>📅 Este mês</Text>
+                  <Text style={styles.resumoGeralSecaoTitulo}> Este mês</Text>
 
                   <View style={styles.resumoGeralLista}>
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💰 Ganho Líquido</Text>
+                      <Text style={styles.resumoGeralLabel}> Ganho Líquido</Text>
                       <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(mes.liquido)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📈 Ganho Bruto</Text>
+                      <Text style={styles.resumoGeralLabel}> Ganho Bruto</Text>
                       <Text style={styles.resumoGeralValor}>{formatarMoeda(mes.faturamento)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💸 Despesas</Text>
+                      <Text style={styles.resumoGeralLabel}> Despesas</Text>
                       <Text style={styles.resumoGeralValorVermelho}>{formatarMoeda(mes.despesas)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>⏱️ Horas</Text>
+                      <Text style={styles.resumoGeralLabel}>⏱ Horas</Text>
                       <Text style={styles.resumoGeralValor}>{formatarHorasTotais(mes.horas)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>🚗 Km rodados</Text>
+                      <Text style={styles.resumoGeralLabel}> Km rodados</Text>
                       <Text style={styles.resumoGeralValor}>{mes.km} km</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📅 Dias trabalhados</Text>
+                      <Text style={styles.resumoGeralLabel}> Dias trabalhados</Text>
                       <Text style={styles.resumoGeralValor}>{mes.dias}</Text>
                     </View>
                   </View>
 
-                  <Text style={styles.resumoGeralSecaoTitulo}>📊 Acumulado do ano</Text>
+                  <Text style={styles.resumoGeralSecaoTitulo}> Acumulado do ano</Text>
 
                   <View style={styles.resumoGeralLista}>
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💰 Ganho Líquido total</Text>
+                      <Text style={styles.resumoGeralLabel}> Ganho Líquido total</Text>
                       <Text style={styles.resumoGeralValorVerde}>{formatarMoeda(ano.liquido)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📈 Ganho Bruto total</Text>
+                      <Text style={styles.resumoGeralLabel}> Ganho Bruto total</Text>
                       <Text style={styles.resumoGeralValor}>{formatarMoeda(ano.faturamento)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>💸 Despesas totais</Text>
+                      <Text style={styles.resumoGeralLabel}> Despesas totais</Text>
                       <Text style={styles.resumoGeralValorVermelho}>{formatarMoeda(ano.despesas)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>📅 Dias trabalhados</Text>
+                      <Text style={styles.resumoGeralLabel}> Dias trabalhados</Text>
                       <Text style={styles.resumoGeralValor}>{ano.diasTrabalhados}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>⏱️ Horas trabalhadas</Text>
+                      <Text style={styles.resumoGeralLabel}>⏱ Horas trabalhadas</Text>
                       <Text style={styles.resumoGeralValor}>{formatarHorasTotais(ano.horas)}</Text>
                     </View>
 
                     <View style={styles.resumoGeralLinha}>
-                      <Text style={styles.resumoGeralLabel}>🚗 Km rodados</Text>
+                      <Text style={styles.resumoGeralLabel}> Km rodados</Text>
                       <Text style={styles.resumoGeralValor}>{ano.km} km</Text>
                     </View>
                   </View>
@@ -3960,7 +3960,7 @@ const maiorValorGrafico = Math.max(
                   styles.botaoFecharHistoricoTexto
                 }
               >
-                ✕
+                
               </Text>
             </Pressable>
           </View>
@@ -4204,7 +4204,7 @@ const maiorValorGrafico = Math.max(
         >
           <View style={styles.testeModalFundo}>
             <View style={styles.testeModal}>
-              <Text style={styles.testeModalIcone}>🎉</Text>
+              <Text style={styles.testeModalIcone}></Text>
 
               <Text style={styles.testeModalTitulo}>
                 Período de teste
